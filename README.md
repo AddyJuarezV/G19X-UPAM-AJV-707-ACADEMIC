@@ -1,2 +1,282 @@
-# plurione-onboarding
-Sistema de seguimiento automático del proceso de incorporación desarrollado para PluriOne
+# PluriOne Onboarding
+
+## Objetivo del proyecto
+
+Desarrollar un sistema de seguimiento automático del proceso de incorporación de nuevos colaboradores para PluriOne.
+
+El sistema permitirá centralizar información, documentación, revisiones, aprobaciones, responsables, pendientes y el estado general de cada incorporación.
+
+El caso inicial de referencia será el de practicantes y residentes profesionales, manteniendo la posibilidad de adaptar el proceso a otros tipos de colaboradores sin salir del objetivo principal del proyecto.
+
+---
+
+## Estado actual
+
+**Fase actual:** definición y documentación inicial del proyecto.
+
+Actualmente se está trabajando en definir con claridad qué se va a desarrollar antes de comenzar con la programación.
+
+---
+
+## Completado
+
+- Repositorio privado creado en GitHub.
+- Git instalado y configurado en el equipo.
+- Repositorio clonado correctamente.
+- Repositorio local conectado con GitHub.
+- Alcance general del sistema analizado.
+- Caso real de incorporación utilizado como referencia para detectar necesidades.
+- Se definió que el sistema se enfocará en el seguimiento de incorporación y no en la gestión de proyectos o entregables técnicos.
+- Se definió la visualización general por generaciones mediante tarjetas o cuadros de estado.
+- Se definió el PRB del proyecto.
+- Se definió el stack tecnológico base propuesto.
+
+---
+
+## En progreso
+
+- Integrar el PRB al repositorio.
+- Crear la bitácora del proyecto.
+- Preparar el MVP.
+
+---
+
+## Próximo paso
+
+1. Guardar `docs/PRB.md` dentro del repositorio.
+2. Crear `docs/BITACORA.md`.
+3. Registrar el avance realizado hasta este punto.
+4. Crear `docs/MVP.md`.
+5. Revisar el MVP antes de comenzar el desarrollo.
+
+---
+
+## Idea principal del sistema
+
+El sistema deberá permitir saber de forma clara:
+
+- Qué información ya fue registrada.
+- Qué documentos ya fueron entregados.
+- Qué documentos están pendientes.
+- Qué documentos están en revisión.
+- Qué documentos requieren firma o devolución.
+- Quién debe realizar la siguiente acción.
+- Qué información está incompleta.
+- Qué incorporaciones necesitan atención.
+- En qué estado se encuentra cada colaborador.
+- Cómo se encuentra una generación completa.
+
+---
+
+## Visualización por generación
+
+El responsable podrá ingresar a una generación o grupo de incorporación y visualizar a todos sus integrantes mediante tarjetas o cuadros.
+
+Cada tarjeta utilizará un estado visual para facilitar la revisión:
+
+- **Verde:** información y documentación completas.
+- **Amarillo:** existen pendientes menores, elementos en revisión o acciones pendientes.
+- **Rojo:** existen pendientes importantes o situaciones que requieren atención.
+
+Al seleccionar una tarjeta, el responsable podrá revisar el detalle de los pendientes de esa persona.
+
+---
+
+## Alcance
+
+El sistema se enfocará en:
+
+- Registro de colaboradores.
+- Información personal, académica o laboral necesaria para la incorporación.
+- Documentación.
+- CV.
+- Revisiones.
+- Aprobaciones.
+- Firmas.
+- Devolución de documentos.
+- Responsables.
+- Capacitaciones relacionadas con la incorporación.
+- Generaciones o grupos.
+- Proyecto o área asignada como información de referencia.
+- Seguimiento automático.
+- Alertas y pendientes.
+- Estado general de incorporación.
+
+---
+
+## Fuera del alcance
+
+El sistema no administrará el trabajo técnico que realice una persona después de ser incorporada.
+
+Quedan fuera del alcance:
+
+- PRB de los proyectos asignados.
+- MVP de los proyectos asignados.
+- Código fuente.
+- Commits de los colaboradores.
+- Sprints.
+- Historias de usuario del proyecto asignado.
+- Actividades de programación.
+- Entregables académicos.
+- Entregables técnicos.
+- Seguimiento del desarrollo del proyecto asignado.
+
+La asignación de un proyecto podrá registrarse como parte del proceso de incorporación, pero su desarrollo posterior será independiente.
+
+---
+
+## Stack tecnológico base
+
+La selección tecnológica se realizó considerando experiencia previa, facilidad de desarrollo, robustez y las necesidades del sistema.
+
+### Frontend
+
+- React
+- Vite
+- HTML
+- CSS
+- JavaScript
+
+### Backend
+
+- Python
+- Django
+- Django REST Framework
+
+### Base de datos
+
+- PostgreSQL
+
+### Control de versiones
+
+- Git
+- GitHub
+
+### Arquitectura base
+
+```text
+React + Vite
+     |
+     | API REST
+     v
+Django REST Framework
+     |
+     v
+Django
+     |
+     v
+PostgreSQL
+```
+
+---
+
+## Tecnologías por evaluar posteriormente
+
+Estas tecnologías no se consideran obligatorias desde el inicio. Solo se integrarán si existe una necesidad concreta que justifique su uso.
+
+- Docker.
+- GitHub Actions.
+- Redis.
+- Celery.
+- Azure OpenAI.
+- Power BI.
+- Microsoft Entra ID.
+
+No se agregará una tecnología únicamente porque aparezca en la propuesta inicial. Cada incorporación tecnológica deberá responder a una necesidad real del sistema.
+
+---
+
+## Decisiones importantes
+
+- Se utilizará Django en lugar de FastAPI como backend principal.
+- Se mantendrá React para construir una interfaz dinámica.
+- Django y React se comunicarán mediante una API REST.
+- PostgreSQL será la base de datos principal.
+- Django REST Framework se utilizará para construir la API.
+- El sistema se desarrollará paso a paso.
+- PRB y MVP no llevarán números de versión.
+- Git será el encargado de conservar el historial de versiones.
+- Se utilizarán datos ficticios en documentación, demostraciones y pruebas.
+- Los ejemplos podrán utilizar nombres de personajes ficticios.
+- El sistema no administrará los entregables técnicos de los colaboradores.
+- El README será el documento principal para recuperar rápidamente el contexto del proyecto.
+
+---
+
+## Documentos importantes
+
+```text
+README.md
+docs/
+├── PRB.md
+├── MVP.md
+└── BITACORA.md
+```
+
+### `README.md`
+
+Indica dónde se encuentra actualmente el proyecto, qué decisiones se han tomado y cuál es el siguiente paso.
+
+Este será el archivo principal que se podrá proporcionar a una IA o a Codex para recuperar rápidamente el contexto del proyecto.
+
+### `docs/PRB.md`
+
+Contiene las ideas, necesidades, problema observado, alcance y propuesta inicial del sistema.
+
+### `docs/MVP.md`
+
+Definirá funcionalmente qué se propone desarrollar.
+
+### `docs/BITACORA.md`
+
+Registrará cronológicamente el trabajo realizado, decisiones, problemas, pruebas y resultados.
+
+La bitácora no reemplaza al historial de Git; ambos se complementan.
+
+---
+
+## Regla de trabajo
+
+Antes de comenzar una nueva sesión:
+
+1. Leer este `README.md`.
+2. Revisar el estado actual.
+3. Revisar el próximo paso.
+4. Trabajar únicamente en la etapa correspondiente.
+
+Al finalizar una sesión:
+
+1. Registrar lo realizado en `docs/BITACORA.md`.
+2. Actualizar este `README.md`.
+3. Revisar los cambios.
+4. Crear un commit descriptivo.
+5. Hacer push a GitHub.
+
+---
+
+## Regla para controlar el alcance
+
+Antes de agregar una nueva función se deberá responder:
+
+**¿Esta función ayuda a saber cómo va la incorporación de una persona o de una generación?**
+
+Si la respuesta es sí, podrá analizarse como parte del sistema.
+
+Si la función administra el trabajo que la persona realiza después de incorporarse, deberá considerarse fuera del alcance.
+
+---
+
+## Datos de prueba
+
+Durante el desarrollo se utilizarán datos ficticios.
+
+Ejemplos de nombres permitidos para pruebas:
+
+- Peter Parker.
+- Miles Morales.
+- Gwen Stacy.
+- Miguel O'Hara.
+- Natasha Romanoff.
+- Tony Stark.
+
+No se utilizarán datos personales reales en ejemplos, demostraciones o documentación pública.
