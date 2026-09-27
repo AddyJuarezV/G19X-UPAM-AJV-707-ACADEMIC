@@ -16,11 +16,11 @@ Este documento registra cronológicamente los avances, las decisiones, los probl
 
 **Actividades realizadas:** Se creó la carpeta `docs` dentro del repositorio local. Se colocó `docs/PRB.md` con la propuesta del sistema y se reemplazó el `README.md` original por un documento de contexto y continuidad para futuras sesiones de trabajo con el asistente o Codex.
 
-**Decisión de documentación:** El `README.md` será el único documento breve de estado actual y próximos pasos; no se creará un `START_HERE.md` separado. `docs/PRB.md` recopila la propuesta, `docs/MVP.md` definirá el producto a desarrollar y esta bitácora conservará el historial narrativo del trabajo. Los documentos no llevarán números de versión en su nombre.
+**Decisión de documentación:** El `README.md` será el único documento breve de estado actual y próximos pasos; no se creará un `START\_HERE.md` separado. `docs/PRB.md` recopila la propuesta, `docs/MVP.md` definirá el producto a desarrollar y esta bitácora conservará el historial narrativo del trabajo. Los documentos no llevarán números de versión en su nombre.
 
 **Estado al cierre de esta anotación:** Está pendiente colocar esta bitácora en `docs`, revisar los archivos con `git status`, registrar el avance con un commit y enviarlo a GitHub. Después se trabajará en el MVP, sin comenzar todavía el desarrollo del sistema.
 
----
+\---
 
 ## Plantilla para la siguiente sesión
 
@@ -39,3 +39,82 @@ Este documento registra cronológicamente los avances, las decisiones, los probl
 **Archivos modificados / commit:**
 
 **Pendientes y siguiente paso:**
+
+
+
+
+
+**---**
+
+
+
+**## 27 de septiembre de 2026**
+
+
+
+**### Actividad**
+
+
+
+**Definición del MVP del Sistema de Seguimiento Automático del Proceso de Incorporación.**
+
+
+
+**### Trabajo realizado**
+
+
+
+**- Se analizaron las funcionalidades mínimas necesarias para que el sistema pueda demostrar el proceso principal de incorporación.**
+
+**- Se definió que el colaborador será responsable de crear su propia cuenta.**
+
+**- Se definió el registro inicial con datos personales, académicos, CV y credencial universitaria.**
+
+**- Se estableció el flujo de revisión de solicitudes por parte del encargado.**
+
+**- Se definieron las acciones Aprobar y Solicitar corrección.**
+
+**- Se estableció que un colaborador solamente aparecerá en una generación después de ser aprobado.**
+
+**- Se definieron generaciones abiertas y cerradas.**
+
+**- Se definió la visualización mediante tarjetas con nombre y siglas de universidad.**
+
+**- Se definió el seguimiento básico de NDA, carta de presentación y carta de aceptación.**
+
+**- Se estableció un apartado de pendientes para el encargado.**
+
+**- Se redujo el alcance del MVP para mantener únicamente las funciones necesarias para demostrar el seguimiento de incorporación.**
+
+
+
+**### Decisiones tomadas**
+
+
+
+**- El MVP representa el mínimo funcional comprometido y no limita futuras mejoras.**
+
+**- El encargado no creará cuentas ni contraseñas para los colaboradores.**
+
+**- El sistema utilizará Django, Django REST Framework, React, Vite y PostgreSQL.**
+
+**- Funciones como WhatsApp automático, correos automáticos, Microsoft Entra ID, Azure OpenAI, Power BI, Redis y otras automatizaciones avanzadas quedan fuera del MVP inicial y podrán evaluarse posteriormente.**
+
+**- El sistema no administrará tareas, entregables o avances técnicos de los proyectos asignados a los colaboradores.**
+
+
+
+**### Resultado**
+
+
+
+**Se creó el documento `docs/MVP.md` con el flujo funcional mínimo que deberá cumplir la primera versión del sistema.**
+
+
+
+**### Próximo paso**
+
+
+
+**Preparar la estructura inicial del proyecto y comenzar el desarrollo del backend con Django.**
+

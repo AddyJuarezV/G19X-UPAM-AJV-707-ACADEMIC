@@ -8,7 +8,7 @@ El sistema permitirá centralizar información, documentación, revisiones, apro
 
 El caso inicial de referencia será el de practicantes y residentes profesionales, manteniendo la posibilidad de adaptar el proceso a otros tipos de colaboradores sin salir del objetivo principal del proyecto.
 
----
+\---
 
 ## Estado actual
 
@@ -16,30 +16,36 @@ El caso inicial de referencia será el de practicantes y residentes profesionale
 
 Actualmente se está trabajando en definir con claridad qué se va a desarrollar antes de comenzar con la programación.
 
----
+\---
 
 ## Completado
 
-- Repositorio privado creado en GitHub.
-- Git instalado y configurado en el equipo.
-- Repositorio clonado correctamente.
-- Repositorio local conectado con GitHub.
-- Alcance general del sistema analizado.
-- Caso real de incorporación utilizado como referencia para detectar necesidades.
-- Se definió que el sistema se enfocará en el seguimiento de incorporación y no en la gestión de proyectos o entregables técnicos.
-- Se definió la visualización general por generaciones mediante tarjetas o cuadros de estado.
-- Se definió el PRB del proyecto.
-- Se definió el stack tecnológico base propuesto.
+* Repositorio privado creado en GitHub.
+* Git instalado y configurado en el equipo.
+* Repositorio clonado correctamente.
+* Repositorio local conectado con GitHub.
+* Alcance general del sistema analizado.
+* Caso real de incorporación utilizado como referencia para detectar necesidades.
+* Se definió que el sistema se enfocará en el seguimiento de incorporación y no en la gestión de proyectos o entregables técnicos.
+* Se definió la visualización general por generaciones mediante tarjetas o cuadros de estado.
+* Se definió el PRB del proyecto.
+* Se definió el stack tecnológico base propuesto.
+* &#x20;MVP definido y aprobado.
+* &#x20;MVP agregado a la documentación del proyecto.
 
----
+\---
 
 ## En progreso
 
-- Integrar el PRB al repositorio.
-- Crear la bitácora del proyecto.
-- Preparar el MVP.
+1\. Preparar la estructura inicial del proyecto.
 
----
+2\. Crear el backend base con Django.
+
+3\. Configurar Django REST Framework.
+
+4\. Preparar PostgreSQL.
+
+5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
 
@@ -49,24 +55,24 @@ Actualmente se está trabajando en definir con claridad qué se va a desarrollar
 4. Crear `docs/MVP.md`.
 5. Revisar el MVP antes de comenzar el desarrollo.
 
----
+\---
 
 ## Idea principal del sistema
 
 El sistema deberá permitir saber de forma clara:
 
-- Qué información ya fue registrada.
-- Qué documentos ya fueron entregados.
-- Qué documentos están pendientes.
-- Qué documentos están en revisión.
-- Qué documentos requieren firma o devolución.
-- Quién debe realizar la siguiente acción.
-- Qué información está incompleta.
-- Qué incorporaciones necesitan atención.
-- En qué estado se encuentra cada colaborador.
-- Cómo se encuentra una generación completa.
+* Qué información ya fue registrada.
+* Qué documentos ya fueron entregados.
+* Qué documentos están pendientes.
+* Qué documentos están en revisión.
+* Qué documentos requieren firma o devolución.
+* Quién debe realizar la siguiente acción.
+* Qué información está incompleta.
+* Qué incorporaciones necesitan atención.
+* En qué estado se encuentra cada colaborador.
+* Cómo se encuentra una generación completa.
 
----
+\---
 
 ## Visualización por generación
 
@@ -74,35 +80,35 @@ El responsable podrá ingresar a una generación o grupo de incorporación y vis
 
 Cada tarjeta utilizará un estado visual para facilitar la revisión:
 
-- **Verde:** información y documentación completas.
-- **Amarillo:** existen pendientes menores, elementos en revisión o acciones pendientes.
-- **Rojo:** existen pendientes importantes o situaciones que requieren atención.
+* **Verde:** información y documentación completas.
+* **Amarillo:** existen pendientes menores, elementos en revisión o acciones pendientes.
+* **Rojo:** existen pendientes importantes o situaciones que requieren atención.
 
 Al seleccionar una tarjeta, el responsable podrá revisar el detalle de los pendientes de esa persona.
 
----
+\---
 
 ## Alcance
 
 El sistema se enfocará en:
 
-- Registro de colaboradores.
-- Información personal, académica o laboral necesaria para la incorporación.
-- Documentación.
-- CV.
-- Revisiones.
-- Aprobaciones.
-- Firmas.
-- Devolución de documentos.
-- Responsables.
-- Capacitaciones relacionadas con la incorporación.
-- Generaciones o grupos.
-- Proyecto o área asignada como información de referencia.
-- Seguimiento automático.
-- Alertas y pendientes.
-- Estado general de incorporación.
+* Registro de colaboradores.
+* Información personal, académica o laboral necesaria para la incorporación.
+* Documentación.
+* CV.
+* Revisiones.
+* Aprobaciones.
+* Firmas.
+* Devolución de documentos.
+* Responsables.
+* Capacitaciones relacionadas con la incorporación.
+* Generaciones o grupos.
+* Proyecto o área asignada como información de referencia.
+* Seguimiento automático.
+* Alertas y pendientes.
+* Estado general de incorporación.
 
----
+\---
 
 ## Fuera del alcance
 
@@ -110,20 +116,20 @@ El sistema no administrará el trabajo técnico que realice una persona después
 
 Quedan fuera del alcance:
 
-- PRB de los proyectos asignados.
-- MVP de los proyectos asignados.
-- Código fuente.
-- Commits de los colaboradores.
-- Sprints.
-- Historias de usuario del proyecto asignado.
-- Actividades de programación.
-- Entregables académicos.
-- Entregables técnicos.
-- Seguimiento del desarrollo del proyecto asignado.
+* PRB de los proyectos asignados.
+* MVP de los proyectos asignados.
+* Código fuente.
+* Commits de los colaboradores.
+* Sprints.
+* Historias de usuario del proyecto asignado.
+* Actividades de programación.
+* Entregables académicos.
+* Entregables técnicos.
+* Seguimiento del desarrollo del proyecto asignado.
 
 La asignación de un proyecto podrá registrarse como parte del proceso de incorporación, pero su desarrollo posterior será independiente.
 
----
+\---
 
 ## Stack tecnológico base
 
@@ -131,26 +137,26 @@ La selección tecnológica se realizó considerando experiencia previa, facilida
 
 ### Frontend
 
-- React
-- Vite
-- HTML
-- CSS
-- JavaScript
+* React
+* Vite
+* HTML
+* CSS
+* JavaScript
 
 ### Backend
 
-- Python
-- Django
-- Django REST Framework
+* Python
+* Django
+* Django REST Framework
 
 ### Base de datos
 
-- PostgreSQL
+* PostgreSQL
 
 ### Control de versiones
 
-- Git
-- GitHub
+* Git
+* GitHub
 
 ### Arquitectura base
 
@@ -168,40 +174,40 @@ Django
 PostgreSQL
 ```
 
----
+\---
 
 ## Tecnologías por evaluar posteriormente
 
 Estas tecnologías no se consideran obligatorias desde el inicio. Solo se integrarán si existe una necesidad concreta que justifique su uso.
 
-- Docker.
-- GitHub Actions.
-- Redis.
-- Celery.
-- Azure OpenAI.
-- Power BI.
-- Microsoft Entra ID.
+* Docker.
+* GitHub Actions.
+* Redis.
+* Celery.
+* Azure OpenAI.
+* Power BI.
+* Microsoft Entra ID.
 
 No se agregará una tecnología únicamente porque aparezca en la propuesta inicial. Cada incorporación tecnológica deberá responder a una necesidad real del sistema.
 
----
+\---
 
 ## Decisiones importantes
 
-- Se utilizará Django en lugar de FastAPI como backend principal.
-- Se mantendrá React para construir una interfaz dinámica.
-- Django y React se comunicarán mediante una API REST.
-- PostgreSQL será la base de datos principal.
-- Django REST Framework se utilizará para construir la API.
-- El sistema se desarrollará paso a paso.
-- PRB y MVP no llevarán números de versión.
-- Git será el encargado de conservar el historial de versiones.
-- Se utilizarán datos ficticios en documentación, demostraciones y pruebas.
-- Los ejemplos podrán utilizar nombres de personajes ficticios.
-- El sistema no administrará los entregables técnicos de los colaboradores.
-- El README será el documento principal para recuperar rápidamente el contexto del proyecto.
+* Se utilizará Django en lugar de FastAPI como backend principal.
+* Se mantendrá React para construir una interfaz dinámica.
+* Django y React se comunicarán mediante una API REST.
+* PostgreSQL será la base de datos principal.
+* Django REST Framework se utilizará para construir la API.
+* El sistema se desarrollará paso a paso.
+* PRB y MVP no llevarán números de versión.
+* Git será el encargado de conservar el historial de versiones.
+* Se utilizarán datos ficticios en documentación, demostraciones y pruebas.
+* Los ejemplos podrán utilizar nombres de personajes ficticios.
+* El sistema no administrará los entregables técnicos de los colaboradores.
+* El README será el documento principal para recuperar rápidamente el contexto del proyecto.
 
----
+\---
 
 ## Documentos importantes
 
@@ -233,7 +239,7 @@ Registrará cronológicamente el trabajo realizado, decisiones, problemas, prueb
 
 La bitácora no reemplaza al historial de Git; ambos se complementan.
 
----
+\---
 
 ## Regla de trabajo
 
@@ -252,7 +258,7 @@ Al finalizar una sesión:
 4. Crear un commit descriptivo.
 5. Hacer push a GitHub.
 
----
+\---
 
 ## Regla para controlar el alcance
 
@@ -264,7 +270,7 @@ Si la respuesta es sí, podrá analizarse como parte del sistema.
 
 Si la función administra el trabajo que la persona realiza después de incorporarse, deberá considerarse fuera del alcance.
 
----
+\---
 
 ## Datos de prueba
 
@@ -272,11 +278,12 @@ Durante el desarrollo se utilizarán datos ficticios.
 
 Ejemplos de nombres permitidos para pruebas:
 
-- Peter Parker.
-- Miles Morales.
-- Gwen Stacy.
-- Miguel O'Hara.
-- Natasha Romanoff.
-- Tony Stark.
+* Peter Parker.
+* Miles Morales.
+* Gwen Stacy.
+* Miguel O'Hara.
+* Natasha Romanoff.
+* Tony Stark.
 
 No se utilizarán datos personales reales en ejemplos, demostraciones o documentación pública.
+
