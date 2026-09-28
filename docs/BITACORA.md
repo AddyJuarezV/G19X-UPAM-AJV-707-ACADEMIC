@@ -118,3 +118,33 @@ Este documento registra cronológicamente los avances, las decisiones, los probl
 
 **Preparar la estructura inicial del proyecto y comenzar el desarrollo del backend con Django.**
 
+
+---
+
+## 28 de septiembre de 2026
+
+### Actividad
+
+Inicio del desarrollo del backend del sistema.
+
+### Trabajo realizado
+
+- Se verificó Python 3.12.10.
+- Se creó el entorno virtual `.venv`.
+- Se instaló Django 6.1.1.
+- Se creó la carpeta `backend`.
+- Se creó el proyecto base de Django con configuración `config`.
+- Se ejecutó `python manage.py check` sin errores.
+- Se levantó el servidor de desarrollo correctamente.
+- Se verificó el funcionamiento desde `http://127.0.0.1:8000/`.
+- Se creó `.gitignore`.
+- Se creó `requirements.txt`.
+
+### Resultado
+
+El backend base de Django se encuentra funcionando correctamente y está listo para comenzar su configuración.
+
+### Próximo paso
+
+Configurar PostgreSQL, Django REST Framework y posteriormente comenzar el módulo de registro de colaboradores.
+

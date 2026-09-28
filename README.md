@@ -16,6 +16,11 @@ El caso inicial de referencia será el de practicantes y residentes profesionale
 
 Actualmente se está trabajando en definir con claridad qué se va a desarrollar antes de comenzar con la programación.
 
+
+
+**Fase actual:** inicio del desarrollo.
+
+La documentación inicial del proyecto ya fue definida y se comenzó la construcción de la base técnica del sistema.
 \---
 
 ## Completado
@@ -32,6 +37,15 @@ Actualmente se está trabajando en definir con claridad qué se va a desarrollar
 * Se definió el stack tecnológico base propuesto.
 * &#x20;MVP definido y aprobado.
 * &#x20;MVP agregado a la documentación del proyecto.
+
+- Entorno virtual de Python creado.
+- Django 6.1.1 instalado.
+- Backend base creado con Django.
+- Proyecto Django configurado en `backend/`.
+- Verificación con `python manage.py check` completada correctamente.
+- Servidor de desarrollo probado correctamente en `http://127.0.0.1:8000/`.
+- Archivo `requirements.txt` creado.
+- Archivo `.gitignore` configurado.
 
 \---
 
@@ -54,6 +68,13 @@ Actualmente se está trabajando en definir con claridad qué se va a desarrollar
 3. Registrar el avance realizado hasta este punto.
 4. Crear `docs/MVP.md`.
 5. Revisar el MVP antes de comenzar el desarrollo.
+
+## Próximo paso
+
+1. Preparar PostgreSQL para el proyecto.
+2. Instalar y configurar Django REST Framework.
+3. Definir la estructura inicial de aplicaciones Django.
+4. Comenzar con el módulo de cuentas y registro de colaboradores.
 
 \---
 
