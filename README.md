@@ -47,6 +47,12 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Archivo `requirements.txt` creado.
 - Archivo `.gitignore` configurado.
 
+- PostgreSQL 18.6 instalado y configurado.
+- Base de datos `plurione_onboarding` creada.
+- Django conectado correctamente con PostgreSQL.
+- Migraciones iniciales aplicadas correctamente.
+- Django REST Framework 3.18.1 instalado y configurado.
+
 \---
 
 ## En progreso
@@ -63,18 +69,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 
 ## Próximo paso
 
-1. Guardar `docs/PRB.md` dentro del repositorio.
-2. Crear `docs/BITACORA.md`.
-3. Registrar el avance realizado hasta este punto.
-4. Crear `docs/MVP.md`.
-5. Revisar el MVP antes de comenzar el desarrollo.
-
-## Próximo paso
-
-1. Preparar PostgreSQL para el proyecto.
-2. Instalar y configurar Django REST Framework.
-3. Definir la estructura inicial de aplicaciones Django.
-4. Comenzar con el módulo de cuentas y registro de colaboradores.
+1. Definir la estructura inicial de aplicaciones Django.
+2. Crear el módulo de cuentas y colaboradores.
+3. Definir el modelo de usuario y perfil inicial.
+4. Preparar el registro de colaboradores.
+5. Crear los primeros endpoints de la API.
 
 \---
 

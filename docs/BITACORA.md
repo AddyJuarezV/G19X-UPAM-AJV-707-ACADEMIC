@@ -148,3 +148,31 @@ El backend base de Django se encuentra funcionando correctamente y está listo p
 
 Configurar PostgreSQL, Django REST Framework y posteriormente comenzar el módulo de registro de colaboradores.
 
+---
+
+## 28 de septiembre de 2026
+
+### Actividad
+
+Configuración de PostgreSQL y Django REST Framework.
+
+### Trabajo realizado
+
+- Se instaló PostgreSQL 18.6.
+- Se creó la base de datos `plurione_onboarding`.
+- Se instaló `psycopg` para conectar Django con PostgreSQL.
+- Se creó el archivo `.env` para almacenar la configuración sensible.
+- Se configuró Django para utilizar PostgreSQL.
+- Se aplicaron las migraciones iniciales correctamente.
+- Se instaló Django REST Framework 3.18.1.
+- Se agregó `rest_framework` a las aplicaciones instaladas.
+- Se verificó la configuración mediante `python manage.py check`.
+
+### Resultado
+
+Django se encuentra conectado correctamente con PostgreSQL y Django REST Framework está disponible para comenzar a desarrollar la API que utilizará React.
+
+### Próximo paso
+
+Crear la estructura inicial de aplicaciones Django y comenzar con el módulo de cuentas y colaboradores.
+
