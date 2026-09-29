@@ -176,3 +176,37 @@ Django se encuentra conectado correctamente con PostgreSQL y Django REST Framewo
 
 Crear la estructura inicial de aplicaciones Django y comenzar con el módulo de cuentas y colaboradores.
 
+
+---
+
+## 29 de septiembre de 2026
+
+### Actividad
+
+Creación del módulo de cuentas y perfil inicial del colaborador.
+
+### Trabajo realizado
+
+- Se creó la aplicación Django `accounts`.
+- Se implementó un modelo de usuario personalizado.
+- Se configuró el correo electrónico como identificador de inicio de sesión.
+- Se agregaron los roles Colaborador y Encargado.
+- Se creó un administrador personalizado de usuarios.
+- Se reinició la base de datos de desarrollo para establecer correctamente el modelo de usuario desde la primera migración.
+- Se creó y validó un superusuario.
+- Se comprobó el acceso al Django Admin mediante correo electrónico.
+- Se creó el modelo `CollaboratorProfile`.
+- Se agregaron los datos personales y académicos requeridos por el MVP.
+- Se agregaron los campos para CV y credencial universitaria.
+- Se implementaron los estados Borrador, En revisión, Requiere corrección y Aprobado.
+- Se agregó el campo para indicar el motivo de una corrección.
+- Se crearon y aplicaron correctamente las migraciones en PostgreSQL.
+
+### Resultado
+
+El backend ya cuenta con la base de autenticación y el perfil inicial del colaborador necesarios para comenzar el flujo real de registro y aprobación.
+
+### Próximo paso
+
+Registrar los modelos en Django Admin y comenzar a construir la API de registro de colaboradores con Django REST Framework.
+

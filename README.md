@@ -53,6 +53,16 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Migraciones iniciales aplicadas correctamente.
 - Django REST Framework 3.18.1 instalado y configurado.
 
+- Se creó la aplicación Django `accounts`.
+- Se implementó un usuario personalizado basado en `AbstractUser`.
+- El inicio de sesión utiliza correo electrónico en lugar de username.
+- Se definieron los roles iniciales: Colaborador y Encargado.
+- Se creó el perfil inicial del colaborador.
+- El perfil contempla datos personales, académicos, CV y credencial universitaria.
+- Se implementaron los estados de solicitud: Borrador, En revisión, Requiere corrección y Aprobado.
+- Se validó el acceso al administrador de Django mediante correo electrónico.
+- Las migraciones del módulo `accounts` fueron aplicadas correctamente en PostgreSQL.
+
 \---
 
 ## En progreso
@@ -68,12 +78,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-
-1. Definir la estructura inicial de aplicaciones Django.
-2. Crear el módulo de cuentas y colaboradores.
-3. Definir el modelo de usuario y perfil inicial.
-4. Preparar el registro de colaboradores.
-5. Crear los primeros endpoints de la API.
+1. Registrar los modelos de cuentas y colaboradores en Django Admin.
+2. Crear la API de registro del colaborador con Django REST Framework.
+3. Crear la API para consultar y actualizar el perfil.
+4. Implementar el envío de solicitud a revisión.
+5. Preparar posteriormente el frontend React para consumir estas APIs.
 
 \---
 
