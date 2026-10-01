@@ -63,6 +63,17 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se validó el acceso al administrador de Django mediante correo electrónico.
 - Las migraciones del módulo `accounts` fueron aplicadas correctamente en PostgreSQL.
 
+- Se registraron `User` y `CollaboratorProfile` en Django Admin.
+- Se configuró el almacenamiento local de archivos mediante `MEDIA_ROOT` y `MEDIA_URL`.
+- Se creó la primera API REST del sistema para registrar colaboradores.
+- El registro crea automáticamente una cuenta con rol `COLABORADOR`.
+- El registro crea también el perfil inicial del colaborador.
+- Se implementaron validaciones de correo y CURP duplicados.
+- Se utilizó una transacción atómica para evitar registros incompletos.
+- Se probó correctamente el registro mediante una petición HTTP multipart.
+- Se comprobó el almacenamiento de CV y credencial universitaria.
+- Se verificó el registro completo en PostgreSQL.
+
 \---
 
 ## En progreso
@@ -78,11 +89,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Registrar los modelos de cuentas y colaboradores en Django Admin.
-2. Crear la API de registro del colaborador con Django REST Framework.
-3. Crear la API para consultar y actualizar el perfil.
-4. Implementar el envío de solicitud a revisión.
-5. Preparar posteriormente el frontend React para consumir estas APIs.
+1. Crear el endpoint para que el colaborador envíe su solicitud.
+2. Cambiar el estado de Borrador a En revisión.
+3. Crear endpoints para consultar y actualizar el perfil.
+4. Implementar la revisión del encargado.
+5. Preparar posteriormente la interfaz React.
 
 \---
 

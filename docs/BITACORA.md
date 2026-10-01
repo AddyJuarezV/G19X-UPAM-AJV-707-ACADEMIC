@@ -210,3 +210,35 @@ El backend ya cuenta con la base de autenticación y el perfil inicial del colab
 
 Registrar los modelos en Django Admin y comenzar a construir la API de registro de colaboradores con Django REST Framework.
 
+---
+
+## 30 de septiembre de 2026
+
+### Actividad
+
+Implementación y prueba de la primera API REST del sistema.
+
+### Trabajo realizado
+
+- Se registraron los modelos de usuarios y perfiles en Django Admin.
+- Se configuró `MEDIA_ROOT` y `MEDIA_URL`.
+- Se creó `CollaboratorRegistrationSerializer`.
+- Se creó el endpoint `POST /api/accounts/register/`.
+- Se implementó el registro automático de usuario y perfil.
+- Los nuevos usuarios reciben el rol `COLABORADOR`.
+- Las nuevas solicitudes comienzan en estado `DRAFT`.
+- Se implementó validación para evitar correos y CURP duplicados.
+- Se utilizó una transacción atómica para mantener consistencia.
+- Se realizó una prueba utilizando información ficticia de Peter Parker.
+- La API creó correctamente el usuario y el perfil.
+- Se almacenaron correctamente CV y credencial universitaria.
+- Se confirmó la información mediante Django Admin y PostgreSQL.
+
+### Resultado
+
+El sistema ya permite registrar un colaborador mediante una API REST, almacenar sus datos personales y académicos, guardar sus documentos iniciales y persistir toda la información en PostgreSQL.
+
+### Próximo paso
+
+Implementar el envío de la solicitud del colaborador para cambiar su estado de `DRAFT` a `IN_REVIEW`.
+
