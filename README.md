@@ -74,6 +74,19 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó el almacenamiento de CV y credencial universitaria.
 - Se verificó el registro completo en PostgreSQL.
 
+- Se implementó autenticación mediante JWT para la API.
+- Se configuraron tokens de acceso y renovación.
+- Se creó el endpoint de inicio de sesión `POST /api/auth/login/`.
+- Se creó el endpoint de renovación `POST /api/auth/refresh/`.
+- Se protegieron las operaciones privadas mediante autenticación.
+- Se creó el endpoint `POST /api/accounts/application/submit/`.
+- El colaborador autenticado puede enviar únicamente su propia solicitud.
+- Una solicitud puede pasar de `DRAFT` a `IN_REVIEW`.
+- También se permite reenviar una solicitud que estaba en `NEEDS_CORRECTION`.
+- Se comprobó que los tokens vencidos son rechazados.
+- Se probó correctamente el envío de la solicitud de Peter Parker.
+
+
 \---
 
 ## En progreso
@@ -89,11 +102,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear el endpoint para que el colaborador envíe su solicitud.
-2. Cambiar el estado de Borrador a En revisión.
-3. Crear endpoints para consultar y actualizar el perfil.
-4. Implementar la revisión del encargado.
-5. Preparar posteriormente la interfaz React.
+1. Crear las funciones del encargado para revisar solicitudes.
+2. Permitir aprobar una solicitud.
+3. Permitir solicitar una corrección indicando el motivo.
+4. Crear una lista de solicitudes pendientes de revisión.
+5. Posteriormente asignar colaboradores aprobados a una generación.
 
 \---
 

@@ -242,3 +242,37 @@ El sistema ya permite registrar un colaborador mediante una API REST, almacenar 
 
 Implementar el envío de la solicitud del colaborador para cambiar su estado de `DRAFT` a `IN_REVIEW`.
 
+
+---
+
+## 3 de octubre de 2026
+
+### Actividad
+
+Implementación de autenticación JWT y envío de solicitudes a revisión.
+
+### Trabajo realizado
+
+- Se instaló y configuró `djangorestframework-simplejwt`.
+- Se configuró JWT como método de autenticación de Django REST Framework.
+- Se creó el endpoint `POST /api/auth/login/`.
+- Se creó el endpoint `POST /api/auth/refresh/`.
+- Se comprobó el inicio de sesión mediante correo electrónico y contraseña.
+- Se comprobó la generación de tokens `access` y `refresh`.
+- Se verificó que un token de acceso vencido sea rechazado.
+- Se creó el endpoint protegido `POST /api/accounts/application/submit/`.
+- El endpoint identifica al colaborador mediante su token.
+- Se restringió el envío de solicitudes únicamente a usuarios con rol `COLABORADOR`.
+- Se implementó el cambio de estado `DRAFT` a `IN_REVIEW`.
+- Se permitió reenviar solicitudes desde `NEEDS_CORRECTION`.
+- Se realizó una prueba real con el colaborador ficticio Peter Parker.
+- La solicitud cambió correctamente a estado `IN_REVIEW` en PostgreSQL.
+
+### Resultado
+
+El sistema ya puede autenticar colaboradores mediante JWT y permite que un colaborador autenticado envíe su propia solicitud para revisión.
+
+### Próximo paso
+
+Implementar el flujo del encargado para revisar solicitudes, aprobarlas o solicitar correcciones.
+
