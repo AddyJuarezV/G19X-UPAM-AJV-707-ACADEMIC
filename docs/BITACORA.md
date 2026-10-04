@@ -276,3 +276,38 @@ El sistema ya puede autenticar colaboradores mediante JWT y permite que un colab
 
 Implementar el flujo del encargado para revisar solicitudes, aprobarlas o solicitar correcciones.
 
+---
+
+## 3 de octubre de 2026
+
+### Actividad
+
+Implementación del flujo de revisión de solicitudes por parte del encargado.
+
+### Trabajo realizado
+
+- Se creó una API para listar solicitudes en estado `IN_REVIEW`.
+- Se restringió la consulta de pendientes al rol `ENCARGADO`.
+- Se creó el serializer para las decisiones de revisión.
+- Se creó el endpoint para revisar una solicitud.
+- Se implementó la decisión `APPROVE`.
+- Se implementó la decisión `REQUEST_CORRECTION`.
+- Se estableció como obligatorio indicar un motivo al solicitar una corrección.
+- Se probó el cambio de `IN_REVIEW` a `NEEDS_CORRECTION`.
+- Se comprobó que el motivo de corrección queda almacenado.
+- Se comprobó el reenvío de una solicitud desde `NEEDS_CORRECTION` a `IN_REVIEW`.
+- Se probó posteriormente la aprobación de la solicitud.
+- Peter Parker terminó correctamente en estado `APPROVED`.
+
+### Resultado
+
+Se completó el primer circuito administrativo del sistema:
+
+`DRAFT → IN_REVIEW → NEEDS_CORRECTION → IN_REVIEW → APPROVED`.
+
+El encargado ya puede consultar solicitudes pendientes, solicitar correcciones y aprobar colaboradores.
+
+### Próximo paso
+
+Implementar la consulta y edición del perfil del colaborador para que pueda atender realmente una corrección antes de reenviar su solicitud.
+

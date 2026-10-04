@@ -66,3 +66,58 @@ class CollaboratorRegistrationSerializer(serializers.Serializer):
         )
 
         return profile
+
+class PendingApplicationSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        source="user.email",
+        read_only=True,
+    )
+
+    class Meta:
+        model = CollaboratorProfile
+        fields = (
+            "id",
+            "full_name",
+            "email",
+            "university",
+            "university_acronym",
+            "career",
+            "required_hours",
+            "application_status",
+            "updated_at",
+        )
+
+class ApplicationReviewSerializer(serializers.Serializer):
+    class Decision:
+        APPROVE = "APPROVE"
+        REQUEST_CORRECTION = "REQUEST_CORRECTION"
+
+    decision = serializers.ChoiceField(
+        choices=[
+            Decision.APPROVE,
+            Decision.REQUEST_CORRECTION,
+        ]
+    )
+
+    correction_reason = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
+
+    def validate(self, attrs):
+        decision = attrs["decision"]
+        correction_reason = attrs.get("correction_reason", "").strip()
+
+        if (
+            decision == self.Decision.REQUEST_CORRECTION
+            and not correction_reason
+        ):
+            raise serializers.ValidationError(
+                {
+                    "correction_reason":
+                        "Debes indicar el motivo de la corrección."
+                }
+            )
+
+        attrs["correction_reason"] = correction_reason
+        return attrs

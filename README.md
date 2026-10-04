@@ -86,6 +86,17 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó que los tokens vencidos son rechazados.
 - Se probó correctamente el envío de la solicitud de Peter Parker.
 
+- Se creó el endpoint para listar solicitudes pendientes de revisión.
+- Solo los usuarios con rol `ENCARGADO` pueden consultar solicitudes pendientes.
+- Se creó el endpoint para revisar una solicitud individual.
+- El encargado puede aprobar una solicitud.
+- El encargado puede solicitar una corrección indicando obligatoriamente el motivo.
+- Se implementaron los estados `IN_REVIEW`, `NEEDS_CORRECTION` y `APPROVED` dentro del flujo de revisión.
+- Se comprobó que una solicitud corregida puede reenviarse.
+- Se probó el circuito completo utilizando al colaborador ficticio Peter Parker.
+
+
+
 
 \---
 
@@ -102,12 +113,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear las funciones del encargado para revisar solicitudes.
-2. Permitir aprobar una solicitud.
-3. Permitir solicitar una corrección indicando el motivo.
-4. Crear una lista de solicitudes pendientes de revisión.
-5. Posteriormente asignar colaboradores aprobados a una generación.
-
+1. Permitir que el colaborador consulte su propio perfil y estado.
+2. Permitir que el colaborador consulte el motivo de una corrección.
+3. Permitir actualizar datos y reemplazar documentos cuando se solicite una corrección.
+4. Después implementar el módulo de generaciones.
+5. Asignar colaboradores aprobados a una generación abierta.
 \---
 
 ## Idea principal del sistema
