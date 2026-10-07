@@ -360,3 +360,264 @@ Ejemplos de nombres permitidos para pruebas:
 
 No se utilizarán datos personales reales en ejemplos, demostraciones o documentación pública.
 
+
+
+
+
+
+
+---
+
+# Ejecución del proyecto
+
+## Requisitos
+
+Para ejecutar el proyecto se requiere:
+
+- Python 3.12 o superior
+- PostgreSQL
+- Git
+- pip
+- Navegador web
+
+## Preparar el proyecto
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/AddyJuarezV/G19X-UPAM-AJV-707-ACADEMIC.git
+cd G19X-UPAM-AJV-707-ACADEMIC
+```
+
+Crear el entorno virtual.
+
+### Windows PowerShell
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+Instalar las dependencias:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+## Configuración de variables de entorno
+
+En la raíz del proyecto se incluye el archivo:
+
+```text
+.env.example
+```
+
+Crear una copia llamada:
+
+```text
+.env
+```
+
+En Windows PowerShell puede hacerse con:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Después editar `.env` y colocar la configuración local de PostgreSQL.
+
+Ejemplo:
+
+```env
+DB_NAME=plurione_onboarding
+DB_USER=postgres
+DB_PASSWORD=TU_PASSWORD_LOCAL
+DB_HOST=127.0.0.1
+DB_PORT=5432
+```
+
+El archivo `.env` contiene información sensible y no debe subirse al repositorio.
+
+## Base de datos
+
+Crear una base de datos PostgreSQL llamada:
+
+```text
+plurione_onboarding
+```
+
+Ejemplo desde PostgreSQL:
+
+```sql
+CREATE DATABASE plurione_onboarding;
+```
+
+El proyecto incluye un respaldo de la base de datos en:
+
+```text
+db/base-de-datos.sql
+```
+
+Este respaldo contiene la estructura del sistema y datos ficticios utilizados para demostración.
+
+Para importarlo:
+
+```powershell
+psql -U postgres -d plurione_onboarding -f .\db\base-de-datos.sql
+```
+
+Si `psql` no se encuentra agregado al PATH de Windows, puede utilizarse:
+
+```powershell
+& "C:\Program Files\PostgreSQL\18\bin\psql.exe" `
+  -U postgres `
+  -d plurione_onboarding `
+  -f ".\db\base-de-datos.sql"
+```
+
+## Archivos ficticios de demostración
+
+La base de datos de prueba contiene referencias a CV y credenciales universitarias ficticias.
+
+Estos archivos se encuentran en:
+
+```text
+demo_media/
+```
+
+Para copiarlos a la carpeta utilizada por Django:
+
+```powershell
+New-Item -ItemType Directory -Force .\backend\media | Out-Null
+Copy-Item .\demo_media\* .\backend\media\ -Recurse -Force
+```
+
+Los archivos incluidos son únicamente de demostración y no contienen información real de personas.
+
+## Ejecutar el backend
+
+Entrar a la carpeta del backend:
+
+```powershell
+cd backend
+```
+
+Comprobar la configuración del proyecto:
+
+```powershell
+python manage.py check
+```
+
+Si la configuración es correcta se mostrará:
+
+```text
+System check identified no issues (0 silenced).
+```
+
+Iniciar el servidor:
+
+```powershell
+python manage.py runserver
+```
+
+El backend estará disponible en:
+
+```text
+http://127.0.0.1:8000/
+```
+
+El administrador de Django está disponible en:
+
+```text
+http://127.0.0.1:8000/admin/
+```
+
+## API implementada actualmente
+
+Actualmente se encuentran implementados, entre otros, los siguientes endpoints:
+
+```text
+POST  /api/accounts/register/
+POST  /api/auth/login/
+POST  /api/auth/refresh/
+
+GET   /api/accounts/profile/
+PATCH /api/accounts/profile/
+
+POST  /api/accounts/application/submit/
+
+GET   /api/accounts/applications/pending/
+POST  /api/accounts/applications/<id>/review/
+```
+
+## Flujo funcional actual
+
+El flujo de una solicitud actualmente puede pasar por los siguientes estados:
+
+```text
+DRAFT
+  ↓
+IN_REVIEW
+  ↓
+NEEDS_CORRECTION
+  ↓
+IN_REVIEW
+  ↓
+APPROVED
+```
+
+El colaborador puede:
+
+- crear una cuenta;
+- registrar su información;
+- consultar su perfil;
+- modificar información cuando el estado lo permite;
+- enviar su solicitud;
+- consultar el motivo de una corrección;
+- corregir sus datos;
+- reenviar la solicitud.
+
+El encargado puede:
+
+- consultar solicitudes pendientes;
+- solicitar correcciones;
+- registrar el motivo de una corrección;
+- aprobar solicitudes.
+
+## Datos de demostración
+
+La base de datos incluida utiliza únicamente datos ficticios.
+
+Algunos ejemplos son:
+
+```text
+Peter Parker - UPAM
+Miles Morales - UTP
+```
+
+No deben utilizarse datos personales reales dentro del repositorio público.
+
+## Accesos de prueba
+
+Las credenciales necesarias para evaluación no se publican directamente en el repositorio.
+
+Los usuarios y contraseñas de prueba se proporcionarán mediante el apartado:
+
+```text
+Mis documentos → Técnicos → Accesos de prueba
+```
+
+de la plataforma académica.
+
+## Estado actual
+
+El proyecto continúa en desarrollo.
+
+Entre los siguientes módulos previstos se encuentran:
+
+- generaciones de colaboradores;
+- asignación de colaboradores aprobados a generaciones abiertas;
+- seguimiento de documentación de incorporación;
+- estados visuales de las tarjetas;
+- panel de pendientes del encargado;
+- frontend con React y Vite.
