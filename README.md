@@ -95,6 +95,16 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó que una solicitud corregida puede reenviarse.
 - Se probó el circuito completo utilizando al colaborador ficticio Peter Parker.
 
+- Se creó el endpoint para que el colaborador consulte su propio perfil.
+- El colaborador puede consultar su estado y el motivo de una corrección.
+- Se creó la actualización parcial del perfil mediante `PATCH`.
+- Los perfiles en estado `DRAFT` pueden modificarse.
+- Los perfiles en estado `NEEDS_CORRECTION` pueden modificarse.
+- Los perfiles en estado `IN_REVIEW` no pueden modificarse.
+- Los perfiles en estado `APPROVED` no pueden modificarse.
+- Se comprobó el flujo real de corrección utilizando a Miles Morales.
+- El motivo de corrección se elimina automáticamente cuando la solicitud es reenviada.
+
 
 
 
@@ -113,11 +123,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Permitir que el colaborador consulte su propio perfil y estado.
-2. Permitir que el colaborador consulte el motivo de una corrección.
-3. Permitir actualizar datos y reemplazar documentos cuando se solicite una corrección.
-4. Después implementar el módulo de generaciones.
-5. Asignar colaboradores aprobados a una generación abierta.
+1. Implementar el módulo de generaciones.
+2. Crear generaciones abiertas y cerradas.
+3. Permitir que el encargado asigne colaboradores aprobados a una generación abierta.
+4. Crear la visualización de colaboradores por generación.
+5. Preparar los estados visuales de las tarjetas.
 \---
 
 ## Idea principal del sistema

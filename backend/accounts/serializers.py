@@ -121,3 +121,61 @@ class ApplicationReviewSerializer(serializers.Serializer):
 
         attrs["correction_reason"] = correction_reason
         return attrs
+
+class CollaboratorProfileSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        source="user.email",
+        read_only=True,
+    )
+
+    class Meta:
+        model = CollaboratorProfile
+        fields = (
+            "id",
+            "email",
+            "full_name",
+            "curp",
+            "phone",
+            "institutional_email",
+            "university",
+            "university_acronym",
+            "career",
+            "required_hours",
+            "cv",
+            "university_id",
+            "application_status",
+            "correction_reason",
+            "created_at",
+            "updated_at",
+        )
+
+        read_only_fields = (
+            "id",
+            "email",
+            "application_status",
+            "correction_reason",
+            "created_at",
+            "updated_at",
+        )
+
+    def validate_curp(self, value):
+        curp = value.strip().upper()
+
+        if len(curp) != 18:
+            raise serializers.ValidationError(
+                "La CURP debe contener 18 caracteres."
+            )
+
+        profile = self.instance
+
+        queryset = CollaboratorProfile.objects.filter(curp=curp)
+
+        if profile:
+            queryset = queryset.exclude(pk=profile.pk)
+
+        if queryset.exists():
+            raise serializers.ValidationError(
+                "Ya existe otro colaborador registrado con esta CURP."
+            )
+
+        return curp

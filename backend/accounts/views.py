@@ -9,6 +9,7 @@ from .serializers import (
     ApplicationReviewSerializer,
     CollaboratorRegistrationSerializer,
     PendingApplicationSerializer,
+    CollaboratorProfileSerializer,
 )
 
 class CollaboratorRegistrationView(generics.CreateAPIView):
@@ -199,6 +200,83 @@ class ReviewApplicationView(APIView):
                 "full_name": profile.full_name,
                 "application_status": profile.application_status,
                 "correction_reason": profile.correction_reason,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+class MyCollaboratorProfileView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_profile(self, user):
+        if user.role != user.Role.COLABORADOR:
+            return None
+
+        try:
+            return user.collaborator_profile
+        except AttributeError:
+            return None
+
+    def get(self, request):
+        profile = self.get_profile(request.user)
+
+        if profile is None:
+            return Response(
+                {
+                    "detail":
+                        "El usuario no tiene un perfil de colaborador."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        serializer = CollaboratorProfileSerializer(
+            profile,
+            context={"request": request},
+        )
+
+        return Response(serializer.data)
+
+    def patch(self, request):
+        profile = self.get_profile(request.user)
+
+        if profile is None:
+            return Response(
+                {
+                    "detail":
+                        "El usuario no tiene un perfil de colaborador."
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        editable_statuses = [
+            CollaboratorProfile.ApplicationStatus.DRAFT,
+            CollaboratorProfile.ApplicationStatus.NEEDS_CORRECTION,
+        ]
+
+        if profile.application_status not in editable_statuses:
+            return Response(
+                {
+                    "detail":
+                        "El perfil no puede modificarse en su estado actual.",
+                    "application_status":
+                        profile.application_status,
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = CollaboratorProfileSerializer(
+            profile,
+            data=request.data,
+            partial=True,
+            context={"request": request},
+        )
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {
+                "message": "Perfil actualizado correctamente.",
+                "profile": serializer.data,
             },
             status=status.HTTP_200_OK,
         )

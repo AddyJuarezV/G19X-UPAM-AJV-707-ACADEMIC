@@ -13,6 +13,7 @@ from .views import (
     PendingApplicationsView,
     SubmitApplicationView,
     ReviewApplicationView,
+    MyCollaboratorProfileView,
 )
 
 urlpatterns = [
@@ -36,6 +37,12 @@ urlpatterns = [
     "applications/<int:pk>/review/",
     ReviewApplicationView.as_view(),
     name="application-review",
-),
+    ),
+
+    path(
+    "profile/",
+    MyCollaboratorProfileView.as_view(),
+    name="my-collaborator-profile",
+    ),
 ]
 

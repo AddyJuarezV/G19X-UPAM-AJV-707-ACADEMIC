@@ -311,3 +311,37 @@ El encargado ya puede consultar solicitudes pendientes, solicitar correcciones y
 
 Implementar la consulta y edición del perfil del colaborador para que pueda atender realmente una corrección antes de reenviar su solicitud.
 
+
+---
+
+## 4 de octubre de 2026
+
+### Actividad
+
+Implementación de consulta y corrección del perfil del colaborador.
+
+### Trabajo realizado
+
+- Se creó `GET /api/accounts/profile/`.
+- Se creó `PATCH /api/accounts/profile/`.
+- El colaborador puede consultar su información y el estado de su solicitud.
+- El colaborador puede consultar el motivo de una corrección.
+- Se permite editar en `DRAFT`.
+- Se permite editar en `NEEDS_CORRECTION`.
+- Se bloquea la edición en `IN_REVIEW`.
+- Se bloquea la edición en `APPROVED`.
+- Se verificó el bloqueo utilizando a Peter Parker aprobado.
+- Se utilizó a Miles Morales para probar el flujo de corrección.
+- Miles pudo modificar realmente su información.
+- Miles volvió a enviar su solicitud.
+- La solicitud regresó a `IN_REVIEW`.
+- El motivo de corrección anterior se eliminó automáticamente.
+
+### Resultado
+
+El colaborador ya puede consultar su perfil, conocer correcciones solicitadas, modificar su información cuando corresponda y reenviar su solicitud.
+
+### Próximo paso
+
+Implementar el módulo de generaciones y la asignación de colaboradores aprobados.
+
