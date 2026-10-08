@@ -345,3 +345,36 @@ El colaborador ya puede consultar su perfil, conocer correcciones solicitadas, m
 
 Implementar el módulo de generaciones y la asignación de colaboradores aprobados.
 
+---
+
+## 8 de octubre de 2026
+
+### Actividad
+
+Implementación inicial del módulo de generaciones.
+
+### Trabajo realizado
+
+- Se creó la aplicación Django `onboarding`.
+- Se creó el modelo `Generation`.
+- Se implementaron los estados `OPEN` y `CLOSED`.
+- Se creó el modelo `GenerationMembership`.
+- Se estableció la relación entre colaboradores y generaciones.
+- Se restringió la asignación a colaboradores en estado `APPROVED`.
+- Se restringió la asignación a generaciones abiertas.
+- Se evitó que un colaborador pueda pertenecer a más de una generación.
+- Se crearon y aplicaron las migraciones correspondientes en PostgreSQL.
+- Se registraron los modelos en Django Admin.
+- Se creó la Generación 19.
+- Se asignó a Peter Parker - UPAM a la Generación 19.
+- Se comprobó que Miles Morales no puede asignarse mientras se encuentra en `IN_REVIEW`.
+- Se mejoró el formulario administrativo para mostrar únicamente opciones válidas.
+
+### Resultado
+
+El sistema ya puede crear generaciones y relacionar colaboradores aprobados con una generación abierta respetando las reglas principales del proceso.
+
+### Próximo paso
+
+Crear las APIs del módulo de generaciones para que posteriormente el frontend React pueda administrar generaciones sin depender del Django Admin.
+

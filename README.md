@@ -105,6 +105,19 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó el flujo real de corrección utilizando a Miles Morales.
 - El motivo de corrección se elimina automáticamente cuando la solicitud es reenviada.
 
+- Se creó la aplicación Django `onboarding`.
+- Se implementó el modelo de generaciones.
+- Las generaciones pueden estar en estado `OPEN` o `CLOSED`.
+- Se creó la relación entre colaboradores y generaciones.
+- Solo los colaboradores en estado `APPROVED` pueden pertenecer a una generación.
+- Solo pueden agregarse colaboradores a generaciones abiertas.
+- Un colaborador solo puede pertenecer a una generación.
+- Se registraron generaciones y asignaciones en Django Admin.
+- El administrador muestra únicamente colaboradores aprobados disponibles.
+- El administrador muestra únicamente generaciones abiertas disponibles.
+- Se creó y probó la Generación 19.
+- Peter Parker fue asignado correctamente a la Generación 19.
+
 
 
 
@@ -123,11 +136,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Implementar el módulo de generaciones.
-2. Crear generaciones abiertas y cerradas.
-3. Permitir que el encargado asigne colaboradores aprobados a una generación abierta.
-4. Crear la visualización de colaboradores por generación.
-5. Preparar los estados visuales de las tarjetas.
+1. Crear la API para consultar generaciones.
+2. Crear la API para crear generaciones.
+3. Crear la API para asignar colaboradores aprobados.
+4. Implementar el cierre de una generación.
+5. Crear la vista de integrantes de una generación.
 \---
 
 ## Idea principal del sistema
