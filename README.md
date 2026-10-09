@@ -118,6 +118,14 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se creó y probó la Generación 19.
 - Peter Parker fue asignado correctamente a la Generación 19.
 
+- Se creó el serializer de generaciones.
+- Se creó la API `GET /api/onboarding/generations/`.
+- La API permite al encargado consultar las generaciones registradas.
+- Cada generación muestra su estado, cantidad de integrantes y lista de colaboradores.
+- La consulta está protegida mediante autenticación JWT.
+- Solo los usuarios con rol `ENCARGADO` pueden consultar las generaciones.
+- Se comprobó correctamente la Generación 19 con Peter Parker - UPAM como integrante.
+
 
 
 
@@ -136,11 +144,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la API para consultar generaciones.
-2. Crear la API para crear generaciones.
-3. Crear la API para asignar colaboradores aprobados.
-4. Implementar el cierre de una generación.
-5. Crear la vista de integrantes de una generación.
+1. Crear la API para crear generaciones.
+2. Crear la API para asignar colaboradores aprobados a una generación.
+3. Crear la API para cerrar generaciones.
+4. Validar que una generación cerrada no acepte nuevos integrantes.
+5. Preparar posteriormente la interfaz React para administrar generaciones.
 \---
 
 ## Idea principal del sistema

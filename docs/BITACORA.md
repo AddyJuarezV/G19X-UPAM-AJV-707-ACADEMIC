@@ -378,3 +378,33 @@ El sistema ya puede crear generaciones y relacionar colaboradores aprobados con 
 
 Crear las APIs del módulo de generaciones para que posteriormente el frontend React pueda administrar generaciones sin depender del Django Admin.
 
+---
+
+## 9 de octubre de 2026
+
+### Actividad
+
+Implementación de la primera API del módulo de generaciones.
+
+### Trabajo realizado
+
+- Se creó `GenerationSerializer`.
+- Se creó `GenerationMemberSerializer`.
+- Se creó la ruta `GET /api/onboarding/generations/`.
+- Se conectó el módulo `onboarding` con las URLs principales del proyecto.
+- Se protegió la consulta mediante autenticación JWT.
+- Se restringió el acceso al rol `ENCARGADO`.
+- La API devuelve el número de generación.
+- La API devuelve el estado de la generación.
+- La API devuelve la cantidad de integrantes.
+- La API devuelve los colaboradores asignados.
+- Se realizó una prueba con la Generación 19.
+- La API devolvió correctamente a Peter Parker - UPAM como integrante aprobado.
+
+### Resultado
+
+El encargado ya puede consultar las generaciones y visualizar sus integrantes mediante una API REST.
+
+### Próximo paso
+
+Implementar las APIs para crear generaciones, asignar colaboradores aprobados y cerrar generaciones.
