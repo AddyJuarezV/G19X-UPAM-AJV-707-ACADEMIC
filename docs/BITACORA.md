@@ -438,3 +438,33 @@ El encargado ya puede crear, consultar, administrar y cerrar generaciones median
 ### Próximo paso
 
 Crear una API que muestre únicamente colaboradores aprobados que todavía no pertenecen a ninguna generación.
+
+---
+
+## 10 de octubre de 2026
+
+### Actividad
+
+Implementación de consulta de colaboradores disponibles para generaciones.
+
+### Trabajo realizado
+
+- Se creó la API `GET /api/onboarding/collaborators/available/`.
+- Se restringió el acceso al rol `ENCARGADO`.
+- La consulta devuelve únicamente colaboradores `APPROVED`.
+- Se excluyen colaboradores que ya pertenecen a una generación.
+- Se comprobó que Peter Parker no aparece disponible porque ya pertenece a la Generación 19.
+- Se comprobó que Miles Morales no aparece mientras se encontraba en `IN_REVIEW`.
+- Se aprobó a Miles Morales.
+- Miles apareció automáticamente como colaborador disponible.
+- Se asignó a Miles Morales - UTP a la Generación 19 mediante API.
+- Después de la asignación, Miles dejó de aparecer como disponible.
+- La Generación 19 quedó con dos integrantes.
+
+### Resultado
+
+El sistema ya puede determinar automáticamente qué colaboradores aprobados están disponibles para asignarse a una generación.
+
+### Próximo paso
+
+Crear el detalle de una generación y preparar la información necesaria para representar visualmente a sus integrantes.

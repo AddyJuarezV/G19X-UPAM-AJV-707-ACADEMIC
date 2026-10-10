@@ -2,6 +2,7 @@ from django.urls import path
 
 from .views import (
     AddGenerationMemberView,
+    AvailableCollaboratorsView,
     CloseGenerationView,
     GenerationCreateView,
     GenerationListView,
@@ -31,5 +32,11 @@ urlpatterns = [
         "generations/<int:pk>/close/",
         CloseGenerationView.as_view(),
         name="generation-close",
+    ),
+
+    path(
+    "collaborators/available/",
+    AvailableCollaboratorsView.as_view(),
+    name="available-collaborators",
     ),
 ]

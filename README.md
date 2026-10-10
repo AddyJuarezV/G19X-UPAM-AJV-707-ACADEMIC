@@ -135,6 +135,14 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se creó y probó la Generación 20 mediante API.
 - Se comprobó correctamente el cierre de una generación.
 
+- Se creó la API para consultar colaboradores disponibles para asignación.
+- La API muestra únicamente colaboradores en estado `APPROVED` que todavía no pertenecen a una generación.
+- Se comprobó que un colaborador en `IN_REVIEW` no aparece disponible.
+- Se comprobó que un colaborador aprobado aparece automáticamente como disponible.
+- Se asignó a Miles Morales - UTP a la Generación 19 mediante API.
+- Después de la asignación, Miles dejó de aparecer entre los colaboradores disponibles.
+- La Generación 19 quedó con dos integrantes: Peter Parker - UPAM y Miles Morales - UTP.
+
 
 
 
@@ -153,11 +161,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la API para consultar colaboradores disponibles para asignación.
-2. Mostrar únicamente colaboradores aprobados sin generación.
-3. Facilitar la selección desde el futuro frontend React.
-4. Continuar con el seguimiento visual por generación.
-5. Preparar posteriormente los estados de tarjetas.
+1. Crear la API de detalle de una generación.
+2. Preparar información para las tarjetas visuales de colaboradores.
+3. Definir el estado visual general de cada integrante.
+4. Comenzar el módulo de documentación de incorporación.
+5. Preparar posteriormente el frontend React.
 \---
 
 ## Idea principal del sistema

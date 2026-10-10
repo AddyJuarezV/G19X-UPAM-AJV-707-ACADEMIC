@@ -12,6 +12,7 @@ from .serializers import (
     GenerationCreateSerializer,
     GenerationMembershipCreateSerializer,
     GenerationSerializer,
+    AvailableCollaboratorSerializer,
 )
 
 
@@ -130,4 +131,21 @@ class CloseGenerationView(APIView):
                 "closed_at": generation.closed_at,
             },
             status=status.HTTP_200_OK,
+        )
+
+class AvailableCollaboratorsView(generics.ListAPIView):
+    serializer_class = AvailableCollaboratorSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        validate_manager(self.request.user)
+
+        return (
+            CollaboratorProfile.objects
+            .filter(
+                application_status=CollaboratorProfile.ApplicationStatus.APPROVED,
+                generation_membership__isnull=True,
+            )
+            .select_related("user")
+            .order_by("full_name")
         )

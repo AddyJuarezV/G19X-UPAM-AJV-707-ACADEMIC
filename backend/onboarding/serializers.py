@@ -99,3 +99,22 @@ class GenerationMembershipCreateSerializer(serializers.Serializer):
             )
 
         return value
+
+class AvailableCollaboratorSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(
+        source="user.email",
+        read_only=True,
+    )
+
+    class Meta:
+        model = CollaboratorProfile
+        fields = (
+            "id",
+            "full_name",
+            "email",
+            "university",
+            "university_acronym",
+            "career",
+            "required_hours",
+            "application_status",
+        )
