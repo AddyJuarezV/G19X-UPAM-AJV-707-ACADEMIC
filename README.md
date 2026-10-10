@@ -126,6 +126,15 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Solo los usuarios con rol `ENCARGADO` pueden consultar las generaciones.
 - Se comprobó correctamente la Generación 19 con Peter Parker - UPAM como integrante.
 
+- Se creó la API para crear generaciones.
+- Se creó la API para asignar colaboradores a generaciones.
+- Se creó la API para cerrar generaciones.
+- Solo los colaboradores en estado `APPROVED` pueden asignarse.
+- Se bloqueó la asignación de colaboradores en estado `IN_REVIEW`.
+- Se bloqueó la asignación de colaboradores a generaciones `CLOSED`.
+- Se creó y probó la Generación 20 mediante API.
+- Se comprobó correctamente el cierre de una generación.
+
 
 
 
@@ -144,11 +153,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la API para crear generaciones.
-2. Crear la API para asignar colaboradores aprobados a una generación.
-3. Crear la API para cerrar generaciones.
-4. Validar que una generación cerrada no acepte nuevos integrantes.
-5. Preparar posteriormente la interfaz React para administrar generaciones.
+1. Crear la API para consultar colaboradores disponibles para asignación.
+2. Mostrar únicamente colaboradores aprobados sin generación.
+3. Facilitar la selección desde el futuro frontend React.
+4. Continuar con el seguimiento visual por generación.
+5. Preparar posteriormente los estados de tarjetas.
 \---
 
 ## Idea principal del sistema

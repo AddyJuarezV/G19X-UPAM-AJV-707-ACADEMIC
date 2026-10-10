@@ -408,3 +408,33 @@ El encargado ya puede consultar las generaciones y visualizar sus integrantes me
 ### Próximo paso
 
 Implementar las APIs para crear generaciones, asignar colaboradores aprobados y cerrar generaciones.
+
+---
+
+## 10 de octubre de 2026
+
+### Actividad
+
+Implementación de administración de generaciones mediante API REST.
+
+### Trabajo realizado
+
+- Se creó la API para crear generaciones.
+- Las nuevas generaciones se crean en estado `OPEN`.
+- Se creó la API para asignar colaboradores a una generación.
+- Se validó que solo colaboradores `APPROVED` puedan ser asignados.
+- Se validó que un colaborador no pueda pertenecer a más de una generación.
+- Se creó la API para cerrar generaciones.
+- Se validó que las generaciones cerradas no acepten nuevos integrantes.
+- Se creó la Generación 20 mediante API.
+- Se comprobó que Miles Morales no puede asignarse mientras está en `IN_REVIEW`.
+- Se cerró correctamente la Generación 20.
+- Se comprobó que una generación `CLOSED` rechaza nuevas asignaciones.
+
+### Resultado
+
+El encargado ya puede crear, consultar, administrar y cerrar generaciones mediante API REST respetando las reglas principales del proceso.
+
+### Próximo paso
+
+Crear una API que muestre únicamente colaboradores aprobados que todavía no pertenecen a ninguna generación.

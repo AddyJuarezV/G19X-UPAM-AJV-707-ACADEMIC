@@ -1,6 +1,11 @@
 from django.urls import path
 
-from .views import GenerationListView
+from .views import (
+    AddGenerationMemberView,
+    CloseGenerationView,
+    GenerationCreateView,
+    GenerationListView,
+)
 
 
 urlpatterns = [
@@ -8,5 +13,23 @@ urlpatterns = [
         "generations/",
         GenerationListView.as_view(),
         name="generation-list",
+    ),
+
+    path(
+        "generations/create/",
+        GenerationCreateView.as_view(),
+        name="generation-create",
+    ),
+
+    path(
+        "generations/<int:pk>/members/",
+        AddGenerationMemberView.as_view(),
+        name="generation-add-member",
+    ),
+
+    path(
+        "generations/<int:pk>/close/",
+        CloseGenerationView.as_view(),
+        name="generation-close",
     ),
 ]
