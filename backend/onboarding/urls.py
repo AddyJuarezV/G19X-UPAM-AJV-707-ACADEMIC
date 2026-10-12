@@ -5,6 +5,7 @@ from .views import (
     AvailableCollaboratorsView,
     CloseGenerationView,
     GenerationCreateView,
+    GenerationDetailView,
     GenerationListView,
 )
 
@@ -39,4 +40,11 @@ urlpatterns = [
     AvailableCollaboratorsView.as_view(),
     name="available-collaborators",
     ),
+
+    path(
+    "generations/<int:pk>/",
+    GenerationDetailView.as_view(),
+    name="generation-detail",
+    ),
+
 ]

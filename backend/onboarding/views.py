@@ -38,6 +38,20 @@ class GenerationListView(generics.ListAPIView):
             .order_by("-number")
         )
 
+class GenerationDetailView(generics.RetrieveAPIView):
+    serializer_class = GenerationSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        validate_manager(self.request.user)
+
+        return (
+            Generation.objects
+            .prefetch_related(
+                "members__collaborator"
+            )
+        )
+
 
 class GenerationCreateView(generics.CreateAPIView):
     serializer_class = GenerationCreateSerializer

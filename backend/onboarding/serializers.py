@@ -4,8 +4,18 @@ from .models import Generation, GenerationMembership
 
 
 class GenerationMemberSerializer(serializers.ModelSerializer):
+    collaborator_id = serializers.IntegerField(
+        source="collaborator.id",
+        read_only=True,
+    )
+
     full_name = serializers.CharField(
         source="collaborator.full_name",
+        read_only=True,
+    )
+
+    university = serializers.CharField(
+        source="collaborator.university",
         read_only=True,
     )
 
@@ -14,19 +24,36 @@ class GenerationMemberSerializer(serializers.ModelSerializer):
         read_only=True,
     )
 
+    career = serializers.CharField(
+        source="collaborator.career",
+        read_only=True,
+    )
+
     application_status = serializers.CharField(
         source="collaborator.application_status",
         read_only=True,
     )
 
+    card_label = serializers.SerializerMethodField()
+
     class Meta:
         model = GenerationMembership
         fields = (
             "id",
+            "collaborator_id",
+            "card_label",
             "full_name",
+            "university",
             "university_acronym",
+            "career",
             "application_status",
             "assigned_at",
+        )
+
+    def get_card_label(self, obj):
+        return (
+            f"{obj.collaborator.full_name} - "
+            f"{obj.collaborator.university_acronym}"
         )
 
 

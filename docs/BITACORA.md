@@ -468,3 +468,34 @@ El sistema ya puede determinar automáticamente qué colaboradores aprobados est
 ### Próximo paso
 
 Crear el detalle de una generación y preparar la información necesaria para representar visualmente a sus integrantes.
+
+---
+
+## 12 de octubre de 2026
+
+### Actividad
+
+Implementación del detalle de generaciones y preparación de tarjetas de colaboradores.
+
+### Trabajo realizado
+
+- Se creó la API de detalle de una generación.
+- Se implementó `GET /api/onboarding/generations/<id>/`.
+- Se amplió la información de los integrantes de una generación.
+- Se agregó el identificador del colaborador.
+- Se agregó universidad y carrera.
+- Se agregó el estado de la solicitud.
+- Se creó el campo `card_label`.
+- El formato de tarjeta utiliza `Nombre completo - SIGLAS`.
+- Se probó la Generación 19.
+- El detalle devolvió correctamente a Peter Parker - UPAM.
+- El detalle devolvió correctamente a Miles Morales - UTP.
+- La Generación 19 reportó correctamente dos integrantes.
+
+### Resultado
+
+El backend ya entrega la información necesaria para que el futuro frontend represente visualmente las tarjetas de colaboradores dentro de una generación.
+
+### Próximo paso
+
+Definir el estado visual de las tarjetas y comenzar el módulo de documentación del proceso de incorporación.

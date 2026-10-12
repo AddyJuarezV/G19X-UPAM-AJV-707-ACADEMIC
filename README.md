@@ -143,6 +143,14 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Después de la asignación, Miles dejó de aparecer entre los colaboradores disponibles.
 - La Generación 19 quedó con dos integrantes: Peter Parker - UPAM y Miles Morales - UTP.
 
+- Se creó la API de detalle de una generación.
+- El encargado puede consultar una generación específica por su identificador.
+- El detalle incluye el estado de la generación y la cantidad de integrantes.
+- Cada integrante incluye nombre, universidad, carrera y estado de solicitud.
+- Se agregó el formato `card_label` para representar las tarjetas como `Nombre - SIGLAS`.
+- Se comprobó correctamente la Generación 19 con Peter Parker - UPAM y Miles Morales - UTP.
+
+
 
 
 
@@ -161,10 +169,10 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la API de detalle de una generación.
-2. Preparar información para las tarjetas visuales de colaboradores.
-3. Definir el estado visual general de cada integrante.
-4. Comenzar el módulo de documentación de incorporación.
+1. Definir el estado visual general de cada tarjeta.
+2. Preparar la lógica para verde, amarillo y rojo.
+3. Comenzar el módulo de documentación de incorporación.
+4. Relacionar los documentos con cada colaborador.
 5. Preparar posteriormente el frontend React.
 \---
 
