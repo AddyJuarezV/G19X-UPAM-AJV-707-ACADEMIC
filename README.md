@@ -166,6 +166,15 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó que los tres documentos se encuentran inicialmente en estado `PENDING`.
 - Se comprobó que el rol `ENCARGADO` no puede utilizar la ruta de documentos personales.
 
+- Se implementó la carga de archivos documentales por parte del colaborador.
+- Se creó la API `POST /api/onboarding/documents/<id>/upload/`.
+- La carga utiliza `multipart/form-data`.
+- El colaborador solamente puede modificar documentos pertenecientes a su propia cuenta.
+- Se permite la carga cuando el documento está en `PENDING` o `NEEDS_CORRECTION`.
+- Al entregar un archivo, el documento cambia automáticamente a `DELIVERED`.
+- Se probó el flujo con el NDA de Peter Parker.
+- El archivo ficticio fue almacenado correctamente en `media/onboarding/collaborator_files/`.
+
 
 
 
@@ -185,11 +194,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Implementar la carga de archivos del colaborador.
-2. Comenzar con el flujo del NDA.
-3. Permitir que el colaborador entregue o firme su documento.
-4. Permitir posteriormente la revisión por parte del encargado.
-5. Relacionar el progreso documental con el estado visual de las tarjetas.
+1. Crear la consulta de documentos pendientes para el encargado.
+2. Permitir al encargado revisar documentos entregados.
+3. Implementar aceptación o solicitud de corrección.
+4. Mostrar el motivo de corrección al colaborador.
+5. Continuar después con los flujos específicos de firma y devolución.
 \---
 
 ## Idea principal del sistema

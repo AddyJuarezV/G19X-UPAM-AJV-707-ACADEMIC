@@ -567,3 +567,32 @@ Cada colaborador puede consultar únicamente la documentación asociada a su pro
 ### Próximo paso
 
 Implementar las acciones de carga y avance documental, comenzando con el flujo del NDA.
+
+---
+
+## 12 de octubre de 2026
+
+### Actividad
+
+Implementación de la entrega de documentos por parte del colaborador.
+
+### Trabajo realizado
+
+- Se creó la API para cargar archivos documentales.
+- Se configuró el procesamiento de solicitudes `multipart/form-data`.
+- Se restringió la acción al rol `COLABORADOR`.
+- Se validó que un colaborador solo pueda cargar archivos en sus propios documentos.
+- Se permitió la carga en estados `PENDING` y `NEEDS_CORRECTION`.
+- Al entregar un archivo, el estado cambia automáticamente a `DELIVERED`.
+- Se utilizó un archivo ficticio para probar el NDA de Peter Parker.
+- El NDA cambió correctamente de `PENDING` a `DELIVERED`.
+- El archivo fue almacenado físicamente en `backend/media/onboarding/collaborator_files/`.
+- Los otros documentos de Peter permanecieron en estado `PENDING`.
+
+### Resultado
+
+El sistema ya permite que un colaborador entregue documentación real y mantiene sincronizados el archivo almacenado y el estado del proceso.
+
+### Próximo paso
+
+Implementar la bandeja de documentos entregados para que el encargado pueda revisarlos, aceptarlos o solicitar correcciones.

@@ -177,3 +177,34 @@ class OnboardingDocumentSerializer(serializers.ModelSerializer):
         )
 
         read_only_fields = fields
+
+class CollaboratorDocumentUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnboardingDocument
+        fields = (
+            "collaborator_file",
+        )
+
+    def validate_collaborator_file(self, value):
+        if not value:
+            raise serializers.ValidationError(
+                "Debes seleccionar un archivo."
+            )
+
+        return value
+
+    def update(self, instance, validated_data):
+        instance.collaborator_file = validated_data["collaborator_file"]
+        instance.status = OnboardingDocument.Status.DELIVERED
+        instance.correction_reason = ""
+
+        instance.save(
+            update_fields=[
+                "collaborator_file",
+                "status",
+                "correction_reason",
+                "updated_at",
+            ]
+        )
+
+        return instance

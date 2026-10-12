@@ -4,6 +4,7 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import FormParser, MultiPartParser
 
 from accounts.models import CollaboratorProfile
 
@@ -18,6 +19,7 @@ from .serializers import (
     GenerationSerializer,
     AvailableCollaboratorSerializer,
     OnboardingDocumentSerializer,
+    CollaboratorDocumentUploadSerializer,
 )
 
 
@@ -188,4 +190,61 @@ class MyOnboardingDocumentsView(generics.ListAPIView):
             OnboardingDocument.objects
             .filter(collaborator=collaborator)
             .order_by("document_type")
+        )
+
+class UploadMyOnboardingDocumentView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, pk):
+        if request.user.role != request.user.Role.COLABORADOR:
+            raise PermissionDenied(
+                "Solo los colaboradores pueden subir sus documentos."
+            )
+
+        collaborator = get_object_or_404(
+            CollaboratorProfile,
+            user=request.user,
+        )
+
+        document = get_object_or_404(
+            OnboardingDocument,
+            pk=pk,
+            collaborator=collaborator,
+        )
+
+        allowed_statuses = {
+            OnboardingDocument.Status.PENDING,
+            OnboardingDocument.Status.NEEDS_CORRECTION,
+        }
+
+        if document.status not in allowed_statuses:
+            return Response(
+                {
+                    "detail": (
+                        "Este documento no se encuentra disponible "
+                        "para carga."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = CollaboratorDocumentUploadSerializer(
+            document,
+            data=request.data,
+            partial=True,
+        )
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {
+                "message": "Documento entregado correctamente.",
+                "document": OnboardingDocumentSerializer(
+                    document,
+                    context={"request": request},
+                ).data,
+            },
+            status=status.HTTP_200_OK,
         )

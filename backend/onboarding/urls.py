@@ -8,6 +8,7 @@ from .views import (
     GenerationDetailView,
     GenerationListView,
     MyOnboardingDocumentsView,
+    UploadMyOnboardingDocumentView,
 )
 
 
@@ -52,6 +53,12 @@ urlpatterns = [
     "documents/mine/",
     MyOnboardingDocumentsView.as_view(),
     name="my-onboarding-documents",
+    ),
+  
+    path(
+    "documents/<int:pk>/upload/",
+    UploadMyOnboardingDocumentView.as_view(),
+    name="upload-my-onboarding-document",
     ),
 
 ]
