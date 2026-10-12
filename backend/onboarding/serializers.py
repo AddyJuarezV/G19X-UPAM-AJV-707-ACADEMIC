@@ -1,7 +1,10 @@
 from rest_framework import serializers
 
-from .models import Generation, GenerationMembership
-
+from .models import (
+    Generation,
+    GenerationMembership,
+    OnboardingDocument,
+)
 
 class GenerationMemberSerializer(serializers.ModelSerializer):
     collaborator_id = serializers.IntegerField(
@@ -145,3 +148,32 @@ class AvailableCollaboratorSerializer(serializers.ModelSerializer):
             "required_hours",
             "application_status",
         )
+
+class OnboardingDocumentSerializer(serializers.ModelSerializer):
+    document_type_label = serializers.CharField(
+        source="get_document_type_display",
+        read_only=True,
+    )
+
+    status_label = serializers.CharField(
+        source="get_status_display",
+        read_only=True,
+    )
+
+    class Meta:
+        model = OnboardingDocument
+        fields = (
+            "id",
+            "document_type",
+            "document_type_label",
+            "status",
+            "status_label",
+            "company_template",
+            "collaborator_file",
+            "company_signed_file",
+            "correction_reason",
+            "created_at",
+            "updated_at",
+        )
+
+        read_only_fields = fields

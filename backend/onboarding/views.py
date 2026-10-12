@@ -7,12 +7,17 @@ from rest_framework.views import APIView
 
 from accounts.models import CollaboratorProfile
 
-from .models import Generation, GenerationMembership
+from .models import (
+    Generation,
+    GenerationMembership,
+    OnboardingDocument,
+)
 from .serializers import (
     GenerationCreateSerializer,
     GenerationMembershipCreateSerializer,
     GenerationSerializer,
     AvailableCollaboratorSerializer,
+    OnboardingDocumentSerializer,
 )
 
 
@@ -162,4 +167,25 @@ class AvailableCollaboratorsView(generics.ListAPIView):
             )
             .select_related("user")
             .order_by("full_name")
+        )
+
+class MyOnboardingDocumentsView(generics.ListAPIView):
+    serializer_class = OnboardingDocumentSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        if self.request.user.role != self.request.user.Role.COLABORADOR:
+            raise PermissionDenied(
+                "Solo los colaboradores pueden consultar sus documentos."
+            )
+
+        collaborator = get_object_or_404(
+            CollaboratorProfile,
+            user=self.request.user,
+        )
+
+        return (
+            OnboardingDocument.objects
+            .filter(collaborator=collaborator)
+            .order_by("document_type")
         )

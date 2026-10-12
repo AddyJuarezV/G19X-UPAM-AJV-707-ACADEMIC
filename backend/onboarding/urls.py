@@ -7,6 +7,7 @@ from .views import (
     GenerationCreateView,
     GenerationDetailView,
     GenerationListView,
+    MyOnboardingDocumentsView,
 )
 
 
@@ -45,6 +46,12 @@ urlpatterns = [
     "generations/<int:pk>/",
     GenerationDetailView.as_view(),
     name="generation-detail",
+    ),
+
+    path(
+    "documents/mine/",
+    MyOnboardingDocumentsView.as_view(),
+    name="my-onboarding-documents",
     ),
 
 ]

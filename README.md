@@ -159,6 +159,13 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se crearon seis documentos de prueba para Peter Parker y Miles Morales.
 - Se validó en PostgreSQL que un colaborador no pueda tener dos documentos del mismo tipo.
 
+- Se creó la API `GET /api/onboarding/documents/mine/`.
+- La API permite que cada colaborador consulte únicamente sus propios documentos.
+- Se agregaron etiquetas legibles para tipo de documento y estado.
+- Se comprobó que Peter Parker recibe exactamente sus tres documentos.
+- Se comprobó que los tres documentos se encuentran inicialmente en estado `PENDING`.
+- Se comprobó que el rol `ENCARGADO` no puede utilizar la ruta de documentos personales.
+
 
 
 
@@ -178,11 +185,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la API para que el colaborador consulte sus documentos de incorporación.
-2. Mostrar tipo, estado, archivos disponibles y motivo de corrección.
-3. Implementar posteriormente las acciones específicas de NDA, Carta de presentación y Carta de aceptación.
-4. Relacionar el avance documental con el estado visual de las tarjetas.
-5. Preparar posteriormente el frontend React.
+1. Implementar la carga de archivos del colaborador.
+2. Comenzar con el flujo del NDA.
+3. Permitir que el colaborador entregue o firme su documento.
+4. Permitir posteriormente la revisión por parte del encargado.
+5. Relacionar el progreso documental con el estado visual de las tarjetas.
 \---
 
 ## Idea principal del sistema

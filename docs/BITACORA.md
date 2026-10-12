@@ -537,3 +537,33 @@ El sistema ya cuenta con una estructura persistente para controlar los documento
 ### Próximo paso
 
 Crear la API mediante la cual cada colaborador pueda consultar el estado de sus propios documentos de incorporación.
+
+---
+
+## 12 de octubre de 2026
+
+### Actividad
+
+Implementación de la API de documentos personales del colaborador.
+
+### Trabajo realizado
+
+- Se creó la API `GET /api/onboarding/documents/mine/`.
+- La API obtiene al colaborador a partir del usuario autenticado mediante JWT.
+- No se utiliza un identificador manual del colaborador para consultar sus documentos.
+- Se creó el serializador de documentos de incorporación.
+- Se incluyen tipo de documento, nombre legible, estado, archivos y motivo de corrección.
+- Se inició sesión como Peter Parker.
+- Peter recibió exactamente tres documentos.
+- Los tres documentos se encontraron en estado `PENDING`.
+- No se mostraron documentos pertenecientes a Miles Morales.
+- Se intentó acceder a la misma ruta con el rol `ENCARGADO`.
+- El backend rechazó correctamente el acceso del encargado.
+
+### Resultado
+
+Cada colaborador puede consultar únicamente la documentación asociada a su propia cuenta, manteniendo separación entre usuarios y roles.
+
+### Próximo paso
+
+Implementar las acciones de carga y avance documental, comenzando con el flujo del NDA.
