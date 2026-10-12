@@ -499,3 +499,41 @@ El backend ya entrega la información necesaria para que el futuro frontend repr
 ### Próximo paso
 
 Definir el estado visual de las tarjetas y comenzar el módulo de documentación del proceso de incorporación.
+
+---
+
+## 12 de octubre de 2026
+
+### Actividad
+
+Creación del modelo de documentación del proceso de incorporación.
+
+### Trabajo realizado
+
+- Se creó el modelo `OnboardingDocument`.
+- Se definieron tres tipos de documentos:
+  - NDA.
+  - Carta de presentación.
+  - Carta de aceptación.
+- Se incorporaron diferentes estados para representar el flujo documental.
+- Se agregaron campos para almacenar:
+  - plantilla proporcionada por la empresa;
+  - archivo entregado por el colaborador;
+  - archivo firmado o devuelto por la empresa;
+  - motivo de corrección.
+- Se creó la migración `0002_onboardingdocument`.
+- La migración fue aplicada correctamente en PostgreSQL.
+- El modelo fue registrado en Django Admin.
+- Se crearon tres documentos iniciales para Peter Parker.
+- Se crearon tres documentos iniciales para Miles Morales.
+- Se verificó un total de seis documentos.
+- Se comprobó la restricción de unicidad intentando crear un segundo NDA para Peter Parker.
+- PostgreSQL rechazó correctamente el duplicado mediante `unique_document_per_collaborator`.
+
+### Resultado
+
+El sistema ya cuenta con una estructura persistente para controlar los documentos que forman parte del proceso de incorporación de cada colaborador.
+
+### Próximo paso
+
+Crear la API mediante la cual cada colaborador pueda consultar el estado de sus propios documentos de incorporación.

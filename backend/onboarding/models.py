@@ -91,3 +91,95 @@ class GenerationMembership(models.Model):
             f"{self.collaborator.university_acronym} / "
             f"{self.generation}"
         )
+
+class OnboardingDocument(models.Model):
+    class DocumentType(models.TextChoices):
+        NDA = "NDA", "NDA"
+        PRESENTATION_LETTER = (
+            "PRESENTATION_LETTER",
+            "Carta de presentación",
+        )
+        ACCEPTANCE_LETTER = (
+            "ACCEPTANCE_LETTER",
+            "Carta de aceptación",
+        )
+
+    class Status(models.TextChoices):
+        PENDING = "PENDING", "Pendiente"
+        DELIVERED = "DELIVERED", "Entregado"
+        IN_REVIEW = "IN_REVIEW", "En revisión"
+        NEEDS_CORRECTION = (
+            "NEEDS_CORRECTION",
+            "Corrección solicitada",
+        )
+        PENDING_SIGNATURE = (
+            "PENDING_SIGNATURE",
+            "Pendiente de firma",
+        )
+        SIGNED = "SIGNED", "Firmado"
+        DOWNLOADABLE = "DOWNLOADABLE", "Disponible para descarga"
+        COMPLETE = "COMPLETE", "Completo"
+
+    collaborator = models.ForeignKey(
+        CollaboratorProfile,
+        on_delete=models.PROTECT,
+        related_name="onboarding_documents",
+    )
+
+    document_type = models.CharField(
+        max_length=30,
+        choices=DocumentType.choices,
+    )
+
+    status = models.CharField(
+        max_length=30,
+        choices=Status.choices,
+        default=Status.PENDING,
+    )
+
+    company_template = models.FileField(
+        upload_to="onboarding/templates/",
+        blank=True,
+        null=True,
+    )
+
+    collaborator_file = models.FileField(
+        upload_to="onboarding/collaborator_files/",
+        blank=True,
+        null=True,
+    )
+
+    company_signed_file = models.FileField(
+        upload_to="onboarding/signed/",
+        blank=True,
+        null=True,
+    )
+
+    correction_reason = models.TextField(
+        blank=True,
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "collaborator",
+                    "document_type",
+                ],
+                name="unique_document_per_collaborator",
+            )
+        ]
+
+    def __str__(self):
+        return (
+            f"{self.collaborator.full_name} - "
+            f"{self.get_document_type_display()}"
+        )

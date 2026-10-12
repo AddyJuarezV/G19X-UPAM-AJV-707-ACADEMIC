@@ -150,6 +150,15 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se agregó el formato `card_label` para representar las tarjetas como `Nombre - SIGLAS`.
 - Se comprobó correctamente la Generación 19 con Peter Parker - UPAM y Miles Morales - UTP.
 
+- Se creó el modelo `OnboardingDocument` para controlar la documentación del proceso de incorporación.
+- Se definieron los tipos de documento: NDA, Carta de presentación y Carta de aceptación.
+- Se definieron estados documentales como `PENDING`, `DELIVERED`, `IN_REVIEW`, `NEEDS_CORRECTION`, `PENDING_SIGNATURE`, `SIGNED`, `DOWNLOADABLE` y `COMPLETE`.
+- Se agregaron campos para plantilla de empresa, archivo del colaborador y archivo firmado por la empresa.
+- Se creó y aplicó la migración `0002_onboardingdocument`.
+- El modelo se registró en Django Admin.
+- Se crearon seis documentos de prueba para Peter Parker y Miles Morales.
+- Se validó en PostgreSQL que un colaborador no pueda tener dos documentos del mismo tipo.
+
 
 
 
@@ -169,10 +178,10 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Definir el estado visual general de cada tarjeta.
-2. Preparar la lógica para verde, amarillo y rojo.
-3. Comenzar el módulo de documentación de incorporación.
-4. Relacionar los documentos con cada colaborador.
+1. Crear la API para que el colaborador consulte sus documentos de incorporación.
+2. Mostrar tipo, estado, archivos disponibles y motivo de corrección.
+3. Implementar posteriormente las acciones específicas de NDA, Carta de presentación y Carta de aceptación.
+4. Relacionar el avance documental con el estado visual de las tarjetas.
 5. Preparar posteriormente el frontend React.
 \---
 

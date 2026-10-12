@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.db.models import Q
 
 from accounts.models import CollaboratorProfile
-from .models import Generation, GenerationMembership
+from .models import Generation, GenerationMembership, OnboardingDocument
 
 
 @admin.register(Generation)
@@ -93,4 +93,33 @@ class GenerationMembershipAdmin(admin.ModelAdmin):
 
     readonly_fields = (
         "assigned_at",
+    )
+
+@admin.register(OnboardingDocument)
+class OnboardingDocumentAdmin(admin.ModelAdmin):
+    list_display = (
+        "collaborator",
+        "document_type",
+        "status",
+        "updated_at",
+    )
+
+    list_filter = (
+        "document_type",
+        "status",
+    )
+
+    search_fields = (
+        "collaborator__full_name",
+        "collaborator__user__email",
+        "collaborator__university_acronym",
+    )
+
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
+
+    ordering = (
+        "-updated_at",
     )
