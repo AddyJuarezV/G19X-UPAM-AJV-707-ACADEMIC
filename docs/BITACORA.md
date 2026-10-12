@@ -596,3 +596,45 @@ El sistema ya permite que un colaborador entregue documentación real y mantiene
 ### Próximo paso
 
 Implementar la bandeja de documentos entregados para que el encargado pueda revisarlos, aceptarlos o solicitar correcciones.
+
+---
+
+## 12 de octubre de 2026
+
+### Actividad
+
+Implementación del flujo de revisión, corrección, firma y finalización de documentos.
+
+### Trabajo realizado
+
+- Se creó la bandeja de documentos pendientes para el encargado.
+- La bandeja muestra documentos en estado `DELIVERED`.
+- Se implementó la revisión documental por parte del encargado.
+- El encargado puede aprobar o solicitar corrección.
+- La solicitud de corrección requiere un motivo.
+- El colaborador puede consultar el motivo desde su propia cuenta.
+- Se comprobó el ciclo `DELIVERED → NEEDS_CORRECTION → DELIVERED`.
+- Se implementó eliminación automática de archivos anteriores al subir una corrección.
+- Se comprobó que los archivos reemplazados ya no permanecen en `media`.
+- Se definió que el NDA pasa a `COMPLETE` al ser aprobado.
+- Se completó el flujo completo del NDA de Peter Parker.
+- Se definió que las cartas pasan a `PENDING_SIGNATURE` después de ser aprobadas.
+- Se implementó la carga del documento firmado por la empresa.
+- El documento firmado pasa a estado `DOWNLOADABLE`.
+- Se implementó la confirmación de recepción por parte del colaborador.
+- Después de confirmar la recepción, el documento pasa a `COMPLETE`.
+- Se completó el flujo completo de la Carta de presentación de Peter Parker.
+
+### Resultado
+
+El sistema ya soporta revisión, correcciones, reemplazo de archivos, firma por parte de la empresa, devolución al colaborador y finalización de documentos.
+
+Actualmente Peter Parker tiene:
+
+- NDA: `COMPLETE`.
+- Carta de presentación: `COMPLETE`.
+- Carta de aceptación: `PENDING`.
+
+### Próximo paso
+
+Implementar el flujo específico de la Carta de aceptación, comenzando con la publicación de una plantilla por parte de la empresa.

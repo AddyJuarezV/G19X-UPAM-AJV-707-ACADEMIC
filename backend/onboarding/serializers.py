@@ -194,6 +194,11 @@ class CollaboratorDocumentUploadSerializer(serializers.ModelSerializer):
         return value
 
     def update(self, instance, validated_data):
+        old_file = instance.collaborator_file
+
+        old_name = old_file.name if old_file else None
+        old_storage = old_file.storage if old_file else None
+
         instance.collaborator_file = validated_data["collaborator_file"]
         instance.status = OnboardingDocument.Status.DELIVERED
         instance.correction_reason = ""
@@ -206,5 +211,157 @@ class CollaboratorDocumentUploadSerializer(serializers.ModelSerializer):
                 "updated_at",
             ]
         )
+
+        new_name = (
+            instance.collaborator_file.name
+            if instance.collaborator_file
+            else None
+        )
+
+        if (
+            old_name
+            and old_storage
+            and old_name != new_name
+            and old_storage.exists(old_name)
+        ):
+            old_storage.delete(old_name)
+
+        return instance
+
+class ManagerPendingDocumentSerializer(serializers.ModelSerializer):
+    collaborator_id = serializers.IntegerField(
+        source="collaborator.id",
+        read_only=True,
+    )
+
+    collaborator_name = serializers.CharField(
+        source="collaborator.full_name",
+        read_only=True,
+    )
+
+    university_acronym = serializers.CharField(
+        source="collaborator.university_acronym",
+        read_only=True,
+    )
+
+    collaborator_label = serializers.SerializerMethodField()
+
+    document_type_label = serializers.CharField(
+        source="get_document_type_display",
+        read_only=True,
+    )
+
+    status_label = serializers.CharField(
+        source="get_status_display",
+        read_only=True,
+    )
+
+    class Meta:
+        model = OnboardingDocument
+        fields = (
+            "id",
+            "collaborator_id",
+            "collaborator_name",
+            "university_acronym",
+            "collaborator_label",
+            "document_type",
+            "document_type_label",
+            "status",
+            "status_label",
+            "collaborator_file",
+            "correction_reason",
+            "updated_at",
+        )
+
+        read_only_fields = fields
+
+    def get_collaborator_label(self, obj):
+        return (
+            f"{obj.collaborator.full_name} - "
+            f"{obj.collaborator.university_acronym}"
+        )
+
+class ManagerDocumentReviewSerializer(serializers.Serializer):
+    decision = serializers.ChoiceField(
+        choices=(
+            ("APPROVE", "Aprobar"),
+            ("REQUEST_CORRECTION", "Solicitar corrección"),
+        )
+    )
+
+    correction_reason = serializers.CharField(
+        required=False,
+        allow_blank=True,
+    )
+
+    def validate(self, attrs):
+        decision = attrs["decision"]
+        correction_reason = attrs.get(
+            "correction_reason",
+            "",
+        ).strip()
+
+        if (
+            decision == "REQUEST_CORRECTION"
+            and not correction_reason
+        ):
+            raise serializers.ValidationError(
+                {
+                    "correction_reason": (
+                        "Debes indicar el motivo de la corrección."
+                    )
+                }
+            )
+
+        attrs["correction_reason"] = correction_reason
+
+        return attrs
+
+class CompanySignedDocumentUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnboardingDocument
+        fields = (
+            "company_signed_file",
+        )
+
+    def validate_company_signed_file(self, value):
+        if not value:
+            raise serializers.ValidationError(
+                "Debes seleccionar el documento firmado."
+            )
+
+        return value
+
+    def update(self, instance, validated_data):
+        old_file = instance.company_signed_file
+        old_name = old_file.name if old_file else None
+        old_storage = old_file.storage if old_file else None
+
+        instance.company_signed_file = validated_data[
+            "company_signed_file"
+        ]
+        instance.status = OnboardingDocument.Status.DOWNLOADABLE
+
+        instance.save(
+            update_fields=[
+                "company_signed_file",
+                "status",
+                "updated_at",
+            ]
+        )
+
+        new_name = (
+            instance.company_signed_file.name
+            if instance.company_signed_file
+            else None
+        )
+
+        if (
+            old_name
+            and old_storage
+            and old_name != new_name
+            and old_storage.exists(old_name)
+        ):
+            old_storage.delete(old_name)
 
         return instance

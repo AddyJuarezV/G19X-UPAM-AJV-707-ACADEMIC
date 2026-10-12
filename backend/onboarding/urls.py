@@ -9,6 +9,10 @@ from .views import (
     GenerationListView,
     MyOnboardingDocumentsView,
     UploadMyOnboardingDocumentView,
+    ManagerPendingDocumentsView,
+    ManagerReviewDocumentView,
+    UploadCompanySignedDocumentView,
+    ConfirmMyDocumentReceiptView,
 )
 
 
@@ -59,6 +63,30 @@ urlpatterns = [
     "documents/<int:pk>/upload/",
     UploadMyOnboardingDocumentView.as_view(),
     name="upload-my-onboarding-document",
+    ),
+
+    path(
+    "documents/pending/",
+    ManagerPendingDocumentsView.as_view(),
+    name="manager-pending-documents",
+    ),
+
+    path(
+    "documents/<int:pk>/review/",
+    ManagerReviewDocumentView.as_view(),
+    name="manager-review-document",
+    ),
+
+    path(
+    "documents/<int:pk>/company-sign/",
+    UploadCompanySignedDocumentView.as_view(),
+    name="upload-company-signed-document",
+    ),
+
+    path(
+    "documents/<int:pk>/confirm-receipt/",
+    ConfirmMyDocumentReceiptView.as_view(),
+    name="confirm-my-document-receipt",
     ),
 
 ]

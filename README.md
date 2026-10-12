@@ -175,6 +175,21 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se probó el flujo con el NDA de Peter Parker.
 - El archivo ficticio fue almacenado correctamente en `media/onboarding/collaborator_files/`.
 
+- Se creó la bandeja de documentos pendientes para el encargado.
+- Los documentos en estado `DELIVERED` aparecen automáticamente para revisión.
+- El encargado puede aprobar un documento o solicitar corrección.
+- La solicitud de corrección guarda un motivo visible para el colaborador.
+- El colaborador puede volver a cargar un documento en `NEEDS_CORRECTION`.
+- Al reemplazar un archivo, el sistema elimina automáticamente la versión anterior del almacenamiento.
+- El NDA pasa directamente a `COMPLETE` cuando el encargado lo aprueba.
+- La Carta de presentación pasa a `PENDING_SIGNATURE` cuando es aprobada.
+- Se implementó la carga del documento firmado por la empresa.
+- Después de la firma de la empresa, el documento pasa a `DOWNLOADABLE`.
+- El colaborador puede confirmar la recepción del documento.
+- Al confirmar la recepción, el documento pasa a `COMPLETE`.
+- Se probó completamente el flujo del NDA de Peter Parker.
+- Se probó completamente el flujo de la Carta de presentación de Peter Parker.
+
 
 
 
@@ -194,11 +209,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Crear la consulta de documentos pendientes para el encargado.
-2. Permitir al encargado revisar documentos entregados.
-3. Implementar aceptación o solicitud de corrección.
-4. Mostrar el motivo de corrección al colaborador.
-5. Continuar después con los flujos específicos de firma y devolución.
+1. Implementar el flujo de la Carta de aceptación.
+2. Permitir que la empresa publique una plantilla.
+3. Permitir que el colaborador complete y entregue esa plantilla.
+4. Permitir revisión, corrección, firma y devolución.
+5. Relacionar el avance documental con los colores de las tarjetas.
 \---
 
 ## Idea principal del sistema
