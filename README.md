@@ -199,6 +199,16 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Peter Parker completó correctamente los tres documentos principales del proceso de incorporación.
 - Se comprobó la existencia física de los archivos firmados por la empresa.
 
+- Se implementó el cálculo automático del estado visual de los colaboradores.
+- Las tarjetas utilizan los estados `GREEN`, `YELLOW` y `RED`.
+- `GREEN` indica que los tres documentos requeridos están en `COMPLETE`.
+- `RED` indica que existe al menos un documento en `NEEDS_CORRECTION`.
+- `YELLOW` representa cualquier otro estado normal del proceso.
+- Se agregó el conteo de documentos completados y documentos totales.
+- Se comprobó a Peter Parker - UPAM en `GREEN` con 3/3 documentos completos.
+- Se comprobó a Miles Morales - UTP inicialmente en `YELLOW`.
+- Después de solicitar una corrección documental a Miles Morales, su tarjeta cambió automáticamente a `RED`.
+
 
 
 
@@ -217,11 +227,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Calcular el estado visual de cada colaborador a partir de sus documentos.
-2. Implementar los colores verde, amarillo y rojo en las tarjetas.
-3. Mostrar el estado documental dentro del detalle de una generación.
-4. Preparar el panel visual para el frontend React.
-5. Continuar después con los pendientes generales del encargado.
+1. Mostrar el detalle documental de cada colaborador dentro de la generación.
+2. Preparar la información necesaria para el frontend React.
+3. Crear el tablero visual de generaciones y tarjetas.
+4. Mostrar los colores verde, amarillo y rojo en la interfaz.
+5. Integrar posteriormente los pendientes del encargado en el frontend.
 \---
 
 ## Idea principal del sistema

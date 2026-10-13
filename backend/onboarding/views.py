@@ -44,8 +44,9 @@ class GenerationListView(generics.ListAPIView):
         return (
             Generation.objects
             .prefetch_related(
-                "members__collaborator"
-            )
+               "members__collaborator",
+               "members__collaborator__onboarding_documents",
+              )
             .order_by("-number")
         )
 
@@ -59,7 +60,8 @@ class GenerationDetailView(generics.RetrieveAPIView):
         return (
             Generation.objects
             .prefetch_related(
-                "members__collaborator"
+                 "members__collaborator",
+                 "members__collaborator__onboarding_documents",
             )
         )
 

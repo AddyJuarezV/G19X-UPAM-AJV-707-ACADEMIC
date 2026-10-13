@@ -677,3 +677,40 @@ El sistema ya soporta los principales flujos documentales definidos para el MVP.
 ### Próximo paso
 
 Utilizar el estado de los documentos para calcular automáticamente el estado visual de cada colaborador dentro de las generaciones.
+
+---
+
+## 13 de octubre de 2026
+
+### Actividad
+
+Implementación del estado visual automático de las tarjetas de colaboradores.
+
+### Trabajo realizado
+
+- Se agregó el cálculo del estado visual en las tarjetas de generación.
+- Se definieron tres estados:
+  - `GREEN`: todos los documentos requeridos están completos.
+  - `YELLOW`: incorporación en proceso sin correcciones pendientes.
+  - `RED`: existe al menos un documento que requiere corrección.
+- Se agregó el número de documentos completados.
+- Se agregó el número total de documentos.
+- Se optimizaron las consultas precargando la documentación de los colaboradores.
+- Peter Parker fue identificado automáticamente como `GREEN` con 3 de 3 documentos completos.
+- Miles Morales fue identificado inicialmente como `YELLOW`.
+- Miles entregó una Carta de presentación de prueba.
+- El encargado solicitó una corrección.
+- La tarjeta de Miles cambió automáticamente de `YELLOW` a `RED`.
+
+### Resultado
+
+El tablero de generaciones ya puede determinar automáticamente el estado visual de cada colaborador a partir de su avance documental.
+
+Ejemplo comprobado:
+
+- Peter Parker - UPAM: `GREEN`, 3/3 documentos completos.
+- Miles Morales - UTP: `RED`, 0/3 documentos completos y una corrección pendiente.
+
+### Próximo paso
+
+Preparar el detalle documental de cada tarjeta y comenzar la construcción del frontend React del tablero de generaciones.

@@ -6,6 +6,7 @@ from .models import (
     OnboardingDocument,
 )
 
+ 
 class GenerationMemberSerializer(serializers.ModelSerializer):
     collaborator_id = serializers.IntegerField(
         source="collaborator.id",
@@ -38,6 +39,9 @@ class GenerationMemberSerializer(serializers.ModelSerializer):
     )
 
     card_label = serializers.SerializerMethodField()
+    visual_status = serializers.SerializerMethodField()
+    documents_completed = serializers.SerializerMethodField()
+    documents_total = serializers.SerializerMethodField()
 
     class Meta:
         model = GenerationMembership
@@ -50,6 +54,9 @@ class GenerationMemberSerializer(serializers.ModelSerializer):
             "university_acronym",
             "career",
             "application_status",
+            "visual_status",
+            "documents_completed",
+            "documents_total",
             "assigned_at",
         )
 
@@ -59,6 +66,52 @@ class GenerationMemberSerializer(serializers.ModelSerializer):
             f"{obj.collaborator.university_acronym}"
         )
 
+    def _documents(self, obj):
+        return list(
+            obj.collaborator.onboarding_documents.all()
+        )
+
+    def get_documents_total(self, obj):
+        return len(self._documents(obj))
+
+    def get_documents_completed(self, obj):
+        return sum(
+            document.status == OnboardingDocument.Status.COMPLETE
+            for document in self._documents(obj)
+        )
+
+    def get_visual_status(self, obj):
+        documents = self._documents(obj)
+
+        if any(
+            document.status
+            == OnboardingDocument.Status.NEEDS_CORRECTION
+            for document in documents
+        ):
+            return "RED"
+
+        required_types = {
+            OnboardingDocument.DocumentType.NDA,
+            OnboardingDocument.DocumentType.PRESENTATION_LETTER,
+            OnboardingDocument.DocumentType.ACCEPTANCE_LETTER,
+        }
+
+        documents_by_type = {
+            document.document_type: document
+            for document in documents
+        }
+
+        all_required_complete = all(
+            document_type in documents_by_type
+            and documents_by_type[document_type].status
+            == OnboardingDocument.Status.COMPLETE
+            for document_type in required_types
+        )
+
+        if all_required_complete:
+            return "GREEN"
+
+        return "YELLOW"
 
 class GenerationSerializer(serializers.ModelSerializer):
     members = GenerationMemberSerializer(
