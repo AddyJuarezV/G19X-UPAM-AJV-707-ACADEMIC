@@ -638,3 +638,42 @@ Actualmente Peter Parker tiene:
 ### Próximo paso
 
 Implementar el flujo específico de la Carta de aceptación, comenzando con la publicación de una plantilla por parte de la empresa.
+
+---
+
+## 13 de octubre de 2026
+
+### Actividad
+
+Implementación y validación del flujo completo de la Carta de aceptación.
+
+### Trabajo realizado
+
+- Se implementó la publicación de plantillas por parte del encargado.
+- Se restringió la entrega de la Carta de aceptación hasta que exista una plantilla.
+- Se comprobó que el sistema rechaza correctamente una entrega sin plantilla.
+- El encargado publicó una plantilla ficticia para Peter Parker.
+- Peter pudo consultar la plantilla desde su cuenta.
+- Peter entregó la Carta de aceptación llenada.
+- El documento apareció automáticamente en los pendientes del encargado.
+- El encargado aprobó la Carta de aceptación.
+- El documento pasó a `PENDING_SIGNATURE`.
+- La empresa cargó la versión firmada.
+- El documento pasó a `DOWNLOADABLE`.
+- Peter confirmó la recepción del documento.
+- La Carta de aceptación pasó finalmente a `COMPLETE`.
+- Se verificó que los archivos firmados se almacenan correctamente.
+
+### Resultado
+
+Peter Parker completó los tres documentos principales del proceso de incorporación:
+
+- NDA: `COMPLETE`.
+- Carta de presentación: `COMPLETE`.
+- Carta de aceptación: `COMPLETE`.
+
+El sistema ya soporta los principales flujos documentales definidos para el MVP.
+
+### Próximo paso
+
+Utilizar el estado de los documentos para calcular automáticamente el estado visual de cada colaborador dentro de las generaciones.

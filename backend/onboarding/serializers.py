@@ -365,3 +365,48 @@ class CompanySignedDocumentUploadSerializer(serializers.ModelSerializer):
             old_storage.delete(old_name)
 
         return instance
+
+class CompanyTemplateUploadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OnboardingDocument
+        fields = (
+            "company_template",
+        )
+
+    def validate_company_template(self, value):
+        if not value:
+            raise serializers.ValidationError(
+                "Debes seleccionar una plantilla."
+            )
+
+        return value
+
+    def update(self, instance, validated_data):
+        old_file = instance.company_template
+        old_name = old_file.name if old_file else None
+        old_storage = old_file.storage if old_file else None
+
+        instance.company_template = validated_data["company_template"]
+
+        instance.save(
+            update_fields=[
+                "company_template",
+                "updated_at",
+            ]
+        )
+
+        new_name = (
+            instance.company_template.name
+            if instance.company_template
+            else None
+        )
+
+        if (
+            old_name
+            and old_storage
+            and old_name != new_name
+            and old_storage.exists(old_name)
+        ):
+            old_storage.delete(old_name)
+
+        return instance

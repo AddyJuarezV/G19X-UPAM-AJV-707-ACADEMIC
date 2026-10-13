@@ -190,6 +190,14 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se probó completamente el flujo del NDA de Peter Parker.
 - Se probó completamente el flujo de la Carta de presentación de Peter Parker.
 
+- Se implementó el flujo específico de la Carta de aceptación.
+- La empresa puede publicar una plantilla para el colaborador.
+- El colaborador no puede entregar la Carta de aceptación antes de que exista una plantilla.
+- El colaborador puede consultar y utilizar la plantilla publicada.
+- La Carta de aceptación puede ser entregada, revisada, firmada y devuelta.
+- Se comprobó el flujo completo `PENDING → DELIVERED → PENDING_SIGNATURE → DOWNLOADABLE → COMPLETE`.
+- Peter Parker completó correctamente los tres documentos principales del proceso de incorporación.
+- Se comprobó la existencia física de los archivos firmados por la empresa.
 
 
 
@@ -209,11 +217,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Implementar el flujo de la Carta de aceptación.
-2. Permitir que la empresa publique una plantilla.
-3. Permitir que el colaborador complete y entregue esa plantilla.
-4. Permitir revisión, corrección, firma y devolución.
-5. Relacionar el avance documental con los colores de las tarjetas.
+1. Calcular el estado visual de cada colaborador a partir de sus documentos.
+2. Implementar los colores verde, amarillo y rojo en las tarjetas.
+3. Mostrar el estado documental dentro del detalle de una generación.
+4. Preparar el panel visual para el frontend React.
+5. Continuar después con los pendientes generales del encargado.
 \---
 
 ## Idea principal del sistema

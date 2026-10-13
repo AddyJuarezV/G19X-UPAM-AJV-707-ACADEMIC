@@ -23,6 +23,7 @@ from .serializers import (
     ManagerPendingDocumentSerializer,
     ManagerDocumentReviewSerializer,
     CompanySignedDocumentUploadSerializer,
+    CompanyTemplateUploadSerializer,
 )
 
 
@@ -216,6 +217,25 @@ class UploadMyOnboardingDocumentView(APIView):
             collaborator=collaborator,
         )
 
+        template_required_types = {
+            OnboardingDocument.DocumentType.NDA,
+            OnboardingDocument.DocumentType.ACCEPTANCE_LETTER,
+        }
+
+        if (
+            document.document_type in template_required_types
+            and not document.company_template
+        ):
+            return Response(
+                {
+                    "detail": (
+                        "La empresa todavía no ha publicado "
+                        "la plantilla de este documento."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
         allowed_statuses = {
             OnboardingDocument.Status.PENDING,
             OnboardingDocument.Status.NEEDS_CORRECTION,
@@ -250,7 +270,7 @@ class UploadMyOnboardingDocumentView(APIView):
                 ).data,
             },
             status=status.HTTP_200_OK,
-        )
+        ) 
 
 class ManagerPendingDocumentsView(generics.ListAPIView):
     serializer_class = ManagerPendingDocumentSerializer
@@ -465,6 +485,65 @@ class ConfirmMyDocumentReceiptView(APIView):
         return Response(
             {
                 "message": "Recepción del documento confirmada.",
+                "document": OnboardingDocumentSerializer(
+                    document,
+                    context={"request": request},
+                ).data,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+class UploadCompanyTemplateView(APIView):
+    permission_classes = [IsAuthenticated]
+    parser_classes = [MultiPartParser, FormParser]
+
+    def post(self, request, pk):
+        validate_manager(request.user)
+
+        document = get_object_or_404(
+            OnboardingDocument,
+            pk=pk,
+        )
+
+        allowed_types = {
+            OnboardingDocument.DocumentType.NDA,
+            OnboardingDocument.DocumentType.ACCEPTANCE_LETTER,
+        }
+
+        if document.document_type not in allowed_types:
+            return Response(
+                {
+                    "detail": (
+                        "Este tipo de documento no requiere "
+                        "una plantilla de la empresa."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        if document.status != OnboardingDocument.Status.PENDING:
+            return Response(
+                {
+                    "detail": (
+                        "La plantilla solo puede publicarse mientras "
+                        "el documento se encuentre en estado PENDING."
+                    )
+                },
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        serializer = CompanyTemplateUploadSerializer(
+            document,
+            data=request.data,
+            partial=True,
+        )
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {
+                "message": "Plantilla publicada correctamente.",
                 "document": OnboardingDocumentSerializer(
                     document,
                     context={"request": request},

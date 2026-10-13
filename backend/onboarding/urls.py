@@ -13,6 +13,7 @@ from .views import (
     ManagerReviewDocumentView,
     UploadCompanySignedDocumentView,
     ConfirmMyDocumentReceiptView,
+    UploadCompanyTemplateView,
 )
 
 
@@ -87,6 +88,12 @@ urlpatterns = [
     "documents/<int:pk>/confirm-receipt/",
     ConfirmMyDocumentReceiptView.as_view(),
     name="confirm-my-document-receipt",
+    ),
+
+    path(
+    "documents/<int:pk>/company-template/",
+    UploadCompanyTemplateView.as_view(),
+    name="upload-company-template",
     ),
 
 ]
