@@ -714,3 +714,55 @@ Ejemplo comprobado:
 ### Próximo paso
 
 Preparar el detalle documental de cada tarjeta y comenzar la construcción del frontend React del tablero de generaciones.
+
+---
+
+## 13 de octubre de 2026
+
+### Actividad
+
+Inicio del frontend React e integración con el backend de PluriOne.
+
+### Trabajo realizado
+
+- Se creó el proyecto frontend utilizando React y Vite.
+- Se instaló y configuró el entorno inicial de React.
+- Se creó una interfaz visual para el inicio de sesión.
+- Se configuró Vite para redirigir las peticiones `/api` hacia Django durante el desarrollo.
+- Se conectó el formulario de inicio de sesión con `POST /api/auth/login/`.
+- Se comprobó correctamente el inicio de sesión de Peter Parker desde la interfaz.
+- Se almacenan los tokens JWT de acceso y renovación en el navegador.
+- Se creó el endpoint `GET /api/accounts/me/`.
+- El nuevo endpoint permite conocer el correo y rol del usuario autenticado.
+- Para colaboradores también devuelve la información principal de su perfil.
+- Se implementó detección automática del rol después del inicio de sesión.
+- Los colaboradores y encargados reciben interfaces diferentes.
+- Se implementó restauración de sesión después de recargar el navegador.
+- Se agregó renovación automática del access token mediante el refresh token.
+- Se creó el primer dashboard del colaborador.
+- Se conectó el dashboard con los documentos reales almacenados en el backend.
+- Peter Parker mostró correctamente 100% de progreso y 3/3 documentos completos.
+- Se creó el primer dashboard del encargado.
+- El panel administrativo consume las generaciones reales mediante la API.
+- Se comprobó visualmente la Generación 19.
+- Peter Parker - UPAM se mostró automáticamente en estado verde.
+- Miles Morales - UTP se mostró automáticamente en estado rojo.
+- Se integró la consulta de documentos pendientes del encargado.
+- Se agregó navegación básica en la barra lateral.
+- Se comenzó a mejorar la experiencia visual mediante animaciones y una nueva transición de inicio de sesión.
+- Se aumentó la legibilidad general de la interfaz.
+
+### Resultado
+
+El proyecto ya cuenta con un frontend funcional conectado al backend.
+
+El mismo formulario de acceso identifica automáticamente el tipo de usuario:
+
+- `COLABORADOR`: accede al portal personal y consulta su progreso documental.
+- `ENCARGADO`: accede al tablero administrativo de generaciones y pendientes.
+
+Los datos mostrados en React provienen de las APIs de Django y de PostgreSQL y no están escritos manualmente en la interfaz.
+
+### Próximo paso
+
+Agregar un sistema de tres temas visuales, mejorar nuevamente el tamaño de la tipografía e implementar una pantalla de transición animada mientras se valida el inicio de sesión.

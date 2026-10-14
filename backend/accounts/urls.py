@@ -1,22 +1,21 @@
 from django.urls import path
 
-
-
+from .current_user import CurrentUserView
 from .views import (
     CollaboratorRegistrationView,
-    SubmitApplicationView,
-
-)
-
-from .views import (
-    CollaboratorRegistrationView,
-    PendingApplicationsView,
-    SubmitApplicationView,
-    ReviewApplicationView,
     MyCollaboratorProfileView,
+    PendingApplicationsView,
+    ReviewApplicationView,
+    SubmitApplicationView,
 )
+
 
 urlpatterns = [
+    path(
+        "me/",
+        CurrentUserView.as_view(),
+        name="current-user",
+    ),
     path(
         "register/",
         CollaboratorRegistrationView.as_view(),
@@ -28,21 +27,18 @@ urlpatterns = [
         name="application-submit",
     ),
     path(
-    "applications/pending/",
-    PendingApplicationsView.as_view(),
-    name="applications-pending",
+        "applications/pending/",
+        PendingApplicationsView.as_view(),
+        name="applications-pending",
     ),
-  
     path(
-    "applications/<int:pk>/review/",
-    ReviewApplicationView.as_view(),
-    name="application-review",
+        "applications/<int:pk>/review/",
+        ReviewApplicationView.as_view(),
+        name="application-review",
     ),
-
     path(
-    "profile/",
-    MyCollaboratorProfileView.as_view(),
-    name="my-collaborator-profile",
+        "profile/",
+        MyCollaboratorProfileView.as_view(),
+        name="my-collaborator-profile",
     ),
 ]
-

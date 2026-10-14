@@ -209,6 +209,29 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó a Miles Morales - UTP inicialmente en `YELLOW`.
 - Después de solicitar una corrección documental a Miles Morales, su tarjeta cambió automáticamente a `RED`.
 
+- Se inició la construcción del frontend con React y Vite.
+- Se creó una interfaz visual de inicio de sesión para PluriOne.
+- El login de React fue conectado con la autenticación JWT de Django.
+- Los tokens `access` y `refresh` se almacenan en el navegador después de iniciar sesión.
+- Se configuró el proxy de Vite para comunicar React con la API de Django durante el desarrollo.
+- Se creó `GET /api/accounts/me/` para identificar al usuario autenticado y su rol.
+- El frontend distingue automáticamente entre `COLABORADOR` y `ENCARGADO`.
+- Se implementó restauración de sesión al recargar la página.
+- Se implementó renovación automática del token de acceso utilizando el refresh token.
+- Se creó el primer panel del colaborador.
+- El panel del colaborador muestra nombre, universidad, carrera, estado de solicitud y progreso documental.
+- El frontend consulta los documentos reales del colaborador mediante la API.
+- Se comprobó a Peter Parker con 3/3 documentos completos y 100% de progreso.
+- Se creó el primer panel del encargado.
+- El panel del encargado consume las generaciones reales del backend.
+- Se muestran las generaciones abiertas y cerradas disponibles.
+- Se muestran las tarjetas de colaboradores con sus estados visuales automáticos.
+- Peter Parker - UPAM aparece en verde con 3/3 documentos completos.
+- Miles Morales - UTP aparece en rojo porque requiere corrección.
+- Se integró el panel de documentos pendientes del encargado.
+- Se mejoró el diseño visual del login y de los paneles.
+- Se implementó una transición animada entre la portada del login y el formulario de acceso.
+
 
 
 
@@ -227,11 +250,14 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-1. Mostrar el detalle documental de cada colaborador dentro de la generación.
-2. Preparar la información necesaria para el frontend React.
-3. Crear el tablero visual de generaciones y tarjetas.
-4. Mostrar los colores verde, amarillo y rojo en la interfaz.
-5. Integrar posteriormente los pendientes del encargado en el frontend.
+## Próximo paso
+
+1. Implementar tres temas visuales para la interfaz: PluriOne, claro y oscuro.
+2. Guardar la preferencia de tema del usuario en el navegador.
+3. Aumentar y ajustar la tipografía general para mejorar la legibilidad.
+4. Crear una pantalla animada de transición mientras se valida el inicio de sesión.
+5. Mejorar las microanimaciones y transiciones del frontend.
+6. Continuar posteriormente con las acciones reales del panel del encargado y del colaborador.
 \---
 
 ## Idea principal del sistema
