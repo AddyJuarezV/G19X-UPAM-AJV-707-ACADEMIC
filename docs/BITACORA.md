@@ -868,3 +868,39 @@ El encargado ya puede revisar documentos entregados y solicitar correcciones dir
 ### Próximo paso
 
 Implementar desde React el flujo de aprobación de documentos que requieren firma posterior por parte de la empresa.
+
+---
+
+## 14 de octubre de 2026
+
+### Actividad
+
+Integración de la firma empresarial de documentos desde React.
+
+### Trabajo realizado
+
+- Se amplió la consulta de documentos pendientes del encargado para incluir estados `DELIVERED` y `PENDING_SIGNATURE`.
+- Se actualizó el panel del encargado para mostrar documentos pendientes de gestión.
+- Los documentos `DELIVERED` mantienen las acciones de aprobación y solicitud de corrección.
+- Los documentos `PENDING_SIGNATURE` muestran una acción específica para cargar la versión firmada por la empresa.
+- Se implementó selección de archivos desde React.
+- Se utilizó `FormData` para enviar el archivo firmado.
+- Se conectó la interfaz con `POST /api/onboarding/documents/<id>/company-sign/`.
+- Se mantiene la regla que impide utilizar este flujo para el NDA.
+- Después de una firma correcta, la información del frontend vuelve a consultarse automáticamente.
+- Se utilizó la Carta de presentación de Miles Morales para comprobar el flujo.
+- El documento se encontraba previamente en `PENDING_SIGNATURE`.
+- El encargado cargó correctamente un documento firmado desde React.
+- El documento pasó a `DOWNLOADABLE`.
+- La Carta de presentación dejó de aparecer en la bandeja de gestión del encargado.
+- Miles Morales pudo consultar el documento final desde su portal.
+
+### Resultado
+
+El flujo de firma empresarial ya puede realizarse desde la interfaz React. El encargado no necesita utilizar Django Admin ni peticiones manuales para devolver al colaborador una Carta de presentación o Carta de aceptación firmada.
+
+La Carta de presentación de Miles Morales se encuentra actualmente en estado `DOWNLOADABLE`.
+
+### Próximo paso
+
+Implementar desde React la confirmación de recepción por parte del colaborador para cambiar un documento de `DOWNLOADABLE` a `COMPLETE`.

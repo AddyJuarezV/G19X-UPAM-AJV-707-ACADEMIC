@@ -263,6 +263,17 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Miles volvió automáticamente al estado visual `RED`.
 - El colaborador pudo consultar el nuevo motivo de corrección desde su portal.
 
+- Se amplió la bandeja del encargado para incluir documentos en `PENDING_SIGNATURE`.
+- El panel ahora distingue documentos pendientes de revisión y documentos pendientes de firma.
+- Se integró desde React la carga de documentos firmados por la empresa.
+- El encargado puede seleccionar el archivo firmado y enviarlo mediante `multipart/form-data`.
+- La interfaz utiliza `POST /api/onboarding/documents/<id>/company-sign/`.
+- Después de subir correctamente el documento firmado, el sistema actualiza nuevamente la información desde la API.
+- Se comprobó el flujo utilizando la Carta de presentación de Miles Morales.
+- La Carta de presentación pasó correctamente de `PENDING_SIGNATURE` a `DOWNLOADABLE`.
+- El documento dejó de aparecer entre los pendientes del encargado después de completar la firma.
+- Miles Morales puede consultar desde su portal el documento final firmado por la empresa.
+
 
 
 
@@ -270,23 +281,18 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 
 ## En progreso
 
-1\. Preparar la estructura inicial del proyecto.
-
-2\. Crear el backend base con Django.
-
-3\. Configurar Django REST Framework.
-
-4\. Preparar PostgreSQL.
-
-5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
+1. Completar desde React el flujo documental de extremo a extremo.
+2. Permitir que el colaborador confirme la recepción de un documento firmado.
+3. Integrar desde el panel del encargado la publicación de plantillas requeridas.
+4. Continuar posteriormente con el registro visual de nuevos colaboradores y la administración de generaciones.
 
 ## Próximo paso
 
-1. Implementar desde React el flujo de aprobación de documentos que requieren firma posterior por parte de la empresa.
-2. Permitir que el encargado cargue desde la interfaz la versión firmada de la Carta de presentación y la Carta de aceptación.
-3. Permitir que el colaborador consulte el documento firmado y confirme su recepción desde React.
-4. Integrar la publicación de plantillas del NDA y de la Carta de aceptación desde el panel del encargado.
-5. Continuar posteriormente con el registro visual de nuevos colaboradores y las acciones restantes de administración de generaciones.
+1. Implementar desde React la confirmación de recepción de documentos disponibles para descarga.
+2. Al confirmar la recepción, cambiar el documento de `DOWNLOADABLE` a `COMPLETE`.
+3. Verificar que el progreso documental y el estado visual del colaborador se actualicen automáticamente.
+4. Integrar después la publicación de plantillas del NDA y de la Carta de aceptación desde el panel del encargado.
+5. Continuar posteriormente con el registro de nuevos colaboradores y las acciones administrativas de generaciones.
 \---
 
 ## Idea principal del sistema

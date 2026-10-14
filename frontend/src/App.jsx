@@ -1537,11 +1537,11 @@ const selectedGeneration =
           />
 
           <ManagerSummary
-            label="Pendientes de revisión"
+            label="Pendientes de gestión"
             value={
               pendingDocuments.length
             }
-            description="Documentos entregados"
+            description="Revisión o firma"
           />
         </section>
 
@@ -1670,7 +1670,7 @@ const selectedGeneration =
               </span>
 
               <h2>
-                Documentos por revisar
+                 Documentos por gestionar
               </h2>
             </div>
 
@@ -1860,6 +1860,35 @@ function PendingDocument({
     setReviewError,
   ] = useState("");
 
+  const [
+    signedFile,
+    setSignedFile,
+  ] = useState(null);
+
+  const [
+    signing,
+    setSigning,
+  ] = useState(false);
+
+  const [
+    signingError,
+    setSigningError,
+  ] = useState("");
+
+  const [
+    signedInputKey,
+    setSignedInputKey,
+  ] = useState(0);
+
+
+  const isDelivered =
+    document.status ===
+    "DELIVERED";
+
+  const isPendingSignature =
+    document.status ===
+    "PENDING_SIGNATURE";
+
 
   const sendDecision =
     async (decision) => {
@@ -1908,12 +1937,11 @@ function PendingDocument({
             .catch(() => ({}));
 
         if (!response.ok) {
-          const detail =
+          throw new Error(
             data.detail ||
-            data.correction_reason?.[0] ||
-            "No fue posible revisar el documento.";
-
-          throw new Error(detail);
+              data.correction_reason?.[0] ||
+              "No fue posible revisar el documento."
+          );
         }
 
         await onRefresh();
@@ -1923,6 +1951,68 @@ function PendingDocument({
         );
       } finally {
         setReviewing(false);
+      }
+    };
+
+
+  const uploadSignedDocument =
+    async () => {
+      if (!signedFile) {
+        setSigningError(
+          "Selecciona el documento firmado."
+        );
+
+        return;
+      }
+
+      setSigning(true);
+      setSigningError("");
+
+      try {
+        const formData =
+          new FormData();
+
+        formData.append(
+          "company_signed_file",
+          signedFile
+        );
+
+        const response =
+          await apiFetch(
+            `/api/onboarding/documents/${document.id}/company-sign/`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              data.company_signed_file?.[0] ||
+              "No fue posible subir el documento firmado."
+          );
+        }
+
+        setSignedFile(null);
+
+        setSignedInputKey(
+          (current) =>
+            current + 1
+        );
+
+        await onRefresh();
+      } catch (error) {
+        setSigningError(
+          error.message
+        );
+      } finally {
+        setSigning(false);
       }
     };
 
@@ -2005,104 +2095,184 @@ function PendingDocument({
       }
 
 
-      <div className="pending-review-actions">
-        <button
-          type="button"
-          className="review-approve-button"
-          disabled={reviewing}
-          onClick={() =>
-            sendDecision(
-              "APPROVE"
-            )
-          }
-        >
-          {reviewing
-            ? "Procesando..."
-            : "Aprobar"}
-        </button>
-
-        <button
-          type="button"
-          className="review-correction-button"
-          disabled={reviewing}
-          onClick={() => {
-            setShowCorrection(
-              (current) =>
-                !current
-            );
-
-            setReviewError("");
-          }}
-        >
-          Solicitar corrección
-        </button>
-      </div>
-
-
-      {showCorrection && (
-        <div className="correction-request-panel">
-          <label
-            htmlFor={
-              `correction-${document.id}`
-            }
-          >
-            Motivo de la corrección
-          </label>
-
-          <textarea
-            id={
-              `correction-${document.id}`
-            }
-            rows="4"
-            placeholder="Ejemplo: La carta debe incluir la firma correspondiente antes de continuar."
-            value={
-              correctionReason
-            }
-            onChange={(event) =>
-              setCorrectionReason(
-                event.target.value
-              )
-            }
-            disabled={reviewing}
-          />
-
-          <div className="correction-request-actions">
+      {isDelivered && (
+        <>
+          <div className="pending-review-actions">
             <button
               type="button"
-              className="correction-cancel-button"
-              disabled={reviewing}
-              onClick={() => {
-                setShowCorrection(
-                  false
-                );
-
-                setCorrectionReason(
-                  ""
-                );
-
-                setReviewError(
-                  ""
-                );
-              }}
-            >
-              Cancelar
-            </button>
-
-            <button
-              type="button"
-              className="correction-confirm-button"
+              className="review-approve-button"
               disabled={reviewing}
               onClick={() =>
                 sendDecision(
-                  "REQUEST_CORRECTION"
+                  "APPROVE"
                 )
               }
             >
               {reviewing
-                ? "Enviando..."
-                : "Enviar corrección"}
+                ? "Procesando..."
+                : "Aprobar"}
+            </button>
+
+            <button
+              type="button"
+              className="review-correction-button"
+              disabled={reviewing}
+              onClick={() => {
+                setShowCorrection(
+                  (current) =>
+                    !current
+                );
+
+                setReviewError("");
+              }}
+            >
+              Solicitar corrección
             </button>
           </div>
+
+
+          {showCorrection && (
+            <div className="correction-request-panel">
+              <label
+                htmlFor={
+                  `correction-${document.id}`
+                }
+              >
+                Motivo de la corrección
+              </label>
+
+              <textarea
+                id={
+                  `correction-${document.id}`
+                }
+                rows="4"
+                placeholder="Indica qué debe corregir el colaborador."
+                value={
+                  correctionReason
+                }
+                onChange={(event) =>
+                  setCorrectionReason(
+                    event.target.value
+                  )
+                }
+                disabled={reviewing}
+              />
+
+              <div className="correction-request-actions">
+                <button
+                  type="button"
+                  className="correction-cancel-button"
+                  disabled={reviewing}
+                  onClick={() => {
+                    setShowCorrection(
+                      false
+                    );
+
+                    setCorrectionReason(
+                      ""
+                    );
+
+                    setReviewError(
+                      ""
+                    );
+                  }}
+                >
+                  Cancelar
+                </button>
+
+                <button
+                  type="button"
+                  className="correction-confirm-button"
+                  disabled={reviewing}
+                  onClick={() =>
+                    sendDecision(
+                      "REQUEST_CORRECTION"
+                    )
+                  }
+                >
+                  {reviewing
+                    ? "Enviando..."
+                    : "Enviar corrección"}
+                </button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
+
+      {isPendingSignature && (
+        <div className="company-sign-panel">
+          <strong>
+            Firma de la empresa
+          </strong>
+
+          <p>
+            Este documento fue aprobado.
+            Ahora debe cargarse la versión
+            firmada por PluriOne.
+          </p>
+
+          <label
+            htmlFor={
+              `signed-file-${document.id}`
+            }
+            className="document-upload-label"
+          >
+            Seleccionar documento firmado
+          </label>
+
+          <input
+            key={signedInputKey}
+            id={
+              `signed-file-${document.id}`
+            }
+            type="file"
+            className="document-file-input"
+            onChange={(event) => {
+              setSignedFile(
+                event.target
+                  .files?.[0] ||
+                  null
+              );
+
+              setSigningError("");
+            }}
+          />
+
+          {signedFile && (
+            <div className="selected-file">
+              <span>
+                Archivo seleccionado
+              </span>
+
+              <strong>
+                {signedFile.name}
+              </strong>
+            </div>
+          )}
+
+          <button
+            type="button"
+            className="company-sign-button"
+            disabled={
+              signing ||
+              !signedFile
+            }
+            onClick={
+              uploadSignedDocument
+            }
+          >
+            {signing
+              ? "Subiendo..."
+              : "Subir documento firmado"}
+          </button>
+
+          {signingError && (
+            <div className="document-feedback error">
+              {signingError}
+            </div>
+          )}
         </div>
       )}
 

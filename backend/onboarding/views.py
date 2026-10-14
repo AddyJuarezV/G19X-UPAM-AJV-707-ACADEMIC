@@ -284,7 +284,10 @@ class ManagerPendingDocumentsView(generics.ListAPIView):
         return (
             OnboardingDocument.objects
             .filter(
-                status=OnboardingDocument.Status.DELIVERED,
+                status__in=[
+                  OnboardingDocument.Status.DELIVERED,
+                  OnboardingDocument.Status.PENDING_SIGNATURE,
+                ],
             )
             .select_related(
                 "collaborator",
