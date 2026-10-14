@@ -845,9 +845,11 @@ function Dashboard({
         user={user}
         generations={generations}
         pendingDocuments={
-          pendingDocuments
+         pendingDocuments
         }
-        onLogout={onLogout}
+        apiFetch={apiFetch}
+        onRefresh={onRefresh}
+         onLogout={onLogout}
       />
     );
   }
@@ -1420,6 +1422,8 @@ function ManagerHome({
   user,
   generations,
   pendingDocuments,
+  apiFetch,
+  onRefresh,
   onLogout,
 }) {
  const firstOpenGeneration =
@@ -1685,12 +1689,12 @@ const selectedGeneration =
                 {
                   pendingDocuments.map(
                     (document) => (
-                      <PendingDocument
-                        key={document.id}
-                        document={
-                          document
-                        }
-                      />
+                     <PendingDocument
+                       key={document.id}
+                       document={document}
+                       apiFetch={apiFetch}
+                       onRefresh={onRefresh}
+                     />
                     )
                   )
                 }
@@ -1833,34 +1837,155 @@ function MemberCard({
 
 function PendingDocument({
   document,
+  apiFetch,
+  onRefresh,
 }) {
-  return (
-    <article className="pending-item">
-      <div className="pending-avatar">
-        {
-          initials(
-            document.collaborator_name
-          )
+  const [
+    reviewing,
+    setReviewing,
+  ] = useState(false);
+
+  const [
+    showCorrection,
+    setShowCorrection,
+  ] = useState(false);
+
+  const [
+    correctionReason,
+    setCorrectionReason,
+  ] = useState("");
+
+  const [
+    reviewError,
+    setReviewError,
+  ] = useState("");
+
+
+  const sendDecision =
+    async (decision) => {
+      if (
+        decision ===
+          "REQUEST_CORRECTION" &&
+        !correctionReason.trim()
+      ) {
+        setReviewError(
+          "Escribe el motivo de la corrección."
+        );
+
+        return;
+      }
+
+      setReviewing(true);
+      setReviewError("");
+
+      try {
+        const response =
+          await apiFetch(
+            `/api/onboarding/documents/${document.id}/review/`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body: JSON.stringify({
+                decision,
+
+                correction_reason:
+                  decision ===
+                  "REQUEST_CORRECTION"
+                    ? correctionReason.trim()
+                    : "",
+              }),
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          const detail =
+            data.detail ||
+            data.correction_reason?.[0] ||
+            "No fue posible revisar el documento.";
+
+          throw new Error(detail);
         }
-      </div>
 
-      <div className="pending-main">
-        <strong>
-          {
-            document.collaborator_label
-          }
-        </strong>
+        await onRefresh();
+      } catch (error) {
+        setReviewError(
+          error.message
+        );
+      } finally {
+        setReviewing(false);
+      }
+    };
 
-        <span>
-          {
-            document.document_type_label
-          }
+
+  return (
+    <article className="pending-review-card">
+      <div className="pending-review-header">
+        <div className="pending-review-person">
+          <div className="pending-avatar">
+            {
+              initials(
+                document.collaborator_name
+              )
+            }
+          </div>
+
+          <div className="pending-main">
+            <strong>
+              {
+                document.collaborator_label
+              }
+            </strong>
+
+            <span>
+              {
+                document.document_type_label
+              }
+            </span>
+          </div>
+        </div>
+
+        <span className="pending-status">
+          {document.status_label}
         </span>
       </div>
 
-      <span className="pending-status">
-        {document.status_label}
-      </span>
+
+      <div className="pending-review-info">
+        <div>
+          <span>
+            Documento
+          </span>
+
+          <strong>
+            {
+              document.document_type_label
+            }
+          </strong>
+        </div>
+
+        <div>
+          <span>
+            Estado
+          </span>
+
+          <strong>
+            {
+              document.status_label
+            }
+          </strong>
+        </div>
+      </div>
+
 
       {
         document.collaborator_file &&
@@ -1871,12 +1996,122 @@ function PendingDocument({
             }
             target="_blank"
             rel="noreferrer"
-            className="pending-link"
+            className="pending-file-button"
           >
-            Ver archivo
+            Ver archivo entregado
+            <span>↗</span>
           </a>
         )
       }
+
+
+      <div className="pending-review-actions">
+        <button
+          type="button"
+          className="review-approve-button"
+          disabled={reviewing}
+          onClick={() =>
+            sendDecision(
+              "APPROVE"
+            )
+          }
+        >
+          {reviewing
+            ? "Procesando..."
+            : "Aprobar"}
+        </button>
+
+        <button
+          type="button"
+          className="review-correction-button"
+          disabled={reviewing}
+          onClick={() => {
+            setShowCorrection(
+              (current) =>
+                !current
+            );
+
+            setReviewError("");
+          }}
+        >
+          Solicitar corrección
+        </button>
+      </div>
+
+
+      {showCorrection && (
+        <div className="correction-request-panel">
+          <label
+            htmlFor={
+              `correction-${document.id}`
+            }
+          >
+            Motivo de la corrección
+          </label>
+
+          <textarea
+            id={
+              `correction-${document.id}`
+            }
+            rows="4"
+            placeholder="Ejemplo: La carta debe incluir la firma correspondiente antes de continuar."
+            value={
+              correctionReason
+            }
+            onChange={(event) =>
+              setCorrectionReason(
+                event.target.value
+              )
+            }
+            disabled={reviewing}
+          />
+
+          <div className="correction-request-actions">
+            <button
+              type="button"
+              className="correction-cancel-button"
+              disabled={reviewing}
+              onClick={() => {
+                setShowCorrection(
+                  false
+                );
+
+                setCorrectionReason(
+                  ""
+                );
+
+                setReviewError(
+                  ""
+                );
+              }}
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              className="correction-confirm-button"
+              disabled={reviewing}
+              onClick={() =>
+                sendDecision(
+                  "REQUEST_CORRECTION"
+                )
+              }
+            >
+              {reviewing
+                ? "Enviando..."
+                : "Enviar corrección"}
+            </button>
+          </div>
+        </div>
+      )}
+
+
+      {reviewError && (
+        <div className="document-feedback error">
+          {reviewError}
+        </div>
+      )}
     </article>
   );
 }

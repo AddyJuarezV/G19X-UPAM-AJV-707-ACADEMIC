@@ -835,3 +835,36 @@ La Carta de presentación corregida de Miles Morales ya se encuentra en estado `
 ### Próximo paso
 
 Integrar en React las acciones del encargado para aprobar un documento entregado o solicitar una nueva corrección.
+
+---
+
+## 14 de octubre de 2026
+
+### Actividad
+
+Integración de la revisión documental del encargado desde React.
+
+### Trabajo realizado
+
+- Se conectó la bandeja de pendientes del encargado con las acciones de revisión.
+- Se agregó visualización del archivo entregado por el colaborador.
+- Se implementó la opción `Aprobar`.
+- Se implementó la opción `Solicitar corrección`.
+- Se agregó un campo obligatorio para indicar el motivo de la corrección.
+- Se conectó la interfaz con `POST /api/onboarding/documents/<id>/review/`.
+- Después de una decisión se actualizan nuevamente las generaciones y los pendientes.
+- Se utilizó la Carta de presentación de Miles Morales para validar el flujo.
+- El documento se encontraba en estado `DELIVERED`.
+- El encargado solicitó una nueva corrección desde React.
+- El documento pasó correctamente a `NEEDS_CORRECTION`.
+- La bandeja de pendientes dejó de mostrar ese documento.
+- La tarjeta de Miles cambió automáticamente a estado visual `RED`.
+- Miles pudo consultar desde su portal el nuevo motivo de corrección.
+
+### Resultado
+
+El encargado ya puede revisar documentos entregados y solicitar correcciones directamente desde el frontend, sin utilizar Django Admin ni peticiones manuales desde PowerShell.
+
+### Próximo paso
+
+Implementar desde React el flujo de aprobación de documentos que requieren firma posterior por parte de la empresa.

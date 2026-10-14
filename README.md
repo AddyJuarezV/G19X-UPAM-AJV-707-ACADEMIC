@@ -250,6 +250,19 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El motivo de corrección anterior desapareció después de la nueva entrega.
 - El archivo entregado puede consultarse desde la misma tarjeta.
 
+- Se integró la revisión documental del encargado desde React.
+- Los documentos en estado `DELIVERED` aparecen en la bandeja de pendientes.
+- El encargado puede abrir el archivo entregado por el colaborador.
+- Se implementó la acción de aprobar documentos desde la interfaz.
+- Se implementó la acción de solicitar correcciones desde la interfaz.
+- Al solicitar una corrección se exige indicar un motivo.
+- Después de una decisión, el frontend vuelve a consultar automáticamente el estado del sistema.
+- Se comprobó el flujo utilizando la Carta de presentación de Miles Morales.
+- El encargado solicitó una nueva corrección desde React.
+- El documento dejó de aparecer entre los pendientes de revisión.
+- Miles volvió automáticamente al estado visual `RED`.
+- El colaborador pudo consultar el nuevo motivo de corrección desde su portal.
+
 
 
 
@@ -269,11 +282,11 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 
 ## Próximo paso
 
-1. Implementar las acciones reales de los botones del portal del colaborador.
-2. Permitir que el colaborador cargue y corrija documentos desde React.
-3. Implementar la revisión documental desde el panel del encargado.
-4. Permitir aprobar documentos o solicitar correcciones desde la interfaz.
-5. Continuar con el registro de nuevos colaboradores desde React.
+1. Implementar desde React el flujo de aprobación de documentos que requieren firma posterior por parte de la empresa.
+2. Permitir que el encargado cargue desde la interfaz la versión firmada de la Carta de presentación y la Carta de aceptación.
+3. Permitir que el colaborador consulte el documento firmado y confirme su recepción desde React.
+4. Integrar la publicación de plantillas del NDA y de la Carta de aceptación desde el panel del encargado.
+5. Continuar posteriormente con el registro visual de nuevos colaboradores y las acciones restantes de administración de generaciones.
 \---
 
 ## Idea principal del sistema
