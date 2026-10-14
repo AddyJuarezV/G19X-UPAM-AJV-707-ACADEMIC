@@ -441,8 +441,10 @@ const loadCurrentUser =
           documents={documents}
           generations={generations}
           pendingDocuments={
-            pendingDocuments
+             pendingDocuments
           }
+          apiFetch={apiFetch}
+          onRefresh={loadCurrentUser}
           onLogout={logout}
         />
       </>
@@ -833,6 +835,8 @@ function Dashboard({
   documents,
   generations,
   pendingDocuments,
+  apiFetch,
+  onRefresh,
   onLogout,
 }) {
   if (user.role === "ENCARGADO") {
@@ -852,6 +856,8 @@ function Dashboard({
     <CollaboratorHome
       user={user}
       documents={documents}
+      apiFetch={apiFetch}
+      onRefresh={onRefresh}
       onLogout={onLogout}
     />
   );
@@ -861,6 +867,8 @@ function Dashboard({
 function CollaboratorHome({
   user,
   documents,
+  apiFetch,
+  onRefresh,
   onLogout,
 }) {
   const profile =
@@ -1019,6 +1027,8 @@ function CollaboratorHome({
                 <DocumentCard
                   key={document.id}
                   document={document}
+                  apiFetch={apiFetch}
+                  onRefresh={onRefresh}
                 />
               )
             )}
@@ -1032,16 +1042,74 @@ function CollaboratorHome({
 
 function DocumentCard({
   document,
+  apiFetch,
+  onRefresh,
 }) {
+  const [
+    selectedFile,
+    setSelectedFile,
+  ] = useState(null);
+
+  const [
+    uploading,
+    setUploading,
+  ] = useState(false);
+
+  const [
+    feedback,
+    setFeedback,
+  ] = useState("");
+
+  const [
+    uploadError,
+    setUploadError,
+  ] = useState("");
+
+  const [
+    fileInputKey,
+    setFileInputKey,
+  ] = useState(0);
+
+
   const statusClass =
     document.status
       .toLowerCase()
       .replaceAll("_", "-");
 
+
   const downloadableFile =
     document.company_signed_file ||
     document.collaborator_file ||
     document.company_template;
+
+
+  const requiresTemplate = [
+    "NDA",
+    "ACCEPTANCE_LETTER",
+  ].includes(
+    document.document_type
+  );
+
+
+  const uploadStatusAllowed = [
+    "PENDING",
+    "NEEDS_CORRECTION",
+  ].includes(
+    document.status
+  );
+
+
+  const templateAvailable =
+    !requiresTemplate ||
+    Boolean(
+      document.company_template
+    );
+
+
+  const canUpload =
+    uploadStatusAllowed &&
+    templateAvailable;
+
 
   let actionText =
     "Ver documento";
@@ -1063,6 +1131,87 @@ function DocumentCard({
       "Ver plantilla";
   }
 
+
+  const handleFileChange = (
+    event
+  ) => {
+    const file =
+      event.target.files?.[0] ||
+      null;
+
+    setSelectedFile(file);
+    setFeedback("");
+    setUploadError("");
+  };
+
+
+  const handleUpload =
+    async () => {
+      if (!selectedFile) {
+        setUploadError(
+          "Selecciona un archivo antes de continuar."
+        );
+
+        return;
+      }
+
+      setUploading(true);
+      setFeedback("");
+      setUploadError("");
+
+      try {
+        const formData =
+          new FormData();
+
+        formData.append(
+          "collaborator_file",
+          selectedFile
+        );
+
+        const response =
+          await apiFetch(
+            `/api/onboarding/documents/${document.id}/upload/`,
+            {
+              method: "POST",
+              body: formData,
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              "No fue posible entregar el documento."
+          );
+        }
+
+        setFeedback(
+          data.message ||
+            "Documento entregado correctamente."
+        );
+
+        setSelectedFile(null);
+
+        setFileInputKey(
+          (current) =>
+            current + 1
+        );
+
+        await onRefresh();
+      } catch (error) {
+        setUploadError(
+          error.message
+        );
+      } finally {
+        setUploading(false);
+      }
+    };
+
+
   return (
     <article className="document-card">
       <div className="document-top">
@@ -1079,16 +1228,25 @@ function DocumentCard({
         </span>
       </div>
 
+
       <h3>
-        {document.document_type_label}
+        {
+          document
+            .document_type_label
+        }
       </h3>
+
 
       <p className="document-description">
         Estado actual:{" "}
         <strong>
-          {document.status_label}
+          {
+            document
+              .status_label
+          }
         </strong>
       </p>
+
 
       {
         document.correction_reason &&
@@ -1100,28 +1258,159 @@ function DocumentCard({
 
             <p>
               {
-                document.correction_reason
+                document
+                  .correction_reason
               }
             </p>
           </div>
         )
       }
 
-      {downloadableFile ? (
-        <a
-          href={downloadableFile}
-          target="_blank"
-          rel="noreferrer"
-          className="document-action"
-        >
-          {actionText}
-          <span>↗</span>
-        </a>
-      ) : (
-        <span className="document-muted">
-          Sin archivo disponible
-        </span>
+
+      {
+        requiresTemplate &&
+        document.company_template &&
+        uploadStatusAllowed &&
+        (
+          <a
+            href={
+              document
+                .company_template
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="document-template-link"
+          >
+            Descargar plantilla
+            <span>↗</span>
+          </a>
+        )
+      }
+
+
+      {
+        uploadStatusAllowed &&
+        !templateAvailable &&
+        (
+          <div className="document-waiting">
+            Esperando que PluriOne publique
+            la plantilla de este documento.
+          </div>
+        )
+      }
+
+
+      {canUpload && (
+        <div className="document-upload-area">
+          <label
+            className="document-upload-label"
+            htmlFor={
+              `document-file-${document.id}`
+            }
+          >
+            {
+              document.status ===
+              "NEEDS_CORRECTION"
+                ? "Seleccionar archivo corregido"
+                : "Seleccionar archivo"
+            }
+          </label>
+
+          <input
+            key={fileInputKey}
+            id={
+              `document-file-${document.id}`
+            }
+            className="document-file-input"
+            type="file"
+            onChange={
+              handleFileChange
+            }
+          />
+
+          {
+            selectedFile && (
+              <div className="selected-file">
+                <span>
+                  Archivo seleccionado
+                </span>
+
+                <strong>
+                  {
+                    selectedFile.name
+                  }
+                </strong>
+              </div>
+            )
+          }
+
+          <button
+            type="button"
+            className="document-upload-button"
+            disabled={
+              uploading ||
+              !selectedFile
+            }
+            onClick={
+              handleUpload
+            }
+          >
+            {
+              uploading
+                ? "Entregando..."
+                : document.status ===
+                    "NEEDS_CORRECTION"
+                  ? "Entregar corrección"
+                  : "Entregar documento"
+            }
+          </button>
+        </div>
       )}
+
+
+      {feedback && (
+        <div className="document-feedback success">
+          {feedback}
+        </div>
+      )}
+
+
+      {uploadError && (
+        <div className="document-feedback error">
+          {uploadError}
+        </div>
+      )}
+
+
+      {
+        !canUpload &&
+        downloadableFile &&
+        (
+          <a
+            href={
+              downloadableFile
+            }
+            target="_blank"
+            rel="noreferrer"
+            className="document-action"
+          >
+            {actionText}
+            <span>↗</span>
+          </a>
+        )
+      }
+
+
+      {
+        !canUpload &&
+        !downloadableFile &&
+        templateAvailable &&
+        (
+          <span className="document-muted">
+            Sin archivo disponible
+          </span>
+        )
+      }
     </article>
   );
 }

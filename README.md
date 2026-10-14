@@ -241,6 +241,15 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se agregó una silueta animada y elementos visuales de carga para evitar pantallas aparentemente congeladas.
 - Las mejoras visuales mantienen intacta la autenticación JWT y la separación entre roles.
 
+- Se integró la entrega de documentos del colaborador desde React.
+- Los documentos en estado `PENDING` o `NEEDS_CORRECTION` pueden mostrar la opción de carga cuando las reglas del backend lo permiten.
+- El colaborador puede seleccionar un archivo desde la interfaz y enviarlo mediante `multipart/form-data`.
+- Después de una entrega correcta, React vuelve a consultar los datos del backend y actualiza automáticamente la tarjeta.
+- Se comprobó el flujo utilizando a Miles Morales y su Carta de presentación en estado `NEEDS_CORRECTION`.
+- Miles entregó la corrección desde React y el documento cambió correctamente a `DELIVERED`.
+- El motivo de corrección anterior desapareció después de la nueva entrega.
+- El archivo entregado puede consultarse desde la misma tarjeta.
+
 
 
 

@@ -802,3 +802,36 @@ El usuario puede elegir entre diferentes temas, la interfaz mantiene su preferen
 ### Próximo paso
 
 Continuar con las funciones interactivas del MVP desde React, comenzando por la gestión real de documentos del colaborador y posteriormente las acciones de revisión del encargado.
+
+---
+
+## 14 de octubre de 2026
+
+### Actividad
+
+Integración de la entrega y corrección de documentos desde el portal React del colaborador.
+
+### Trabajo realizado
+
+- Se conectó el frontend con `POST /api/onboarding/documents/<id>/upload/`.
+- Se agregó selección de archivos desde el navegador.
+- Se implementó envío mediante `FormData`.
+- Se respetan las reglas de carga definidas previamente en Django.
+- Los documentos que requieren una plantilla permanecen bloqueados mientras PluriOne no la publique.
+- Los documentos en `NEEDS_CORRECTION` permiten seleccionar un archivo corregido.
+- Se muestran mensajes de éxito y error directamente en la tarjeta.
+- Después de una carga correcta se actualiza nuevamente la información desde la API.
+- Se utilizó a Miles Morales para probar una corrección real desde React.
+- Su Carta de presentación cambió de `NEEDS_CORRECTION` a `DELIVERED`.
+- El motivo de corrección desapareció correctamente.
+- El archivo entregado quedó disponible para consulta.
+
+### Resultado
+
+El colaborador ya puede atender una corrección documental directamente desde la interfaz web sin utilizar peticiones manuales desde PowerShell.
+
+La Carta de presentación corregida de Miles Morales ya se encuentra en estado `DELIVERED` y queda pendiente de revisión por parte del encargado.
+
+### Próximo paso
+
+Integrar en React las acciones del encargado para aprobar un documento entregado o solicitar una nueva corrección.
