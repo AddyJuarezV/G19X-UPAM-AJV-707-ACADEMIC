@@ -1,4 +1,8 @@
-import { useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import "./App.css";
 
 
@@ -12,8 +16,41 @@ function App() {
   const [pendingDocuments, setPendingDocuments] = useState([]);
 
   const [loading, setLoading] = useState(false);
+  const [loginStage, setLoginStage] = useState("VALIDATING");
   const [checkingSession, setCheckingSession] = useState(true);
   const [error, setError] = useState("");
+
+  const [theme, setTheme] = useState(() => {
+    const savedTheme =
+      localStorage.getItem("plurioneTheme");
+
+    const validThemes = [
+      "plurione",
+      "light",
+      "dark",
+    ];
+
+    return validThemes.includes(savedTheme)
+      ? savedTheme
+      : "plurione";
+  });
+
+
+  useEffect(() => {
+    document.documentElement.dataset.theme =
+      theme;
+
+    localStorage.setItem(
+      "plurioneTheme",
+      theme
+    );
+  }, [theme]);
+
+
+  const sleep = (milliseconds) =>
+    new Promise((resolve) =>
+      setTimeout(resolve, milliseconds)
+    );
 
 
   const logout = () => {
@@ -31,12 +68,17 @@ function App() {
   };
 
 
-  const refreshAccessToken = async () => {
+const refreshAccessToken = useCallback(
+  async () => {
     const refreshToken =
-      localStorage.getItem("refreshToken");
+      localStorage.getItem(
+        "refreshToken"
+      );
 
     if (!refreshToken) {
-      throw new Error("La sesión ha expirado.");
+      throw new Error(
+        "La sesión ha expirado."
+      );
     }
 
     const response = await fetch(
@@ -45,7 +87,8 @@ function App() {
         method: "POST",
 
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type":
+            "application/json",
         },
 
         body: JSON.stringify({
@@ -55,10 +98,13 @@ function App() {
     );
 
     if (!response.ok) {
-      throw new Error("La sesión ha expirado.");
+      throw new Error(
+        "La sesión ha expirado."
+      );
     }
 
-    const data = await response.json();
+    const data =
+      await response.json();
 
     localStorage.setItem(
       "accessToken",
@@ -66,195 +112,296 @@ function App() {
     );
 
     return data.access;
-  };
+  },
+  []
+);
 
 
-  const apiFetch = async (
+const apiFetch = useCallback(
+  async (
     url,
     options = {}
   ) => {
     let accessToken =
-      localStorage.getItem("accessToken");
+      localStorage.getItem(
+        "accessToken"
+      );
 
-    const buildOptions = (token) => ({
+    if (!accessToken) {
+      accessToken =
+        await refreshAccessToken();
+    }
+
+    const buildOptions = (
+      token
+    ) => ({
       ...options,
 
       headers: {
         ...(options.headers || {}),
-        Authorization: `Bearer ${token}`,
+        Authorization:
+          `Bearer ${token}`,
       },
     });
 
-    let response = await fetch(
-      url,
-      buildOptions(accessToken)
-    );
+    let response =
+      await fetch(
+        url,
+        buildOptions(
+          accessToken
+        )
+      );
 
-    if (response.status === 401) {
+    if (
+      response.status === 401
+    ) {
       accessToken =
         await refreshAccessToken();
 
-      response = await fetch(
-        url,
-        buildOptions(accessToken)
-      );
+      response =
+        await fetch(
+          url,
+          buildOptions(
+            accessToken
+          )
+        );
     }
 
     return response;
-  };
+  },
+  [refreshAccessToken]
+);
 
 
-  const loadCurrentUser = async () => {
-    const userResponse = await apiFetch(
-      "/api/accounts/me/"
-    );
-
-    if (!userResponse.ok) {
-      throw new Error(
-        "No fue posible recuperar la sesión."
-      );
-    }
-
-    const userData =
-      await userResponse.json();
-
-    setUser(userData);
-
-    if (userData.role === "COLABORADOR") {
-      const documentsResponse =
+const loadCurrentUser =
+  useCallback(
+    async () => {
+      const userResponse =
         await apiFetch(
-          "/api/onboarding/documents/mine/"
+          "/api/accounts/me/"
         );
 
-      if (!documentsResponse.ok) {
+      if (!userResponse.ok) {
         throw new Error(
-          "No fue posible consultar tus documentos."
+          "No fue posible recuperar la sesión."
         );
       }
 
-      const documentsData =
-        await documentsResponse.json();
+      const userData =
+        await userResponse.json();
 
-      setDocuments(documentsData);
-      setGenerations([]);
-      setPendingDocuments([]);
-    }
+      setUser(userData);
 
-    if (userData.role === "ENCARGADO") {
-      const [
-        generationsResponse,
-        pendingResponse,
-      ] = await Promise.all([
-        apiFetch(
-          "/api/onboarding/generations/"
-        ),
+      if (
+        userData.role ===
+        "COLABORADOR"
+      ) {
+        const documentsResponse =
+          await apiFetch(
+            "/api/onboarding/documents/mine/"
+          );
 
-        apiFetch(
-          "/api/onboarding/documents/pending/"
-        ),
-      ]);
+        if (
+          !documentsResponse.ok
+        ) {
+          throw new Error(
+            "No fue posible consultar tus documentos."
+          );
+        }
 
-      if (!generationsResponse.ok) {
-        throw new Error(
-          "No fue posible consultar las generaciones."
+        const documentsData =
+          await documentsResponse.json();
+
+        setDocuments(
+          documentsData
         );
+
+        setGenerations([]);
+        setPendingDocuments([]);
       }
 
-      if (!pendingResponse.ok) {
-        throw new Error(
-          "No fue posible consultar los pendientes."
+      if (
+        userData.role ===
+        "ENCARGADO"
+      ) {
+        const [
+          generationsResponse,
+          pendingResponse,
+        ] = await Promise.all([
+          apiFetch(
+            "/api/onboarding/generations/"
+          ),
+
+          apiFetch(
+            "/api/onboarding/documents/pending/"
+          ),
+        ]);
+
+        if (
+          !generationsResponse.ok
+        ) {
+          throw new Error(
+            "No fue posible consultar las generaciones."
+          );
+        }
+
+        if (
+          !pendingResponse.ok
+        ) {
+          throw new Error(
+            "No fue posible consultar los pendientes."
+          );
+        }
+
+        const generationsData =
+          await generationsResponse.json();
+
+        const pendingData =
+          await pendingResponse.json();
+
+        setGenerations(
+          generationsData
         );
+
+        setPendingDocuments(
+          pendingData
+        );
+
+        setDocuments([]);
       }
-
-      const generationsData =
-        await generationsResponse.json();
-
-      const pendingData =
-        await pendingResponse.json();
-
-      setGenerations(generationsData);
-      setPendingDocuments(pendingData);
-
-      setDocuments([]);
-    }
-  };
+    },
+    [apiFetch]
+  );
 
 
   useEffect(() => {
-    const restoreSession = async () => {
-      const accessToken =
-        localStorage.getItem("accessToken");
+    const restoreSession =
+      async () => {
+        const accessToken =
+          localStorage.getItem(
+            "accessToken"
+          );
 
-      const refreshToken =
-        localStorage.getItem("refreshToken");
+        const refreshToken =
+          localStorage.getItem(
+            "refreshToken"
+          );
 
-      if (!accessToken && !refreshToken) {
-        setCheckingSession(false);
-        return;
-      }
+        if (
+          !accessToken &&
+          !refreshToken
+        ) {
+          setCheckingSession(false);
+          return;
+        }
 
-      try {
-        await loadCurrentUser();
-      } catch {
-        logout();
-      } finally {
-        setCheckingSession(false);
-      }
-    };
+        try {
+          await loadCurrentUser();
+        } catch {
+          localStorage.removeItem(
+            "accessToken"
+          );
+
+          localStorage.removeItem(
+            "refreshToken"
+          );
+
+          setUser(null);
+        } finally {
+          setCheckingSession(false);
+        }
+      };
 
     restoreSession();
-  }, []);
+  }, [loadCurrentUser]);
 
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit =
+    async (event) => {
+      event.preventDefault();
 
-    setLoading(true);
-    setError("");
+      const startedAt =
+        Date.now();
 
-    try {
-      const response = await fetch(
-        "/api/auth/login/",
-        {
-          method: "POST",
+      setLoading(true);
+      setError("");
+      setLoginStage(
+        "VALIDATING"
+      );
 
-          headers: {
-            "Content-Type": "application/json",
-          },
+      try {
+        const response =
+          await fetch(
+            "/api/auth/login/",
+            {
+              method: "POST",
 
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body: JSON.stringify({
+                email,
+                password,
+              }),
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              "Correo electrónico o contraseña incorrectos."
+          );
         }
-      );
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(
-          data.detail ||
-            "Correo electrónico o contraseña incorrectos."
+        localStorage.setItem(
+          "accessToken",
+          data.access
         );
+
+        localStorage.setItem(
+          "refreshToken",
+          data.refresh
+        );
+
+        setLoginStage(
+          "PREPARING"
+        );
+
+        await sleep(350);
+
+        await loadCurrentUser();
+
+        setLoginStage(
+          "READY"
+        );
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        const elapsed =
+          Date.now() -
+          startedAt;
+
+        const minimumDuration =
+          1800;
+
+        if (
+          elapsed <
+          minimumDuration
+        ) {
+          await sleep(
+            minimumDuration -
+              elapsed
+          );
+        }
+
+        setLoading(false);
       }
-
-      localStorage.setItem(
-        "accessToken",
-        data.access
-      );
-
-      localStorage.setItem(
-        "refreshToken",
-        data.refresh
-      );
-
-      await loadCurrentUser();
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
 
   if (checkingSession) {
@@ -264,35 +411,208 @@ function App() {
           P
         </div>
 
-        <p>Cargando sesión...</p>
+        <p>
+          Recuperando tu sesión...
+        </p>
       </div>
+    );
+  }
+
+
+  if (loading) {
+    return (
+      <LoginTransition
+        stage={loginStage}
+      />
     );
   }
 
 
   if (user) {
     return (
-      <Dashboard
-        user={user}
-        documents={documents}
-        generations={generations}
-        pendingDocuments={pendingDocuments}
-        onLogout={logout}
-      />
+      <>
+        <ThemeSwitcher
+          theme={theme}
+          setTheme={setTheme}
+        />
+
+        <Dashboard
+          user={user}
+          documents={documents}
+          generations={generations}
+          pendingDocuments={
+            pendingDocuments
+          }
+          onLogout={logout}
+        />
+      </>
     );
   }
 
 
   return (
-    <Login
-      email={email}
-      password={password}
-      setEmail={setEmail}
-      setPassword={setPassword}
-      loading={loading}
-      error={error}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <ThemeSwitcher
+        theme={theme}
+        setTheme={setTheme}
+      />
+
+      <Login
+        email={email}
+        password={password}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        loading={loading}
+        error={error}
+        onSubmit={handleSubmit}
+      />
+    </>
+  );
+}
+
+function ThemeSwitcher({
+  theme,
+  setTheme,
+}) {
+  const themes = [
+    {
+      id: "plurione",
+      label: "PluriOne",
+    },
+    {
+      id: "light",
+      label: "Claro",
+    },
+    {
+      id: "dark",
+      label: "Oscuro",
+    },
+  ];
+
+  return (
+    <div className="theme-switcher">
+      {themes.map(
+        (themeOption) => (
+          <button
+            key={themeOption.id}
+            type="button"
+            className={
+              theme ===
+              themeOption.id
+                ? "theme-option active"
+                : "theme-option"
+            }
+            onClick={() =>
+              setTheme(
+                themeOption.id
+              )
+            }
+          >
+            <span
+              className={
+                `theme-preview ${themeOption.id}`
+              }
+            ></span>
+
+            {themeOption.label}
+          </button>
+        )
+      )}
+    </div>
+  );
+}
+
+
+function LoginTransition({
+  stage,
+}) {
+  const messages = {
+    VALIDATING: {
+      title:
+        "Validando tu acceso",
+      text:
+        "Estamos verificando tus credenciales.",
+    },
+
+    PREPARING: {
+      title:
+        "Preparando tu espacio",
+      text:
+        "Cargando tu información y permisos.",
+    },
+
+    READY: {
+      title:
+        "Todo listo",
+      text:
+        "Entrando a tu espacio de PluriOne.",
+    },
+  };
+
+  const current =
+    messages[stage] ||
+    messages.VALIDATING;
+
+  return (
+    <div className="login-transition-page">
+      <div className="transition-background-orb orb-one"></div>
+      <div className="transition-background-orb orb-two"></div>
+
+      <div className="transition-brand">
+        <div className="transition-brand-logo">
+          P
+        </div>
+
+        <strong>
+          PluriOne
+        </strong>
+      </div>
+
+      <div className="transition-content">
+        <div className="transition-visual">
+          <div className="orbit orbit-one">
+            <span></span>
+          </div>
+
+          <div className="orbit orbit-two">
+            <span></span>
+          </div>
+
+          <div className="person-silhouette">
+            <div className="silhouette-head"></div>
+
+            <div className="silhouette-body">
+              <div className="silhouette-line line-one"></div>
+              <div className="silhouette-line line-two"></div>
+            </div>
+          </div>
+        </div>
+
+        <div className="transition-copy">
+          <span className="transition-kicker">
+            ACCESO SEGURO
+          </span>
+
+          <h1>
+            {current.title}
+          </h1>
+
+          <p>
+            {current.text}
+          </p>
+
+          <div className="transition-progress">
+            <div></div>
+          </div>
+
+          <div className="transition-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -502,26 +822,6 @@ function Login({
             </p>
           </div>
         </section>
-      </div>
-    </div>
-  );
-}
-
-
-function Feature({
-  number,
-  title,
-  description,
-}) {
-  return (
-    <div className="feature">
-      <div className="feature-number">
-        {number}
-      </div>
-
-      <div>
-        <strong>{title}</strong>
-        <p>{description}</p>
       </div>
     </div>
   );
@@ -833,45 +1133,29 @@ function ManagerHome({
   pendingDocuments,
   onLogout,
 }) {
-  const firstOpenGeneration =
-    generations.find(
-      (generation) =>
-        generation.status === "OPEN"
-    );
-
-  const defaultGeneration =
-    firstOpenGeneration ||
-    generations[0] ||
-    null;
-
-  const [
-    selectedGenerationId,
-    setSelectedGenerationId,
-  ] = useState(
-    defaultGeneration?.id || null
+ const firstOpenGeneration =
+  generations.find(
+    (generation) =>
+      generation.status === "OPEN"
   );
 
-  useEffect(() => {
-    if (
-      !selectedGenerationId &&
-      defaultGeneration
-    ) {
-      setSelectedGenerationId(
-        defaultGeneration.id
-      );
-    }
-  }, [
-    defaultGeneration,
-    selectedGenerationId,
-  ]);
+const defaultGeneration =
+  firstOpenGeneration ||
+  generations[0] ||
+  null;
 
-  const selectedGeneration =
-    generations.find(
-      (generation) =>
-        generation.id ===
-        selectedGenerationId
-    ) ||
-    defaultGeneration;
+const [
+  selectedGenerationId,
+  setSelectedGenerationId,
+] = useState(null);
+
+const selectedGeneration =
+  generations.find(
+    (generation) =>
+      generation.id ===
+      selectedGenerationId
+  ) ||
+  defaultGeneration;
 
   const members =
     selectedGeneration?.members || [];

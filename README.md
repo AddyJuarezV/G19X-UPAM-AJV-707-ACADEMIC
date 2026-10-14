@@ -232,6 +232,15 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se mejoró el diseño visual del login y de los paneles.
 - Se implementó una transición animada entre la portada del login y el formulario de acceso.
 
+- Se implementaron tres temas visuales para la interfaz: PluriOne, Claro y Oscuro.
+- La preferencia del tema se guarda en el navegador y se recupera automáticamente.
+- Se aumentó nuevamente el tamaño de la tipografía para mejorar la legibilidad.
+- Se mejoró la transición visual entre la portada y el formulario de inicio de sesión.
+- Se creó una pantalla de transición animada durante la autenticación.
+- La pantalla de transición muestra los estados de validación y preparación del espacio del usuario.
+- Se agregó una silueta animada y elementos visuales de carga para evitar pantallas aparentemente congeladas.
+- Las mejoras visuales mantienen intacta la autenticación JWT y la separación entre roles.
+
 
 
 
@@ -250,14 +259,12 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 5\. Iniciar el desarrollo paso a paso comenzando por el registro de colaboradores.---
 
 ## Próximo paso
-## Próximo paso
 
-1. Implementar tres temas visuales para la interfaz: PluriOne, claro y oscuro.
-2. Guardar la preferencia de tema del usuario en el navegador.
-3. Aumentar y ajustar la tipografía general para mejorar la legibilidad.
-4. Crear una pantalla animada de transición mientras se valida el inicio de sesión.
-5. Mejorar las microanimaciones y transiciones del frontend.
-6. Continuar posteriormente con las acciones reales del panel del encargado y del colaborador.
+1. Implementar las acciones reales de los botones del portal del colaborador.
+2. Permitir que el colaborador cargue y corrija documentos desde React.
+3. Implementar la revisión documental desde el panel del encargado.
+4. Permitir aprobar documentos o solicitar correcciones desde la interfaz.
+5. Continuar con el registro de nuevos colaboradores desde React.
 \---
 
 ## Idea principal del sistema

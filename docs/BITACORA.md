@@ -766,3 +766,39 @@ Los datos mostrados en React provienen de las APIs de Django y de PostgreSQL y n
 ### Próximo paso
 
 Agregar un sistema de tres temas visuales, mejorar nuevamente el tamaño de la tipografía e implementar una pantalla de transición animada mientras se valida el inicio de sesión.
+
+---
+
+## 13 de octubre de 2026
+
+### Actividad
+
+Mejora de experiencia visual, temas y transición de autenticación del frontend.
+
+### Trabajo realizado
+
+- Se implementó un selector de tres temas visuales:
+  - PluriOne.
+  - Claro.
+  - Oscuro.
+- La selección del tema se almacena mediante `localStorage`.
+- El tema seleccionado permanece después de recargar o volver a abrir el sistema.
+- Se aumentó el tamaño general de la tipografía del dashboard.
+- Se aumentó el tamaño de textos, tarjetas, indicadores, menús y encabezados.
+- Se mejoró la transición entre la portada de acceso y el formulario.
+- Se agregaron movimientos más suaves y naturales durante la apertura del formulario.
+- Se creó una pantalla intermedia de carga durante la autenticación.
+- La pantalla muestra una silueta animada y elementos de progreso.
+- Se implementaron mensajes visuales de validación, preparación y acceso completado.
+- Se estableció una duración mínima de la transición para evitar cambios abruptos entre pantallas.
+- Se comprobó que estas mejoras no alteran el funcionamiento de JWT, roles ni paneles.
+
+### Resultado
+
+El frontend cuenta ahora con una experiencia visual más completa y consistente.
+
+El usuario puede elegir entre diferentes temas, la interfaz mantiene su preferencia y el inicio de sesión utiliza transiciones que muestran claramente que el sistema está procesando el acceso.
+
+### Próximo paso
+
+Continuar con las funciones interactivas del MVP desde React, comenzando por la gestión real de documentos del colaborador y posteriormente las acciones de revisión del encargado.
