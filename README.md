@@ -308,26 +308,42 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El porcentaje de progreso se actualizó automáticamente de 33% a 67%.
 - La Carta de presentación y el NDA de Miles se encuentran actualmente en estado `COMPLETE`.
 
+- Se comprobó desde React el flujo completo de la Carta de aceptación utilizando a Miles Morales.
+- El encargado publicó la plantilla de la Carta de aceptación desde React.
+- Miles descargó la plantilla y entregó el documento desde su portal.
+- La Carta de aceptación pasó de `PENDING` a `DELIVERED`.
+- El encargado revisó y aprobó el documento desde React.
+- La Carta de aceptación pasó de `DELIVERED` a `PENDING_SIGNATURE`.
+- El encargado cargó desde React la versión firmada por PluriOne.
+- El documento pasó de `PENDING_SIGNATURE` a `DOWNLOADABLE`.
+- Miles pudo consultar el documento final firmado.
+- Miles confirmó la recepción desde su portal.
+- La Carta de aceptación pasó finalmente a `COMPLETE`.
+- Miles Morales alcanzó 3 de 3 documentos completados.
+- El progreso documental se actualizó automáticamente a 100%.
+- Se comprobó el flujo documental completo del MVP utilizando únicamente las interfaces React del colaborador y del encargado.
+
 
 
 \---
 
 ## En progreso
 
-1. Completar desde React el flujo de la Carta de aceptación de Miles Morales.
-2. Publicar la plantilla de la Carta de aceptación desde el panel del encargado.
-3. Validar su entrega, revisión, firma empresarial, descarga y confirmación de recepción.
-4. Continuar posteriormente con el registro visual de nuevos colaboradores y la administración de generaciones.
+1. Integrar desde React el registro de nuevos colaboradores.
+2. Completar la revisión visual de solicitudes iniciales desde el panel del encargado.
+3. Integrar las acciones administrativas de generaciones desde React.
+4. Revisar y mejorar los apartados de Mis datos y Notificaciones.
+5. Preparar posteriormente las pruebas finales y la entrega reproducible del MVP.
 \---
 
 ## Próximo paso
 
-1. Publicar desde React la plantilla de la Carta de aceptación de Miles Morales.
-2. Permitir que Miles descargue la plantilla y entregue la Carta de aceptación.
-3. Revisar y aprobar la Carta de aceptación desde el panel del encargado.
-4. Subir desde React la Carta de aceptación firmada por PluriOne.
-5. Permitir que Miles consulte el documento final y confirme su recepción.
-6. Verificar que los tres documentos queden en `COMPLETE` y que Miles alcance 100% de progreso documental.
+1. Implementar el formulario de registro de nuevos colaboradores desde React.
+2. Conectar el formulario con `POST /api/accounts/register/`.
+3. Permitir cargar desde el registro el CV y la credencial universitaria.
+4. Verificar que el nuevo colaborador se cree correctamente en PostgreSQL.
+5. Comprobar que pueda iniciar sesión y continuar con su solicitud de incorporación.
+6. Continuar después con la revisión inicial de solicitudes desde el panel del encargado.
 \---
 
 ## Idea principal del sistema

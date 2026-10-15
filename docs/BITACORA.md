@@ -1015,3 +1015,46 @@ Miles Morales cuenta actualmente con 2 de 3 documentos completados y 67% de prog
 ### Próximo paso
 
 Completar desde React el flujo de la Carta de aceptación hasta alcanzar los tres documentos en estado `COMPLETE` y 100% de progreso documental.
+
+---
+
+## 15 de octubre de 2026
+
+### Actividad
+
+Validación completa del flujo de la Carta de aceptación y cierre del circuito documental del MVP.
+
+### Trabajo realizado
+
+- Se utilizó la funcionalidad de publicación de plantillas ya integrada en React.
+- El encargado publicó la plantilla de la Carta de aceptación de Miles Morales.
+- Miles pudo descargar la plantilla desde su portal.
+- El colaborador completó y entregó la Carta de aceptación desde React.
+- El documento cambió de `PENDING` a `DELIVERED`.
+- El documento apareció automáticamente en la bandeja de gestión del encargado.
+- El encargado revisó y aprobó la Carta de aceptación.
+- El documento cambió de `DELIVERED` a `PENDING_SIGNATURE`.
+- El encargado cargó desde React la versión firmada por PluriOne.
+- La Carta de aceptación pasó a `DOWNLOADABLE`.
+- Miles pudo consultar el documento final firmado.
+- Miles confirmó correctamente la recepción desde React.
+- La Carta de aceptación pasó finalmente a `COMPLETE`.
+- El progreso documental de Miles se actualizó de 2/3 a 3/3 documentos completos.
+- El porcentaje de progreso cambió de 67% a 100%.
+- Se verificó que los tres documentos principales de Miles se encuentran en estado `COMPLETE`.
+
+### Resultado
+
+El flujo documental principal del MVP puede realizarse completamente desde las interfaces React del colaborador y del encargado.
+
+Los tres flujos comprobados son:
+
+- NDA: `PENDING → DELIVERED → COMPLETE`
+- Carta de presentación: `DELIVERED → PENDING_SIGNATURE → DOWNLOADABLE → COMPLETE`
+- Carta de aceptación: `PENDING → DELIVERED → PENDING_SIGNATURE → DOWNLOADABLE → COMPLETE`
+
+Miles Morales cuenta actualmente con 3 de 3 documentos completados y 100% de progreso documental.
+
+### Próximo paso
+
+Implementar desde React el registro de nuevos colaboradores y conectar el formulario visual con la API de registro existente.
