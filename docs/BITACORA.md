@@ -941,3 +941,37 @@ Miles Morales cuenta actualmente con 1 de 3 documentos completados.
 ### Próximo paso
 
 Integrar desde React la publicación de plantillas del NDA y de la Carta de aceptación por parte del encargado.
+
+---
+
+## 15 de octubre de 2026
+
+### Actividad
+
+Integración de la publicación de plantillas desde el panel React del encargado.
+
+### Trabajo realizado
+
+- Se amplió la bandeja de gestión del encargado para incluir documentos en estado `PENDING` que requieren una plantilla y todavía no cuentan con ella.
+- Se limitaron estos documentos al NDA y a la Carta de aceptación.
+- Se agregó en React un panel específico para publicar plantillas.
+- El encargado puede seleccionar una plantilla desde el navegador.
+- La plantilla se envía mediante `FormData`.
+- Se conectó la interfaz con `POST /api/onboarding/documents/<id>/company-template/`.
+- Después de una publicación correcta, el frontend vuelve a consultar los datos desde la API.
+- El documento permanece en estado `PENDING`.
+- Una vez publicada la plantilla, el documento deja de aparecer entre los pendientes del encargado porque la siguiente acción corresponde al colaborador.
+- Se utilizó el NDA de Miles Morales para comprobar el flujo.
+- Se publicó correctamente una plantilla ficticia desde React.
+- Miles Morales pudo visualizar desde su portal la opción `Descargar plantilla`.
+- El portal habilitó también la selección y entrega del NDA.
+
+### Resultado
+
+El encargado ya puede publicar desde React las plantillas requeridas por el proceso documental.
+
+El NDA de Miles Morales cuenta actualmente con una plantilla publicada y queda listo para que el colaborador la descargue, complete y entregue.
+
+### Próximo paso
+
+Completar desde React el flujo del NDA de Miles Morales: descarga de plantilla, entrega del documento, revisión por el encargado y aprobación hasta `COMPLETE`.

@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.permissions import IsAuthenticated
@@ -281,13 +282,33 @@ class ManagerPendingDocumentsView(generics.ListAPIView):
     def get_queryset(self):
         validate_manager(self.request.user)
 
+        template_required_types = [
+            OnboardingDocument.DocumentType.NDA,
+            OnboardingDocument.DocumentType.ACCEPTANCE_LETTER,
+        ]
+
         return (
             OnboardingDocument.objects
             .filter(
-                status__in=[
-                  OnboardingDocument.Status.DELIVERED,
-                  OnboardingDocument.Status.PENDING_SIGNATURE,
-                ],
+                Q(
+                    status__in=[
+                        OnboardingDocument.Status.DELIVERED,
+                        OnboardingDocument.Status.PENDING_SIGNATURE,
+                    ]
+                )
+                |
+                (
+                    Q(
+                        status=OnboardingDocument.Status.PENDING,
+                        document_type__in=template_required_types,
+                    )
+                    &
+                    (
+                        Q(company_template__isnull=True)
+                        |
+                        Q(company_template="")
+                    )
+                )
             )
             .select_related(
                 "collaborator",

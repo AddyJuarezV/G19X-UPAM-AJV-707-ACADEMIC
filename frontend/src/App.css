@@ -4952,3 +4952,91 @@ html[data-theme="dark"]
 .receipt-confirm-panel > p {
   color: #aeb9ca;
 }
+
+/* =========================================================
+   PUBLICACION DE PLANTILLAS
+   ========================================================= */
+
+.company-template-panel {
+  margin-top: 18px;
+
+  padding: 20px;
+
+  border:
+    1px solid #d8e1f3;
+
+  border-radius: 13px;
+
+  background: #f7f9ff;
+}
+
+
+.company-template-panel > strong {
+  display: block;
+
+  color: #344054;
+
+  font-size: 17px;
+}
+
+
+.company-template-panel > p {
+  margin:
+    8px 0 17px;
+
+  color: #667085;
+
+  font-size: 14px;
+
+  line-height: 1.55;
+}
+
+
+.company-template-button {
+  width: 100%;
+
+  min-height: 50px;
+
+  margin-top: 14px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  color: white;
+
+  background: #4f6fdc;
+
+  font-size: 16px;
+
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.company-template-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+html[data-theme="dark"]
+.company-template-panel {
+  border-color: #304467;
+
+  background: #17233a;
+}
+
+
+html[data-theme="dark"]
+.company-template-panel > strong {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.company-template-panel > p {
+  color: #aeb9ca;
+}

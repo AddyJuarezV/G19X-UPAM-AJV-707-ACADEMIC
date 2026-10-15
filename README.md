@@ -285,6 +285,17 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El porcentaje de progreso de Miles cambió automáticamente de 0% a 33%.
 - El documento final firmado continúa disponible para consulta después de completar el flujo.
 
+- Se integró desde React la publicación de plantillas por parte del encargado.
+- La bandeja de gestión ahora incluye documentos `PENDING` que requieren una plantilla de empresa y todavía no la tienen publicada.
+- Se contemplan inicialmente el NDA y la Carta de aceptación.
+- El encargado puede seleccionar una plantilla desde el navegador y enviarla mediante `multipart/form-data`.
+- La interfaz utiliza `POST /api/onboarding/documents/<id>/company-template/`.
+- Después de publicar correctamente una plantilla, React vuelve a consultar la información del sistema.
+- El documento permanece en estado `PENDING` porque la siguiente acción corresponde al colaborador.
+- Después de publicar la plantilla, el documento deja de aparecer entre los pendientes del encargado.
+- Se comprobó el flujo utilizando el NDA de Miles Morales.
+- Miles Morales puede descargar desde su portal la plantilla del NDA publicada por PluriOne.
+- Después de recibir la plantilla, Miles dispone de la opción para seleccionar y entregar el documento.
 
 
 
@@ -292,20 +303,20 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 
 ## En progreso
 
-1. Completar la publicación de plantillas desde el panel del encargado.
-2. Completar los flujos del NDA y de la Carta de aceptación desde React.
-3. Continuar con el registro visual de nuevos colaboradores.
-4. Integrar posteriormente las acciones administrativas restantes de generaciones.
+1. Completar desde React el flujo del NDA de Miles Morales.
+2. Validar la entrega, revisión y aprobación del NDA utilizando la plantilla publicada.
+3. Publicar posteriormente la plantilla de la Carta de aceptación.
+4. Continuar después con el registro visual de nuevos colaboradores y las acciones administrativas de generaciones.
 
 \---
 
 ## Próximo paso
 
-1. Integrar desde React la publicación de plantillas por parte del encargado.
-2. Permitir publicar la plantilla del NDA.
-3. Permitir publicar la plantilla de la Carta de aceptación.
-4. Verificar que Miles pueda descargar las plantillas y entregar ambos documentos desde su portal.
-5. Continuar posteriormente con el registro de nuevos colaboradores y la administración visual de generaciones.
+1. Permitir que Miles Morales descargue la plantilla del NDA y entregue el documento desde React.
+2. Revisar el NDA entregado desde el panel del encargado.
+3. Verificar que al aprobar el NDA pase directamente a `COMPLETE`, ya que no requiere firma empresarial posterior.
+4. Comprobar que el progreso de Miles cambie automáticamente de 1/3 a 2/3 documentos completos.
+5. Integrar posteriormente la publicación y flujo de la Carta de aceptación.
 \---
 
 ## Idea principal del sistema

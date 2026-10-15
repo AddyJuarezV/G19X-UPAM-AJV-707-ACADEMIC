@@ -1972,6 +1972,25 @@ function PendingDocument({
     setSignedInputKey,
   ] = useState(0);
 
+  const [
+  templateFile,
+  setTemplateFile,
+] = useState(null);
+
+const [
+  publishingTemplate,
+  setPublishingTemplate,
+] = useState(false);
+
+const [
+  templateError,
+  setTemplateError,
+] = useState("");
+
+const [
+  templateInputKey,
+  setTemplateInputKey,
+] = useState(0);
 
   const isDelivered =
     document.status ===
@@ -1980,6 +1999,15 @@ function PendingDocument({
   const isPendingSignature =
     document.status ===
     "PENDING_SIGNATURE";
+
+  const needsCompanyTemplate =
+  document.status === "PENDING" &&
+  [
+    "NDA",
+    "ACCEPTANCE_LETTER",
+  ].includes(
+    document.document_type
+  );
 
 
   const sendDecision =
@@ -2108,6 +2136,67 @@ function PendingDocument({
       }
     };
 
+    const uploadCompanyTemplate =
+  async () => {
+    if (!templateFile) {
+      setTemplateError(
+        "Selecciona una plantilla antes de continuar."
+      );
+
+      return;
+    }
+
+    setPublishingTemplate(true);
+    setTemplateError("");
+
+    try {
+      const formData =
+        new FormData();
+
+      formData.append(
+        "company_template",
+        templateFile
+      );
+
+      const response =
+        await apiFetch(
+          `/api/onboarding/documents/${document.id}/company-template/`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+      const data =
+        await response
+          .json()
+          .catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail ||
+            data.company_template?.[0] ||
+            "No fue posible publicar la plantilla."
+        );
+      }
+
+      setTemplateFile(null);
+
+      setTemplateInputKey(
+        (current) =>
+          current + 1
+      );
+
+      await onRefresh();
+    } catch (error) {
+      setTemplateError(
+        error.message
+      );
+    } finally {
+      setPublishingTemplate(false);
+    }
+  };
+
 
   return (
     <article className="pending-review-card">
@@ -2185,6 +2274,82 @@ function PendingDocument({
           </a>
         )
       }
+
+      {needsCompanyTemplate && (
+  <div className="company-template-panel">
+    <strong>
+      Plantilla requerida
+    </strong>
+
+    <p>
+      El colaborador todavía no puede
+      entregar este documento. Publica
+      primero la plantilla que deberá
+      descargar y completar.
+    </p>
+
+    <label
+      htmlFor={
+        `template-file-${document.id}`
+      }
+      className="document-upload-label"
+    >
+      Seleccionar plantilla
+    </label>
+
+    <input
+      key={templateInputKey}
+      id={
+        `template-file-${document.id}`
+      }
+      type="file"
+      className="document-file-input"
+      onChange={(event) => {
+        setTemplateFile(
+          event.target
+            .files?.[0] ||
+            null
+        );
+
+        setTemplateError("");
+      }}
+    />
+
+    {templateFile && (
+      <div className="selected-file">
+        <span>
+          Plantilla seleccionada
+        </span>
+
+        <strong>
+          {templateFile.name}
+        </strong>
+      </div>
+    )}
+
+    <button
+      type="button"
+      className="company-template-button"
+      disabled={
+        publishingTemplate ||
+        !templateFile
+      }
+      onClick={
+        uploadCompanyTemplate
+      }
+    >
+      {publishingTemplate
+        ? "Publicando..."
+        : "Publicar plantilla"}
+    </button>
+
+    {templateError && (
+      <div className="document-feedback error">
+        {templateError}
+      </div>
+    )}
+  </div>
+)}
 
 
       {isDelivered && (
