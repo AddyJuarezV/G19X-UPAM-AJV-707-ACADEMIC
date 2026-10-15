@@ -340,27 +340,37 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Gwen pudo iniciar sesión correctamente con la cuenta creada desde React.
 - Su portal muestra correctamente la solicitud en estado `DRAFT`, 0 documentos y 0% de progreso.
 
+- Se integró desde React el envío de la solicitud inicial del colaborador.
+- Los colaboradores en estado `DRAFT` visualizan la opción para enviar su solicitud a revisión.
+- React se conectó con `POST /api/accounts/application/submit/`.
+- Después de enviar la solicitud, el sistema actualiza nuevamente la información del colaborador.
+- La solicitud cambia automáticamente de `DRAFT` a `IN_REVIEW`.
+- Después del envío, el botón deja de mostrarse para impedir envíos repetidos.
+- El colaborador visualiza un mensaje indicando que su información está siendo revisada por PluriOne.
+- Se comprobó el flujo utilizando a Gwen Stacy.
+- Gwen pasó correctamente de `DRAFT` a `IN_REVIEW` utilizando únicamente React.
+
 
 
 \---
 
 ## En progreso
 
-1. Completar desde React el envío de la solicitud inicial del colaborador.
-2. Integrar la revisión de solicitudes iniciales desde el panel del encargado.
+1. Integrar desde React la revisión de solicitudes iniciales por parte del encargado.
+2. Permitir aprobar solicitudes o solicitar correcciones.
 3. Asignar colaboradores aprobados a generaciones desde React.
-4. Integrar las acciones administrativas restantes de generaciones.
-5. Revisar y mejorar posteriormente Mis datos y Notificaciones.
+4. Integrar posteriormente las acciones administrativas restantes de generaciones.
+5. Revisar y mejorar Mis datos y Notificaciones.
 \---
 
 ## Próximo paso
 
-1. Mostrar una acción para enviar la solicitud cuando el colaborador se encuentre en `DRAFT`.
-2. Conectar React con `POST /api/accounts/application/submit/`.
-3. Cambiar automáticamente la solicitud de `DRAFT` a `IN_REVIEW`.
-4. Mostrar las solicitudes `IN_REVIEW` en el panel del encargado.
-5. Permitir aprobar una solicitud o solicitar una corrección desde React.
-6. Continuar posteriormente con la asignación del colaborador aprobado a una generación.
+1. Mostrar las solicitudes en estado `IN_REVIEW` dentro del panel del encargado.
+2. Conectar React con `GET /api/accounts/applications/pending/`.
+3. Permitir al encargado aprobar una solicitud desde la interfaz.
+4. Permitir solicitar una corrección indicando obligatoriamente el motivo.
+5. Verificar que el colaborador vea automáticamente el nuevo estado.
+6. Continuar después con la asignación del colaborador aprobado a una generación.
 \---
 
 ## Idea principal del sistema

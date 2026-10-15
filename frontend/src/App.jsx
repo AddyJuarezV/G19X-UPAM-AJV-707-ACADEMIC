@@ -920,6 +920,21 @@ function CollaboratorHome({
   const profile =
     user.profile || {};
 
+    const [
+    submittingApplication,
+    setSubmittingApplication,
+  ] = useState(false);
+
+  const [
+    applicationFeedback,
+    setApplicationFeedback,
+  ] = useState("");
+
+  const [
+    applicationError,
+    setApplicationError,
+  ] = useState("");
+
   const completedDocuments =
     documents.filter(
       (document) =>
@@ -935,6 +950,53 @@ function CollaboratorHome({
           ) * 100
         )
       : 0;
+
+    const canSubmitApplication =
+    profile.application_status ===
+    "DRAFT";
+
+
+  const handleSubmitApplication =
+    async () => {
+      setSubmittingApplication(true);
+      setApplicationFeedback("");
+      setApplicationError("");
+
+      try {
+        const response =
+          await apiFetch(
+            "/api/accounts/application/submit/",
+            {
+              method: "POST",
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              "No fue posible enviar la solicitud."
+          );
+        }
+
+        setApplicationFeedback(
+          data.message ||
+            "Solicitud enviada correctamente."
+        );
+
+        await onRefresh();
+      } catch (error) {
+        setApplicationError(
+          error.message
+        );
+      } finally {
+        setSubmittingApplication(false);
+      }
+    };
 
   return (
     <div className="dashboard-layout">
@@ -1046,6 +1108,73 @@ function CollaboratorHome({
             </p>
           </article>
         </section>
+
+                {canSubmitApplication && (
+          <section className="application-submit-card">
+            <div>
+              <span className="eyebrow">
+                SOLICITUD DE INCORPORACIÓN
+              </span>
+
+              <h2>
+                Tu registro está listo
+              </h2>
+
+              <p>
+                Revisa que tus datos sean
+                correctos y envía tu solicitud
+                para que PluriOne pueda
+                revisarla.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="application-submit-button"
+              disabled={
+                submittingApplication
+              }
+              onClick={
+                handleSubmitApplication
+              }
+            >
+              {submittingApplication
+                ? "Enviando..."
+                : "Enviar solicitud a revisión"}
+            </button>
+          </section>
+        )}
+
+
+        {profile.application_status ===
+          "IN_REVIEW" && (
+          <section className="application-review-message">
+            <strong>
+              Solicitud enviada
+            </strong>
+
+            <p>
+              Tu información está siendo
+              revisada por PluriOne. Te
+              mostraremos aquí cualquier
+              cambio de estado.
+            </p>
+          </section>
+        )}
+
+
+        {applicationFeedback && (
+          <div className="application-feedback success">
+            {applicationFeedback}
+          </div>
+        )}
+
+
+        {applicationError && (
+          <div className="application-feedback error">
+            {applicationError}
+          </div>
+        )}
 
 
         <section className="content-section">

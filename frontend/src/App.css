@@ -5040,3 +5040,193 @@ html[data-theme="dark"]
 .company-template-panel > p {
   color: #aeb9ca;
 }
+
+/* =========================================================
+   ENVIO DE SOLICITUD DEL COLABORADOR
+   ========================================================= */
+
+.application-submit-card {
+  margin-bottom: 32px;
+
+  padding: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  border:
+    1px solid #d8e1f3;
+
+  border-radius: 18px;
+
+  background: #f7f9ff;
+}
+
+
+.application-submit-card h2 {
+  margin:
+    8px 0;
+
+  color: #26324b;
+
+  font-size: 27px;
+}
+
+
+.application-submit-card p {
+  max-width: 650px;
+
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+
+.application-submit-button {
+  min-width: 240px;
+  min-height: 52px;
+
+  padding:
+    0 20px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  color: white;
+
+  background: #5270db;
+
+  font-size: 15px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.application-submit-button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+.application-review-message {
+  margin-bottom: 32px;
+
+  padding: 22px 24px;
+
+  border:
+    1px solid #b2ccff;
+
+  border-radius: 15px;
+
+  background: #eff8ff;
+}
+
+
+.application-review-message strong {
+  display: block;
+
+  color: #175cd3;
+
+  font-size: 17px;
+}
+
+
+.application-review-message p {
+  margin:
+    7px 0 0;
+
+  color: #475467;
+
+  line-height: 1.55;
+}
+
+
+.application-feedback {
+  margin-bottom: 24px;
+
+  padding: 14px 16px;
+
+  border-radius: 11px;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+
+.application-feedback.success {
+  color: #067647;
+
+  border:
+    1px solid #abefc6;
+
+  background: #ecfdf3;
+}
+
+
+.application-feedback.error {
+  color: #b42318;
+
+  border:
+    1px solid #fecdca;
+
+  background: #fef3f2;
+}
+
+
+html[data-theme="dark"]
+.application-submit-card {
+  border-color: #304467;
+
+  background: #17233a;
+}
+
+
+html[data-theme="dark"]
+.application-submit-card h2 {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.application-submit-card p {
+  color: #aeb9ca;
+}
+
+
+html[data-theme="dark"]
+.application-review-message {
+  border-color: #284d80;
+
+  background: #11233e;
+}
+
+
+html[data-theme="dark"]
+.application-review-message p {
+  color: #b7c2d3;
+}
+
+
+@media (max-width: 720px) {
+  .application-submit-card {
+    align-items: stretch;
+
+    flex-direction: column;
+  }
+
+
+  .application-submit-button {
+    width: 100%;
+
+    min-width: 0;
+  }
+}

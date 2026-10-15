@@ -1097,3 +1097,36 @@ El flujo comprobado fue:
 ### Próximo paso
 
 Permitir que Gwen Stacy envíe su solicitud desde React para cambiar de `DRAFT` a `IN_REVIEW`.
+
+---
+
+## 15 de octubre de 2026
+
+### Actividad
+
+Integración del envío de solicitudes iniciales desde React.
+
+### Trabajo realizado
+
+- Se agregó al portal del colaborador una acción específica para enviar la solicitud de incorporación.
+- La acción solamente se muestra cuando la solicitud se encuentra en estado `DRAFT`.
+- Se conectó React con `POST /api/accounts/application/submit/`.
+- Después del envío correcto, el frontend vuelve a consultar la información del usuario.
+- El estado de la solicitud cambia automáticamente de `DRAFT` a `IN_REVIEW`.
+- El botón de envío desaparece después de completar la acción.
+- Se agregó un mensaje visual indicando que PluriOne está revisando la solicitud.
+- Se utilizó a Gwen Stacy para comprobar el flujo.
+- Gwen envió correctamente su solicitud desde React.
+- Su perfil pasó de `DRAFT` a `IN_REVIEW`.
+
+### Resultado
+
+El colaborador ya puede iniciar formalmente su proceso de incorporación desde React después de crear su cuenta.
+
+El flujo comprobado fue:
+
+`Crear cuenta → DRAFT → Enviar solicitud → IN_REVIEW`
+
+### Próximo paso
+
+Integrar en el panel del encargado la revisión de solicitudes en estado `IN_REVIEW`, permitiendo aprobarlas o solicitar correcciones.
