@@ -297,26 +297,37 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Miles Morales puede descargar desde su portal la plantilla del NDA publicada por PluriOne.
 - Después de recibir la plantilla, Miles dispone de la opción para seleccionar y entregar el documento.
 
+- Se comprobó desde React el flujo completo del NDA utilizando a Miles Morales.
+- Miles descargó la plantilla del NDA previamente publicada por PluriOne.
+- El colaborador entregó el NDA desde su portal.
+- El documento pasó correctamente de `PENDING` a `DELIVERED`.
+- El encargado recibió el NDA en la bandeja de documentos por gestionar.
+- El encargado aprobó el NDA desde React.
+- Debido a que el NDA no requiere una firma empresarial posterior, pasó directamente de `DELIVERED` a `COMPLETE`.
+- El progreso documental de Miles Morales se actualizó automáticamente de 1/3 a 2/3 documentos completos.
+- El porcentaje de progreso se actualizó automáticamente de 33% a 67%.
+- La Carta de presentación y el NDA de Miles se encuentran actualmente en estado `COMPLETE`.
+
 
 
 \---
 
 ## En progreso
 
-1. Completar desde React el flujo del NDA de Miles Morales.
-2. Validar la entrega, revisión y aprobación del NDA utilizando la plantilla publicada.
-3. Publicar posteriormente la plantilla de la Carta de aceptación.
-4. Continuar después con el registro visual de nuevos colaboradores y las acciones administrativas de generaciones.
-
+1. Completar desde React el flujo de la Carta de aceptación de Miles Morales.
+2. Publicar la plantilla de la Carta de aceptación desde el panel del encargado.
+3. Validar su entrega, revisión, firma empresarial, descarga y confirmación de recepción.
+4. Continuar posteriormente con el registro visual de nuevos colaboradores y la administración de generaciones.
 \---
 
 ## Próximo paso
 
-1. Permitir que Miles Morales descargue la plantilla del NDA y entregue el documento desde React.
-2. Revisar el NDA entregado desde el panel del encargado.
-3. Verificar que al aprobar el NDA pase directamente a `COMPLETE`, ya que no requiere firma empresarial posterior.
-4. Comprobar que el progreso de Miles cambie automáticamente de 1/3 a 2/3 documentos completos.
-5. Integrar posteriormente la publicación y flujo de la Carta de aceptación.
+1. Publicar desde React la plantilla de la Carta de aceptación de Miles Morales.
+2. Permitir que Miles descargue la plantilla y entregue la Carta de aceptación.
+3. Revisar y aprobar la Carta de aceptación desde el panel del encargado.
+4. Subir desde React la Carta de aceptación firmada por PluriOne.
+5. Permitir que Miles consulte el documento final y confirme su recepción.
+6. Verificar que los tres documentos queden en `COMPLETE` y que Miles alcance 100% de progreso documental.
 \---
 
 ## Idea principal del sistema

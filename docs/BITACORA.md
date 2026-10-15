@@ -975,3 +975,43 @@ El NDA de Miles Morales cuenta actualmente con una plantilla publicada y queda l
 ### Próximo paso
 
 Completar desde React el flujo del NDA de Miles Morales: descarga de plantilla, entrega del documento, revisión por el encargado y aprobación hasta `COMPLETE`.
+
+---
+
+## 15 de octubre de 2026
+
+### Actividad
+
+Validación completa del flujo del NDA desde las interfaces React.
+
+### Trabajo realizado
+
+- Se utilizó la plantilla del NDA previamente publicada por el encargado.
+- Miles Morales pudo descargar la plantilla desde su portal.
+- Se preparó un documento ficticio como NDA completado.
+- Miles entregó el NDA desde React.
+- El documento cambió de `PENDING` a `DELIVERED`.
+- El NDA apareció automáticamente en la bandeja de gestión del encargado.
+- El encargado pudo consultar el archivo entregado.
+- El encargado aprobó el NDA desde React.
+- Se comprobó la regla específica del NDA: no requiere una segunda firma por parte de la empresa.
+- Después de la aprobación, el NDA pasó directamente de `DELIVERED` a `COMPLETE`.
+- El portal de Miles se actualizó automáticamente.
+- El progreso documental cambió de 1/3 a 2/3 documentos completos.
+- El porcentaje de avance cambió de 33% a 67%.
+- La Carta de presentación y el NDA quedaron en estado `COMPLETE`.
+- La Carta de aceptación permanece en estado `PENDING`.
+
+### Resultado
+
+El flujo completo del NDA funciona correctamente utilizando únicamente las interfaces React del colaborador y del encargado.
+
+El flujo comprobado fue:
+
+`PENDING → DELIVERED → COMPLETE`
+
+Miles Morales cuenta actualmente con 2 de 3 documentos completados y 67% de progreso documental.
+
+### Próximo paso
+
+Completar desde React el flujo de la Carta de aceptación hasta alcanzar los tres documentos en estado `COMPLETE` y 100% de progreso documental.
