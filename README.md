@@ -274,6 +274,17 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El documento dejó de aparecer entre los pendientes del encargado después de completar la firma.
 - Miles Morales puede consultar desde su portal el documento final firmado por la empresa.
 
+- Se integró desde React la confirmación de recepción de documentos firmados.
+- Los documentos en estado `DOWNLOADABLE` muestran al colaborador la opción de confirmar su recepción.
+- El colaborador puede consultar el documento final firmado antes de confirmar.
+- La interfaz utiliza `POST /api/onboarding/documents/<id>/confirm-receipt/`.
+- Después de confirmar la recepción, React actualiza nuevamente la información desde la API.
+- Se comprobó el flujo utilizando la Carta de presentación de Miles Morales.
+- La Carta de presentación pasó correctamente de `DOWNLOADABLE` a `COMPLETE`.
+- El progreso documental de Miles se actualizó automáticamente de 0/3 a 1/3 documentos completos.
+- El porcentaje de progreso de Miles cambió automáticamente de 0% a 33%.
+- El documento final firmado continúa disponible para consulta después de completar el flujo.
+
 
 
 
@@ -281,18 +292,20 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 
 ## En progreso
 
-1. Completar desde React el flujo documental de extremo a extremo.
-2. Permitir que el colaborador confirme la recepción de un documento firmado.
-3. Integrar desde el panel del encargado la publicación de plantillas requeridas.
-4. Continuar posteriormente con el registro visual de nuevos colaboradores y la administración de generaciones.
+1. Completar la publicación de plantillas desde el panel del encargado.
+2. Completar los flujos del NDA y de la Carta de aceptación desde React.
+3. Continuar con el registro visual de nuevos colaboradores.
+4. Integrar posteriormente las acciones administrativas restantes de generaciones.
+
+\---
 
 ## Próximo paso
 
-1. Implementar desde React la confirmación de recepción de documentos disponibles para descarga.
-2. Al confirmar la recepción, cambiar el documento de `DOWNLOADABLE` a `COMPLETE`.
-3. Verificar que el progreso documental y el estado visual del colaborador se actualicen automáticamente.
-4. Integrar después la publicación de plantillas del NDA y de la Carta de aceptación desde el panel del encargado.
-5. Continuar posteriormente con el registro de nuevos colaboradores y las acciones administrativas de generaciones.
+1. Integrar desde React la publicación de plantillas por parte del encargado.
+2. Permitir publicar la plantilla del NDA.
+3. Permitir publicar la plantilla de la Carta de aceptación.
+4. Verificar que Miles pueda descargar las plantillas y entregar ambos documentos desde su portal.
+5. Continuar posteriormente con el registro de nuevos colaboradores y la administración visual de generaciones.
 \---
 
 ## Idea principal del sistema

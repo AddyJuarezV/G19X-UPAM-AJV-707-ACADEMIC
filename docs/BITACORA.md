@@ -904,3 +904,40 @@ La Carta de presentación de Miles Morales se encuentra actualmente en estado `D
 ### Próximo paso
 
 Implementar desde React la confirmación de recepción por parte del colaborador para cambiar un documento de `DOWNLOADABLE` a `COMPLETE`.
+
+---
+
+## 14 de octubre de 2026
+
+### Actividad
+
+Integración de la confirmación de recepción de documentos desde React.
+
+### Trabajo realizado
+
+- Se agregó al portal del colaborador la confirmación de recepción de documentos firmados.
+- La acción se muestra únicamente cuando un documento se encuentra en estado `DOWNLOADABLE`.
+- Se verificó que exista un archivo firmado por la empresa antes de permitir la confirmación.
+- Se conectó React con `POST /api/onboarding/documents/<id>/confirm-receipt/`.
+- Después de confirmar la recepción, el frontend vuelve a consultar automáticamente la información del colaborador.
+- Se utilizó la Carta de presentación de Miles Morales para comprobar el flujo.
+- El documento se encontraba en estado `DOWNLOADABLE`.
+- Miles confirmó correctamente su recepción desde React.
+- La Carta de presentación pasó automáticamente a `COMPLETE`.
+- El progreso documental de Miles cambió de 0/3 a 1/3.
+- El porcentaje de progreso se actualizó automáticamente de 0% a 33%.
+- El documento final firmado continúa disponible para consulta.
+
+### Resultado
+
+El flujo de la Carta de presentación ya puede completarse completamente desde las interfaces React del colaborador y del encargado.
+
+El proceso comprobado fue:
+
+`NEEDS_CORRECTION → DELIVERED → PENDING_SIGNATURE → DOWNLOADABLE → COMPLETE`
+
+Miles Morales cuenta actualmente con 1 de 3 documentos completados.
+
+### Próximo paso
+
+Integrar desde React la publicación de plantillas del NDA y de la Carta de aceptación por parte del encargado.

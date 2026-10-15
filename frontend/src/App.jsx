@@ -1072,6 +1072,16 @@ function DocumentCard({
     setFileInputKey,
   ] = useState(0);
 
+  const [
+  confirming,
+  setConfirming,
+] = useState(false);
+
+const [
+  confirmError,
+  setConfirmError,
+] = useState("");
+
 
   const statusClass =
     document.status
@@ -1111,6 +1121,13 @@ function DocumentCard({
   const canUpload =
     uploadStatusAllowed &&
     templateAvailable;
+
+  const canConfirmReceipt =
+  document.status ===
+    "DOWNLOADABLE" &&
+  Boolean(
+    document.company_signed_file
+  );
 
 
   let actionText =
@@ -1212,6 +1229,48 @@ function DocumentCard({
         setUploading(false);
       }
     };
+
+  const handleConfirmReceipt =
+  async () => {
+    setConfirming(true);
+    setFeedback("");
+    setConfirmError("");
+
+    try {
+      const response =
+        await apiFetch(
+          `/api/onboarding/documents/${document.id}/confirm-receipt/`,
+          {
+            method: "POST",
+          }
+        );
+
+      const data =
+        await response
+          .json()
+          .catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail ||
+            "No fue posible confirmar la recepción."
+        );
+      }
+
+      setFeedback(
+        data.message ||
+          "Recepción confirmada correctamente."
+      );
+
+      await onRefresh();
+    } catch (error) {
+      setConfirmError(
+        error.message
+      );
+    } finally {
+      setConfirming(false);
+    }
+  };
 
 
   return (
@@ -1383,6 +1442,12 @@ function DocumentCard({
         </div>
       )}
 
+      {confirmError && (
+        <div className="document-feedback error">
+          {confirmError}
+        </div>
+      )}
+
 
       {
         !canUpload &&
@@ -1401,6 +1466,33 @@ function DocumentCard({
           </a>
         )
       }
+
+      {canConfirmReceipt && (
+  <div className="receipt-confirm-panel">
+    <strong>
+      Documento listo para ti
+    </strong>
+
+    <p>
+      Descarga y revisa el documento
+      firmado. Después confirma que lo
+      recibiste correctamente.
+    </p>
+
+    <button
+      type="button"
+      className="receipt-confirm-button"
+      disabled={confirming}
+      onClick={
+        handleConfirmReceipt
+      }
+    >
+      {confirming
+        ? "Confirmando..."
+        : "Confirmar recepción"}
+    </button>
+  </div>
+)}
 
 
       {
