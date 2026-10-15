@@ -4,6 +4,7 @@ import {
   useState,
 } from "react";
 import "./App.css";
+import Register from "./Register";
 
 
 function App() {
@@ -19,6 +20,11 @@ function App() {
   const [loginStage, setLoginStage] = useState("VALIDATING");
   const [checkingSession, setCheckingSession] = useState(true);
   const [error, setError] = useState("");
+
+  const [
+  showRegister,
+  setShowRegister,
+] = useState(false);
 
   const [theme, setTheme] = useState(() => {
     const savedTheme =
@@ -451,6 +457,29 @@ const loadCurrentUser =
     );
   }
 
+  if (showRegister) {
+  return (
+    <>
+      <ThemeSwitcher
+        theme={theme}
+        setTheme={setTheme}
+      />
+
+      <Register
+        onBack={() =>
+          setShowRegister(false)
+        }
+        onRegistered={() => {
+         setEmail("");
+         setPassword("");
+         setError("");
+         setShowRegister(false);
+        }}
+      />
+    </>
+  );
+}
+
 
   return (
     <>
@@ -467,6 +496,12 @@ const loadCurrentUser =
         loading={loading}
         error={error}
         onSubmit={handleSubmit}
+        onRegister={() => {
+         setEmail("");
+         setPassword("");
+         setError("");
+         setShowRegister(true);
+        }}
       />
     </>
   );
@@ -627,6 +662,7 @@ function Login({
   loading,
   error,
   onSubmit,
+  onRegister,
 }) {
   const [showForm, setShowForm] = useState(false);
 
@@ -729,7 +765,10 @@ function Login({
               </p>
             </div>
 
-            <form onSubmit={onSubmit}>
+            <form
+              onSubmit={onSubmit}
+              autoComplete="off"
+            >
               <div className="auth-field">
                 <label htmlFor="email">
                   Correo electrónico
@@ -738,6 +777,7 @@ function Login({
                 <input
                   id="email"
                   type="email"
+                  autoComplete="off"
                   placeholder="nombre@correo.com"
                   value={email}
                   onChange={(event) =>
@@ -757,6 +797,7 @@ function Login({
                 <input
                   id="password"
                   type="password"
+                  autoComplete="off"
                   placeholder="Ingresa tu contraseña"
                   value={password}
                   onChange={(event) =>
@@ -812,9 +853,12 @@ function Login({
                 ¿Eres nuevo colaborador?
               </span>
 
-              <button type="button">
+              <button
+                type="button"
+                onClick={onRegister}
+              >
                 Crear una cuenta
-              </button>
+               </button>
             </div>
 
             <p className="auth-security">
@@ -1081,6 +1125,8 @@ const [
   confirmError,
   setConfirmError,
 ] = useState("");
+
+
 
 
   const statusClass =

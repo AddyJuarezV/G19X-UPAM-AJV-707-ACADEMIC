@@ -1058,3 +1058,42 @@ Miles Morales cuenta actualmente con 3 de 3 documentos completados y 100% de pro
 ### Próximo paso
 
 Implementar desde React el registro de nuevos colaboradores y conectar el formulario visual con la API de registro existente.
+
+---
+
+## 15 de octubre de 2026
+
+### Actividad
+
+Integración y validación del registro de nuevos colaboradores desde React.
+
+### Trabajo realizado
+
+- Se creó el componente `Register.jsx`.
+- Se creó `Register.css` para mantener separado el diseño del formulario.
+- Se conectó el botón `Crear una cuenta` del login con el formulario de registro.
+- Se agregaron datos personales y académicos requeridos por el MVP.
+- Se integró la carga de CV y credencial universitaria.
+- El formulario envía la información mediante `FormData`.
+- Se conectó React con `POST /api/accounts/register/`.
+- Se agregaron mensajes de validación provenientes del backend.
+- Se agregó una pantalla de registro completado.
+- Se mejoró el diseño de los controles de selección de archivos.
+- Se corrigió el autocompletado de credenciales dentro del formulario de registro.
+- Se utilizó a Gwen Stacy como colaboradora ficticia.
+- La cuenta y el perfil se crearon correctamente.
+- Gwen pudo iniciar sesión utilizando la cuenta creada desde React.
+- Su solicitud se encuentra correctamente en estado `DRAFT`.
+- Su portal muestra actualmente 0 documentos y 0% de progreso, debido a que todavía no ha enviado la solicitud a revisión.
+
+### Resultado
+
+Un colaborador nuevo ya puede registrarse e iniciar sesión utilizando únicamente la interfaz React.
+
+El flujo comprobado fue:
+
+`Crear cuenta → crear usuario y perfil → DRAFT → iniciar sesión`
+
+### Próximo paso
+
+Permitir que Gwen Stacy envíe su solicitud desde React para cambiar de `DRAFT` a `IN_REVIEW`.

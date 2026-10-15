@@ -323,27 +323,44 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El progreso documental se actualizó automáticamente a 100%.
 - Se comprobó el flujo documental completo del MVP utilizando únicamente las interfaces React del colaborador y del encargado.
 
+- Se integró desde React el registro visual de nuevos colaboradores.
+- Se creó un componente independiente `Register.jsx`.
+- Se creó una hoja de estilos independiente `Register.css`.
+- El formulario captura nombre completo, CURP, teléfono, correo personal, correo institucional, universidad, siglas, carrera y horas a cumplir.
+- Se integró la creación de contraseña para la cuenta del colaborador.
+- Se agregó selección de CV y credencial universitaria desde el navegador.
+- El registro utiliza `multipart/form-data`.
+- React se conectó con `POST /api/accounts/register/`.
+- El backend crea automáticamente la cuenta con rol `COLABORADOR`.
+- El perfil inicial se crea en estado `DRAFT`.
+- Se agregó una pantalla de confirmación después de un registro exitoso.
+- Se mejoró visualmente la selección de archivos del formulario.
+- Se evitó que el formulario de registro reutilice credenciales de inicio de sesión almacenadas por el navegador.
+- Se comprobó el registro real utilizando a Gwen Stacy como colaboradora ficticia.
+- Gwen pudo iniciar sesión correctamente con la cuenta creada desde React.
+- Su portal muestra correctamente la solicitud en estado `DRAFT`, 0 documentos y 0% de progreso.
+
 
 
 \---
 
 ## En progreso
 
-1. Integrar desde React el registro de nuevos colaboradores.
-2. Completar la revisión visual de solicitudes iniciales desde el panel del encargado.
-3. Integrar las acciones administrativas de generaciones desde React.
-4. Revisar y mejorar los apartados de Mis datos y Notificaciones.
-5. Preparar posteriormente las pruebas finales y la entrega reproducible del MVP.
+1. Completar desde React el envío de la solicitud inicial del colaborador.
+2. Integrar la revisión de solicitudes iniciales desde el panel del encargado.
+3. Asignar colaboradores aprobados a generaciones desde React.
+4. Integrar las acciones administrativas restantes de generaciones.
+5. Revisar y mejorar posteriormente Mis datos y Notificaciones.
 \---
 
 ## Próximo paso
 
-1. Implementar el formulario de registro de nuevos colaboradores desde React.
-2. Conectar el formulario con `POST /api/accounts/register/`.
-3. Permitir cargar desde el registro el CV y la credencial universitaria.
-4. Verificar que el nuevo colaborador se cree correctamente en PostgreSQL.
-5. Comprobar que pueda iniciar sesión y continuar con su solicitud de incorporación.
-6. Continuar después con la revisión inicial de solicitudes desde el panel del encargado.
+1. Mostrar una acción para enviar la solicitud cuando el colaborador se encuentre en `DRAFT`.
+2. Conectar React con `POST /api/accounts/application/submit/`.
+3. Cambiar automáticamente la solicitud de `DRAFT` a `IN_REVIEW`.
+4. Mostrar las solicitudes `IN_REVIEW` en el panel del encargado.
+5. Permitir aprobar una solicitud o solicitar una corrección desde React.
+6. Continuar posteriormente con la asignación del colaborador aprobado a una generación.
 \---
 
 ## Idea principal del sistema

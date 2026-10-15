@@ -1,0 +1,448 @@
+.register-page {
+  min-height: 100vh;
+
+  padding:
+    80px 24px 60px;
+
+  display: flex;
+  justify-content: center;
+
+  background: #f5f7fb;
+}
+
+
+.register-shell {
+  width: min(
+    100%,
+    1080px
+  );
+
+  padding: 38px;
+
+  border:
+    1px solid #dde4ef;
+
+  border-radius: 22px;
+
+  background: white;
+
+  box-shadow:
+    0 24px 70px
+    rgba(32, 49, 86, 0.1);
+}
+
+
+.register-header {
+  max-width: 720px;
+
+  margin-bottom: 34px;
+}
+
+
+.register-header > span {
+  color: #5270db;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+
+.register-header h1 {
+  margin:
+    10px 0 8px;
+
+  color: #1d2939;
+
+  font-size: 40px;
+}
+
+
+.register-header p {
+  margin: 0;
+
+  color: #667085;
+
+  font-size: 16px;
+
+  line-height: 1.6;
+}
+
+
+.register-back {
+  margin-bottom: 26px;
+
+  padding: 0;
+
+  border: none;
+
+  color: #5270db;
+
+  background: transparent;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+
+.register-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 20px;
+}
+
+
+.register-grid label {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+
+.register-grid label > span {
+  color: #344054;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+
+.register-grid input {
+  min-height: 48px;
+
+  padding:
+    0 14px;
+
+  border:
+    1px solid #d0d5dd;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  color: #1d2939;
+
+  background: white;
+
+  font-size: 15px;
+}
+
+
+.register-grid input:focus {
+  border-color: #5270db;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(82, 112, 219, 0.1);
+}
+
+
+.register-wide {
+  grid-column:
+    1 / -1;
+}
+
+
+.register-file input {
+  padding:
+    10px;
+}
+
+
+.register-file small {
+  color: #667085;
+
+  font-size: 12px;
+}
+
+
+.register-message {
+  margin-top: 22px;
+
+  padding: 14px 16px;
+
+  border-radius: 10px;
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.register-message.error {
+  color: #b42318;
+
+  border:
+    1px solid #fecdca;
+
+  background: #fef3f2;
+}
+
+
+.register-submit {
+  width: 100%;
+
+  min-height: 54px;
+
+  margin-top: 26px;
+
+  border: none;
+
+  border-radius: 11px;
+
+  color: white;
+
+  background: #5270db;
+
+  font-size: 16px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.register-submit:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+}
+
+
+.register-success {
+  width: min(
+    100%,
+    620px
+  );
+
+  margin: auto;
+
+  padding: 52px;
+
+  border:
+    1px solid #dde4ef;
+
+  border-radius: 22px;
+
+  text-align: center;
+
+  background: white;
+
+  box-shadow:
+    0 24px 70px
+    rgba(32, 49, 86, 0.1);
+}
+
+
+.register-success-icon {
+  width: 64px;
+  height: 64px;
+
+  margin:
+    0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  color: #067647;
+
+  background: #dcfae6;
+
+  font-size: 28px;
+  font-weight: 900;
+}
+
+
+.register-success > span {
+  color: #5270db;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+
+.register-success h1 {
+  margin:
+    10px 0;
+
+  color: #1d2939;
+
+  font-size: 36px;
+}
+
+
+.register-success p {
+  color: #667085;
+
+  line-height: 1.6;
+}
+
+
+.register-success button {
+  min-height: 50px;
+
+  margin-top: 18px;
+
+  padding:
+    0 24px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  color: white;
+
+  background: #5270db;
+
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+/* TEMA OSCURO */
+
+html[data-theme="dark"]
+.register-page {
+  background: #091426;
+}
+
+
+html[data-theme="dark"]
+.register-shell,
+html[data-theme="dark"]
+.register-success {
+  border-color: #26334a;
+
+  background: #111b2d;
+}
+
+
+html[data-theme="dark"]
+.register-header h1,
+html[data-theme="dark"]
+.register-success h1,
+html[data-theme="dark"]
+.register-grid label > span {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.register-header p,
+html[data-theme="dark"]
+.register-success p,
+html[data-theme="dark"]
+.register-file small {
+  color: #aeb9ca;
+}
+
+
+html[data-theme="dark"]
+.register-grid input {
+  color: #edf2f8;
+
+  border-color: #30405a;
+
+  background: #0d1728;
+}
+
+
+@media (
+  max-width: 720px
+) {
+  .register-page {
+    padding:
+      70px 16px 40px;
+  }
+
+
+  .register-shell {
+    padding: 25px;
+  }
+
+
+  .register-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .register-wide {
+    grid-column: auto;
+  }
+
+
+  .register-header h1 {
+    font-size: 32px;
+  }
+}
+
+/* =========================================================
+   SELECTORES DE ARCHIVO DEL REGISTRO
+   ========================================================= */
+
+.register-file input[type="file"] {
+  min-height: 52px;
+
+  padding: 7px;
+
+  color: #667085;
+
+  cursor: pointer;
+}
+
+
+.register-file input[type="file"]::file-selector-button {
+  margin-right: 12px;
+
+  padding:
+    10px 15px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  color: white;
+
+  background: #5270db;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+
+.register-file input[type="file"]::file-selector-button:hover {
+  opacity: 0.9;
+
+  transform:
+    translateY(-1px);
+}
+
+
+html[data-theme="dark"]
+.register-file input[type="file"] {
+  color: #aeb9ca;
+
+  border-color: #30405a;
+
+  background: #0d1728;
+}
