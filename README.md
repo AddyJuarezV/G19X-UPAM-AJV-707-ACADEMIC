@@ -364,6 +364,16 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Al volver a iniciar sesión como colaboradora, su solicitud apareció correctamente en estado `APPROVED`.
 - Gwen continúa con 0 documentos y 0% de progreso porque todavía no ha sido asignada a una generación.
 
+- Se mejoró la asignación de colaboradores aprobados a generaciones.
+- Al asignar un colaborador a una generación abierta, el backend inicializa automáticamente sus documentos de onboarding.
+- Se crean los tres documentos obligatorios: NDA, Carta de presentación y Carta de aceptación.
+- Los documentos iniciales se crean en estado `PENDING`.
+- Se utiliza `get_or_create()` para evitar duplicados accidentales.
+- La asignación y la creación documental se ejecutan dentro de una transacción atómica.
+- Se validó el comportamiento utilizando a Gwen Stacy sin modificar permanentemente su estado.
+- Durante la prueba Gwen fue asignada temporalmente a la Generación 19 y se generaron correctamente sus tres documentos.
+- Después del rollback, Gwen continuó aprobada, sin generación y con 0 documentos, lista para probar la asignación real desde React.
+
 
 
 \---
@@ -371,20 +381,21 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 ## En progreso
 
 1. Integrar desde React la asignación de colaboradores aprobados a generaciones.
-2. Verificar el momento correcto para crear los documentos iniciales del onboarding.
-3. Completar posteriormente el circuito de corrección de solicitudes iniciales.
-4. Integrar las acciones administrativas restantes de generaciones.
+2. Mostrar los colaboradores aprobados que todavía no pertenecen a una generación.
+3. Permitir seleccionar una generación abierta para realizar la asignación.
+4. Completar posteriormente el circuito de corrección de solicitudes iniciales.
 5. Revisar Mis datos, Notificaciones y detalles visuales del modo oscuro.
 \---
 
 ## Próximo paso
 
-1. Consultar desde React los colaboradores aprobados disponibles para asignación.
-2. Mostrar a Gwen Stacy como colaboradora disponible.
-3. Permitir asignarla a una generación abierta.
-4. Conectar la interfaz con la API existente de integrantes de generaciones.
-5. Comprobar que Gwen aparezca dentro de la generación seleccionada.
-6. Revisar antes de continuar cómo y cuándo deben crearse sus documentos NDA, Carta de presentación y Carta de aceptación.
+1. Consultar desde React `GET /api/onboarding/collaborators/available/`.
+2. Mostrar a Gwen Stacy como colaboradora disponible para asignación.
+3. Permitir seleccionar una generación abierta.
+4. Conectar React con `POST /api/onboarding/generations/<id>/members/`.
+5. Asignar realmente a Gwen a la Generación 19.
+6. Verificar que aparezca en la generación con 0 de 3 documentos completados.
+7. Iniciar sesión como Gwen y comprobar que aparezcan NDA, Carta de presentación y Carta de aceptación en estado pendiente.
 \---
 
 ## Idea principal del sistema

@@ -1170,3 +1170,43 @@ La interfaz para solicitar correcciones también quedó incorporada, aunque su c
 ### Próximo paso
 
 Integrar desde React la asignación de colaboradores aprobados a generaciones abiertas y verificar el momento adecuado para crear sus documentos iniciales de onboarding.
+
+---
+
+## 19 de octubre de 2026
+
+### Actividad
+
+Inicialización automática de documentos al asignar colaboradores a generaciones.
+
+### Trabajo realizado
+
+- Se revisó el flujo existente de asignación a generaciones.
+- Se detectó que la membresía de generación se creaba correctamente, pero los documentos iniciales del onboarding no se generaban automáticamente.
+- Se modificó `AddGenerationMemberView`.
+- La operación ahora utiliza una transacción atómica.
+- Después de crear la membresía se inicializan los documentos requeridos del colaborador.
+- Los documentos creados son NDA, Carta de presentación y Carta de aceptación.
+- Los tres documentos comienzan en estado `PENDING`.
+- Se utilizó `get_or_create()` para evitar documentos duplicados.
+- `python manage.py check` finalizó sin errores.
+- Se realizó una prueba transaccional utilizando a Gwen Stacy y la Generación 19.
+- Durante la prueba la API respondió con HTTP 201.
+- Gwen fue asignada temporalmente a la Generación 19.
+- Se comprobaron los tres documentos en estado `PENDING`.
+- Se realizó rollback de la transacción de prueba.
+- Después del rollback Gwen permaneció en estado `APPROVED`, sin generación y con 0 documentos.
+
+### Resultado
+
+La asignación a una generación ya funciona como punto de inicio formal del onboarding documental.
+
+El flujo del backend queda:
+
+`APPROVED → asignación a generación → membresía + 3 documentos PENDING`
+
+La prueba no modificó permanentemente los datos de Gwen, por lo que podrá utilizarse para validar el siguiente flujo desde React.
+
+### Próximo paso
+
+Implementar desde el panel del encargado la asignación visual de colaboradores aprobados a generaciones abiertas.

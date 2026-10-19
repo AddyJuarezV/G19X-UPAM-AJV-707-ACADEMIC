@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404
+from django.db import transaction
 from django.db.models import Q
 from rest_framework import generics, status
 from rest_framework.exceptions import PermissionDenied
@@ -82,6 +83,7 @@ class GenerationCreateView(generics.CreateAPIView):
 class AddGenerationMemberView(APIView):
     permission_classes = [IsAuthenticated]
 
+    @transaction.atomic
     def post(self, request, pk):
         validate_manager(request.user)
 
@@ -105,13 +107,39 @@ class AddGenerationMemberView(APIView):
         serializer.is_valid(raise_exception=True)
 
         collaborator = CollaboratorProfile.objects.get(
-            pk=serializer.validated_data["collaborator_id"]
+            pk=serializer.validated_data[
+                "collaborator_id"
+            ]
         )
 
         membership = GenerationMembership.objects.create(
             generation=generation,
             collaborator=collaborator,
         )
+
+        required_document_types = (
+            OnboardingDocument.DocumentType.NDA,
+            OnboardingDocument.DocumentType.PRESENTATION_LETTER,
+            OnboardingDocument.DocumentType.ACCEPTANCE_LETTER,
+        )
+
+        onboarding_documents = []
+
+        for document_type in required_document_types:
+            document, _ = (
+                OnboardingDocument.objects.get_or_create(
+                    collaborator=collaborator,
+                    document_type=document_type,
+                    defaults={
+                        "status":
+                            OnboardingDocument.Status.PENDING,
+                    },
+                )
+            )
+
+            onboarding_documents.append(
+                document.document_type
+            )
 
         return Response(
             {
@@ -123,6 +151,8 @@ class AddGenerationMemberView(APIView):
                     f"{collaborator.university_acronym}"
                 ),
                 "membership_id": membership.id,
+                "onboarding_documents":
+                    onboarding_documents,
             },
             status=status.HTTP_201_CREATED,
         )
