@@ -5230,3 +5230,159 @@ html[data-theme="dark"]
     min-width: 0;
   }
 }
+
+/* =========================================================
+   REVISION DE SOLICITUDES
+   ========================================================= */
+
+.application-manager-section {
+  margin-bottom: 32px;
+}
+
+
+.application-manager-list {
+  display: grid;
+  gap: 16px;
+}
+
+
+.application-manager-card {
+  padding: 25px;
+
+  border:
+    1px solid #e2e7ef;
+
+  border-radius: 17px;
+
+  background: #fbfcfe;
+}
+
+
+.application-manager-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+.application-manager-name {
+  display: block;
+
+  color: #26324b;
+
+  font-size: 18px;
+}
+
+
+.application-manager-email {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7b879a;
+
+  font-size: 14px;
+}
+
+
+.application-manager-details {
+  margin-top: 22px;
+
+  padding:
+    18px 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 18px;
+
+  border-top:
+    1px solid #e5e9f0;
+
+  border-bottom:
+    1px solid #e5e9f0;
+}
+
+
+.application-manager-details span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #8a94a6;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+
+.application-manager-details strong {
+  color: #344054;
+
+  font-size: 15px;
+}
+
+
+html[data-theme="dark"]
+.application-manager-card {
+  border-color: #26334a;
+
+  background: #111b2d;
+}
+
+
+html[data-theme="dark"]
+.application-manager-name,
+html[data-theme="dark"]
+.application-manager-details strong {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.application-manager-email,
+html[data-theme="dark"]
+.application-manager-details span {
+  color: #9eabba;
+}
+
+
+html[data-theme="dark"]
+.application-manager-details {
+  border-color: #29364c;
+}
+
+
+@media (max-width: 900px) {
+  .application-manager-details {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      );
+  }
+}
+
+
+@media (max-width: 600px) {
+  .application-manager-top {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+
+  .application-manager-details {
+    grid-template-columns:
+      1fr;
+  }
+}

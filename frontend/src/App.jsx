@@ -15,6 +15,10 @@ function App() {
   const [documents, setDocuments] = useState([]);
   const [generations, setGenerations] = useState([]);
   const [pendingDocuments, setPendingDocuments] = useState([]);
+  const [
+  pendingApplications,
+  setPendingApplications,
+] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [loginStage, setLoginStage] = useState("VALIDATING");
@@ -67,6 +71,7 @@ function App() {
     setDocuments([]);
     setGenerations([]);
     setPendingDocuments([]);
+    setPendingApplications([]);
 
     setEmail("");
     setPassword("");
@@ -233,15 +238,20 @@ const loadCurrentUser =
         const [
           generationsResponse,
           pendingResponse,
-        ] = await Promise.all([
-          apiFetch(
-            "/api/onboarding/generations/"
-          ),
+          applicationsResponse,
+          ] = await Promise.all([
+            apiFetch(
+              "/api/onboarding/generations/"
+            ),
 
-          apiFetch(
-            "/api/onboarding/documents/pending/"
-          ),
-        ]);
+            apiFetch(
+               "/api/onboarding/documents/pending/"
+            ),
+
+            apiFetch(
+              "/api/accounts/applications/pending/"
+            ),
+          ]);
 
         if (
           !generationsResponse.ok
@@ -259,11 +269,22 @@ const loadCurrentUser =
           );
         }
 
+        if (
+          !applicationsResponse.ok
+        ) {
+          throw new Error(
+            "No fue posible consultar las solicitudes pendientes."
+          );
+        }
+
         const generationsData =
           await generationsResponse.json();
 
         const pendingData =
           await pendingResponse.json();
+
+        const applicationsData =
+          await applicationsResponse.json();
 
         setGenerations(
           generationsData
@@ -271,6 +292,10 @@ const loadCurrentUser =
 
         setPendingDocuments(
           pendingData
+        );
+
+        setPendingApplications(
+          applicationsData
         );
 
         setDocuments([]);
@@ -448,6 +473,9 @@ const loadCurrentUser =
           generations={generations}
           pendingDocuments={
              pendingDocuments
+          }
+          pendingApplications={
+             pendingApplications
           }
           apiFetch={apiFetch}
           onRefresh={loadCurrentUser}
@@ -879,6 +907,7 @@ function Dashboard({
   documents,
   generations,
   pendingDocuments,
+  pendingApplications,
   apiFetch,
   onRefresh,
   onLogout,
@@ -890,6 +919,9 @@ function Dashboard({
         generations={generations}
         pendingDocuments={
          pendingDocuments
+        }
+        pendingApplications={
+          pendingApplications
         }
         apiFetch={apiFetch}
         onRefresh={onRefresh}
@@ -1689,6 +1721,7 @@ function ManagerHome({
   user,
   generations,
   pendingDocuments,
+  pendingApplications,
   apiFetch,
   onRefresh,
   onLogout,
@@ -1726,17 +1759,7 @@ const selectedGeneration =
         member.visual_status === "GREEN"
     ).length;
 
-  const redCount =
-    members.filter(
-      (member) =>
-        member.visual_status === "RED"
-    ).length;
-
-  const yellowCount =
-    members.filter(
-      (member) =>
-        member.visual_status === "YELLOW"
-    ).length;
+  
 
   return (
     <div className="dashboard-layout">
@@ -1795,12 +1818,14 @@ const selectedGeneration =
           />
 
           <ManagerSummary
-            label="Requieren atención"
-            value={redCount}
-            description={
-              `${yellowCount} en proceso`
+            label="Solicitudes pendientes"
+            value={
+             pendingApplications.length
             }
-            danger={redCount > 0}
+            description="Esperando revisión"
+            danger={
+              pendingApplications.length > 0
+            }
           />
 
           <ManagerSummary
@@ -1924,6 +1949,49 @@ const selectedGeneration =
             />
           )}
         </section>
+
+        <section
+          className="content-section application-manager-section"
+          id="solicitudes"
+        >
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">
+                SOLICITUDES
+              </span>
+
+              <h2>
+               Solicitudes por revisar
+              </h2>
+          </div>
+
+          <span className="document-count">
+            {pendingApplications.length} pendientes
+          </span>
+         </div>
+
+         {pendingApplications.length > 0 ? (
+          <div className="application-manager-list">
+            {pendingApplications.map(
+             (application) => (
+                <PendingApplication
+                  key={application.id}
+                  application={application}
+                  apiFetch={apiFetch}
+                  onRefresh={onRefresh}
+                />
+              )
+            )}
+          </div>
+        ) : (
+          <EmptyState
+            title="Sin solicitudes pendientes"
+            text="No hay colaboradores esperando revisión inicial."
+          />
+         )}
+        </section>
+
+        
 
 
         <section
@@ -2097,6 +2165,260 @@ function MemberCard({
           }}
         ></div>
       </div>
+    </article>
+  );
+}
+
+function PendingApplication({
+  application,
+  apiFetch,
+  onRefresh,
+}) {
+  const [
+    reviewing,
+    setReviewing,
+  ] = useState(false);
+
+  const [
+    showCorrection,
+    setShowCorrection,
+  ] = useState(false);
+
+  const [
+    correctionReason,
+    setCorrectionReason,
+  ] = useState("");
+
+  const [
+    reviewError,
+    setReviewError,
+  ] = useState("");
+
+
+  const reviewApplication =
+    async (decision) => {
+      if (
+        decision ===
+          "REQUEST_CORRECTION" &&
+        !correctionReason.trim()
+      ) {
+        setReviewError(
+          "Escribe el motivo de la corrección."
+        );
+
+        return;
+      }
+
+      setReviewing(true);
+      setReviewError("");
+
+      try {
+        const response =
+          await apiFetch(
+            `/api/accounts/applications/${application.id}/review/`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body: JSON.stringify({
+                decision,
+
+                correction_reason:
+                  decision ===
+                  "REQUEST_CORRECTION"
+                    ? correctionReason.trim()
+                    : "",
+              }),
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              data.correction_reason?.[0] ||
+              "No fue posible revisar la solicitud."
+          );
+        }
+
+        await onRefresh();
+      } catch (error) {
+        setReviewError(
+          error.message
+        );
+      } finally {
+        setReviewing(false);
+      }
+    };
+
+
+  return (
+    <article className="application-manager-card">
+      <div className="application-manager-top">
+        <div className="pending-review-person">
+          <div className="pending-avatar">
+            {initials(
+              application.full_name
+            )}
+          </div>
+
+          <div>
+            <strong className="application-manager-name">
+              {application.full_name}
+            </strong>
+
+            <span className="application-manager-email">
+              {application.email}
+            </span>
+          </div>
+        </div>
+
+        <span className="pending-status">
+          {application.application_status}
+        </span>
+      </div>
+
+
+      <div className="application-manager-details">
+        <div>
+          <span>Universidad</span>
+
+          <strong>
+            {application.university}
+          </strong>
+        </div>
+
+        <div>
+          <span>Siglas</span>
+
+          <strong>
+            {application.university_acronym}
+          </strong>
+        </div>
+
+        <div>
+          <span>Carrera</span>
+
+          <strong>
+            {application.career}
+          </strong>
+        </div>
+
+        <div>
+          <span>Horas</span>
+
+          <strong>
+            {application.required_hours}
+          </strong>
+        </div>
+      </div>
+
+
+      <div className="pending-review-actions">
+        <button
+          type="button"
+          className="review-approve-button"
+          disabled={reviewing}
+          onClick={() =>
+            reviewApplication(
+              "APPROVE"
+            )
+          }
+        >
+          {reviewing
+            ? "Procesando..."
+            : "Aprobar solicitud"}
+        </button>
+
+        <button
+          type="button"
+          className="review-correction-button"
+          disabled={reviewing}
+          onClick={() => {
+            setShowCorrection(
+              (current) =>
+                !current
+            );
+
+            setReviewError("");
+          }}
+        >
+          Solicitar corrección
+        </button>
+      </div>
+
+
+      {showCorrection && (
+        <div className="correction-request-panel">
+          <label
+            htmlFor={
+              `application-correction-${application.id}`
+            }
+          >
+            Motivo de la corrección
+          </label>
+
+          <textarea
+            id={
+              `application-correction-${application.id}`
+            }
+            rows="4"
+            placeholder="Indica qué información debe corregir el colaborador."
+            value={correctionReason}
+            onChange={(event) =>
+              setCorrectionReason(
+                event.target.value
+              )
+            }
+            disabled={reviewing}
+          />
+
+          <div className="correction-request-actions">
+            <button
+              type="button"
+              className="correction-cancel-button"
+              disabled={reviewing}
+              onClick={() => {
+                setShowCorrection(false);
+                setCorrectionReason("");
+                setReviewError("");
+              }}
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              className="correction-confirm-button"
+              disabled={reviewing}
+              onClick={() =>
+                reviewApplication(
+                  "REQUEST_CORRECTION"
+                )
+              }
+            >
+              {reviewing
+                ? "Enviando..."
+                : "Enviar corrección"}
+            </button>
+          </div>
+        </div>
+      )}
+
+
+      {reviewError && (
+        <div className="document-feedback error">
+          {reviewError}
+        </div>
+      )}
     </article>
   );
 }

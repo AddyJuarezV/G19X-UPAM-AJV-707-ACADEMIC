@@ -350,27 +350,41 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se comprobó el flujo utilizando a Gwen Stacy.
 - Gwen pasó correctamente de `DRAFT` a `IN_REVIEW` utilizando únicamente React.
 
+- Se integró en React la consulta de solicitudes iniciales pendientes para el encargado.
+- El panel del encargado consume `GET /api/accounts/applications/pending/`.
+- Las solicitudes en estado `IN_REVIEW` aparecen en una bandeja independiente.
+- El encargado puede consultar nombre, correo, universidad, siglas, carrera y horas a cumplir.
+- Se agregó la acción para aprobar solicitudes desde React.
+- React se conectó con `POST /api/accounts/applications/<id>/review/`.
+- Se agregó también la interfaz para solicitar correcciones indicando un motivo obligatorio.
+- Se comprobó el flujo de aprobación utilizando a Gwen Stacy.
+- Gwen apareció correctamente en la bandeja del encargado con estado `IN_REVIEW`.
+- El encargado aprobó la solicitud desde React.
+- Después de la aprobación, Gwen dejó de aparecer entre las solicitudes pendientes.
+- Al volver a iniciar sesión como colaboradora, su solicitud apareció correctamente en estado `APPROVED`.
+- Gwen continúa con 0 documentos y 0% de progreso porque todavía no ha sido asignada a una generación.
+
 
 
 \---
 
 ## En progreso
 
-1. Integrar desde React la revisión de solicitudes iniciales por parte del encargado.
-2. Permitir aprobar solicitudes o solicitar correcciones.
-3. Asignar colaboradores aprobados a generaciones desde React.
-4. Integrar posteriormente las acciones administrativas restantes de generaciones.
-5. Revisar y mejorar Mis datos y Notificaciones.
+1. Integrar desde React la asignación de colaboradores aprobados a generaciones.
+2. Verificar el momento correcto para crear los documentos iniciales del onboarding.
+3. Completar posteriormente el circuito de corrección de solicitudes iniciales.
+4. Integrar las acciones administrativas restantes de generaciones.
+5. Revisar Mis datos, Notificaciones y detalles visuales del modo oscuro.
 \---
 
 ## Próximo paso
 
-1. Mostrar las solicitudes en estado `IN_REVIEW` dentro del panel del encargado.
-2. Conectar React con `GET /api/accounts/applications/pending/`.
-3. Permitir al encargado aprobar una solicitud desde la interfaz.
-4. Permitir solicitar una corrección indicando obligatoriamente el motivo.
-5. Verificar que el colaborador vea automáticamente el nuevo estado.
-6. Continuar después con la asignación del colaborador aprobado a una generación.
+1. Consultar desde React los colaboradores aprobados disponibles para asignación.
+2. Mostrar a Gwen Stacy como colaboradora disponible.
+3. Permitir asignarla a una generación abierta.
+4. Conectar la interfaz con la API existente de integrantes de generaciones.
+5. Comprobar que Gwen aparezca dentro de la generación seleccionada.
+6. Revisar antes de continuar cómo y cuándo deben crearse sus documentos NDA, Carta de presentación y Carta de aceptación.
 \---
 
 ## Idea principal del sistema

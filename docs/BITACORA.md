@@ -1130,3 +1130,43 @@ El flujo comprobado fue:
 ### Próximo paso
 
 Integrar en el panel del encargado la revisión de solicitudes en estado `IN_REVIEW`, permitiendo aprobarlas o solicitar correcciones.
+
+---
+
+## 19 de octubre de 2026
+
+### Actividad
+
+Integración y validación de la revisión inicial de solicitudes desde React.
+
+### Trabajo realizado
+
+- Se agregó al estado principal de React la colección de solicitudes pendientes.
+- El panel del encargado se conectó con `GET /api/accounts/applications/pending/`.
+- Se creó una sección específica para solicitudes en estado `IN_REVIEW`.
+- Se muestran los datos principales del colaborador para facilitar la revisión.
+- Se agregó la acción para aprobar una solicitud.
+- Se agregó la interfaz para solicitar una corrección indicando el motivo.
+- Se conectó la revisión con `POST /api/accounts/applications/<id>/review/`.
+- Se corrigieron variables que habían quedado sin uso y se verificó nuevamente ESLint.
+- Se utilizó a Gwen Stacy para validar el flujo de aprobación.
+- Gwen apareció correctamente en la bandeja del encargado.
+- El encargado aprobó su solicitud desde React.
+- Su estado cambió de `IN_REVIEW` a `APPROVED`.
+- La solicitud desapareció automáticamente de la bandeja de pendientes.
+- Se inició nuevamente sesión como Gwen y se confirmó visualmente el estado `APPROVED`.
+- Gwen permanece con 0 documentos y 0% de progreso porque todavía no ha sido asignada a una generación.
+
+### Resultado
+
+La aprobación inicial de un nuevo colaborador ya puede realizarse completamente desde las interfaces React del sistema.
+
+El flujo validado es:
+
+`Crear cuenta → DRAFT → Enviar solicitud → IN_REVIEW → Aprobación del encargado → APPROVED`
+
+La interfaz para solicitar correcciones también quedó incorporada, aunque su circuito completo se validará posteriormente junto con la edición de datos del colaborador.
+
+### Próximo paso
+
+Integrar desde React la asignación de colaboradores aprobados a generaciones abiertas y verificar el momento adecuado para crear sus documentos iniciales de onboarding.
