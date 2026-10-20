@@ -393,26 +393,46 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - La Carta de presentación quedó disponible para carga directa por parte de la colaboradora.
 
 
+- Se completó desde React el circuito de corrección de solicitudes iniciales.
+- Se utilizó a Miguel O'Hara como colaborador ficticio para validar el flujo.
+- Miguel creó su cuenta y envió inicialmente su solicitud a revisión.
+- El encargado utilizó la opción `Solicitar corrección` desde React.
+- La solicitud cambió de `IN_REVIEW` a `NEEDS_CORRECTION`.
+- El motivo indicado por el encargado se mostró directamente en el portal del colaborador.
+- Se creó un componente independiente `ProfileCorrection.jsx` para gestionar las correcciones sin seguir aumentando innecesariamente `App.jsx`.
+- Se creó `ProfileCorrection.css` para el diseño independiente del formulario.
+- El colaborador puede consultar y editar sus datos cuando su solicitud se encuentra en `NEEDS_CORRECTION`.
+- React utiliza `GET /api/accounts/profile/` para recuperar la información completa del perfil.
+- React utiliza `PATCH /api/accounts/profile/` para guardar las correcciones.
+- Miguel corrigió las horas a cumplir de 480 a 500.
+- Se comprobó desde el panel del encargado que el nuevo valor de 500 horas quedó almacenado correctamente.
+- Después de guardar las correcciones, el colaborador puede reenviar la solicitud.
+- El reenvío utiliza `POST /api/accounts/application/submit/`.
+- La solicitud regresó correctamente de `NEEDS_CORRECTION` a `IN_REVIEW`.
+- El encargado realizó una segunda revisión y aprobó la solicitud.
+- Miguel terminó correctamente en estado `APPROVED`.
+- Miguel continúa con 0 documentos porque todavía no pertenece a una generación.
+
 
 \---
 
 ## En progreso
 
-1. Completar el circuito de corrección de solicitudes iniciales.
-2. Integrar desde React las acciones administrativas restantes de generaciones.
-3. Mejorar el apartado Mis datos del colaborador.
-4. Definir e integrar el apartado de Notificaciones del MVP.
-5. Corregir detalles visuales pendientes y preparar las pruebas finales.
+1. Integrar las acciones administrativas restantes de generaciones desde React.
+2. Permitir crear nuevas generaciones desde el panel del encargado.
+3. Permitir cerrar generaciones abiertas desde React.
+4. Mejorar el apartado Mis datos para consulta habitual del colaborador.
+5. Definir el apartado de Notificaciones y continuar con el pulido visual y las pruebas finales.
 \---
 
 ## Próximo paso
 
-1. Validar desde React la opción `Solicitar corrección` de una solicitud inicial.
-2. Mostrar al colaborador el motivo indicado por el encargado.
-3. Permitir editar los datos del perfil cuando la solicitud esté en `NEEDS_CORRECTION`.
-4. Permitir reenviar la solicitud corregida.
-5. Comprobar el flujo `NEEDS_CORRECTION → IN_REVIEW → APPROVED`.
-6. Continuar después con la creación y cierre de generaciones desde React.
+1. Integrar desde React la creación de nuevas generaciones.
+2. Conectar la interfaz con `POST /api/onboarding/generations/create/`.
+3. Permitir cerrar una generación abierta desde el panel del encargado.
+4. Conectar la interfaz con `POST /api/onboarding/generations/<id>/close/`.
+5. Comprobar que una generación cerrada ya no acepte nuevos colaboradores.
+6. Continuar después con Mis datos, Notificaciones y cierre técnico del MVP.
 \---
 
 ## Idea principal del sistema

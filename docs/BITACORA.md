@@ -1254,3 +1254,48 @@ La asignación a una generación funciona como inicio formal del circuito docume
 ### Próximo paso
 
 Completar y validar el circuito de corrección de solicitudes iniciales, incluyendo edición de datos y reenvío desde el portal del colaborador.
+
+---
+
+## 20 de octubre de 2026
+
+### Actividad
+
+Integración y validación completa del circuito de corrección de solicitudes iniciales.
+
+### Trabajo realizado
+
+- Se utilizó a Miguel O'Hara como colaborador ficticio para validar el flujo de corrección.
+- Miguel se registró desde React y envió su solicitud inicial.
+- La solicitud pasó de `DRAFT` a `IN_REVIEW`.
+- El encargado utilizó desde React la opción para solicitar una corrección.
+- Se indicó como motivo corregir las horas a cumplir de 480 a 500.
+- La solicitud cambió de `IN_REVIEW` a `NEEDS_CORRECTION`.
+- El portal de Miguel mostró correctamente el nuevo estado.
+- Se creó el componente independiente `ProfileCorrection.jsx`.
+- Se creó su hoja de estilos `ProfileCorrection.css`.
+- El componente consulta los datos completos mediante `GET /api/accounts/profile/`.
+- El motivo de corrección solicitado por el encargado se muestra al colaborador.
+- El colaborador puede modificar los campos permitidos de su perfil.
+- Miguel modificó sus horas a cumplir de 480 a 500.
+- Los cambios se guardaron mediante `PATCH /api/accounts/profile/`.
+- Después del guardado se habilitó el reenvío de la solicitud.
+- El reenvío utilizó `POST /api/accounts/application/submit/`.
+- La solicitud regresó de `NEEDS_CORRECTION` a `IN_REVIEW`.
+- El panel del encargado mostró correctamente el nuevo valor de 500 horas.
+- El encargado realizó una segunda revisión.
+- Miguel fue aprobado correctamente.
+- Al iniciar nuevamente sesión como Miguel se confirmó el estado `APPROVED`.
+- Miguel permanece sin generación y con 0 documentos, de acuerdo con el flujo esperado.
+
+### Resultado
+
+El circuito de corrección inicial ya puede realizarse completamente utilizando las interfaces React del colaborador y del encargado.
+
+El flujo validado fue:
+
+`DRAFT → IN_REVIEW → NEEDS_CORRECTION → edición de perfil → IN_REVIEW → APPROVED`
+
+### Próximo paso
+
+Integrar desde React la creación y el cierre administrativo de generaciones.

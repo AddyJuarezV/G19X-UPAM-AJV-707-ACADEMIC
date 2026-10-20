@@ -5,6 +5,7 @@ import {
 } from "react";
 import "./App.css";
 import Register from "./Register";
+import ProfileCorrection from "./ProfileCorrection";
 
 
 function App() {
@@ -1173,6 +1174,16 @@ function CollaboratorHome({
             </p>
           </article>
         </section>
+        {profile.application_status ===
+  "NEEDS_CORRECTION" && (
+  <ProfileCorrection
+    correctionReason={
+      profile.correction_reason
+    }
+    apiFetch={apiFetch}
+    onRefresh={onRefresh}
+  />
+)}
 
                 {canSubmitApplication && (
           <section className="application-submit-card">

@@ -1,0 +1,332 @@
+.profile-correction-card {
+  margin-bottom: 32px;
+
+  padding: 28px;
+
+  border:
+    1px solid #f1b9b5;
+
+  border-radius: 18px;
+
+  background: #fff8f7;
+}
+
+
+.profile-correction-heading h2 {
+  margin:
+    8px 0;
+
+  color: #7a271a;
+
+  font-size: 28px;
+}
+
+
+.profile-correction-heading p {
+  max-width: 760px;
+
+  margin: 0;
+
+  color: #667085;
+
+  line-height: 1.6;
+}
+
+
+.profile-correction-kicker {
+  color: #d92d20;
+
+  font-size: 13px;
+  font-weight: 900;
+
+  letter-spacing: 1.2px;
+}
+
+
+.profile-correction-reason {
+  margin-top: 22px;
+
+  padding: 17px 18px;
+
+  border:
+    1px solid #fecdca;
+
+  border-radius: 12px;
+
+  background: #fef3f2;
+}
+
+
+.profile-correction-reason strong {
+  color: #b42318;
+}
+
+
+.profile-correction-reason p {
+  margin:
+    7px 0 0;
+
+  color: #7a271a;
+
+  line-height: 1.55;
+}
+
+
+.profile-correction-form {
+  margin-top: 25px;
+}
+
+
+.profile-correction-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 18px;
+}
+
+
+.profile-correction-grid label {
+  display: grid;
+
+  gap: 8px;
+}
+
+
+.profile-correction-grid label > span {
+  color: #344054;
+
+  font-size: 14px;
+  font-weight: 800;
+}
+
+
+.profile-correction-grid input {
+  width: 100%;
+  min-height: 50px;
+
+  padding:
+    0 14px;
+
+  border:
+    1px solid #d5dce8;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  color: #344054;
+
+  background: white;
+
+  font-size: 15px;
+}
+
+
+.profile-correction-grid input:focus {
+  border-color: #5270db;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(82, 112, 219, 0.1);
+}
+
+
+.profile-correction-wide {
+  grid-column:
+    1 / -1;
+}
+
+
+.profile-correction-actions {
+  margin-top: 22px;
+
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 12px;
+}
+
+
+.profile-save-button,
+.profile-resubmit-button {
+  min-height: 50px;
+
+  padding:
+    0 20px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.profile-save-button {
+  border:
+    1px solid #cfd7e6;
+
+  color: #344054;
+
+  background: white;
+}
+
+
+.profile-resubmit-button {
+  border: none;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #365dd9,
+      #5d78e9
+    );
+}
+
+
+.profile-save-button:disabled,
+.profile-resubmit-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+.profile-correction-feedback {
+  margin-top: 16px;
+
+  padding:
+    13px 15px;
+
+  border-radius: 10px;
+
+  font-weight: 750;
+}
+
+
+.profile-correction-feedback.success {
+  color: #067647;
+
+  border:
+    1px solid #abefc6;
+
+  background: #ecfdf3;
+}
+
+
+.profile-correction-feedback.error,
+.profile-correction-error {
+  color: #b42318;
+
+  border:
+    1px solid #fecdca;
+
+  background: #fef3f2;
+}
+
+
+.profile-correction-error {
+  padding: 14px;
+
+  border-radius: 10px;
+}
+
+
+/* Tema oscuro */
+
+html[data-theme="dark"]
+.profile-correction-card {
+  border-color: #69302d;
+
+  background: #211617;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-heading h2 {
+  color: #fda29b;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-heading p {
+  color: #b7c2d3;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-reason {
+  border-color: #69302d;
+
+  background: #301817;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-reason strong {
+  color: #fda29b;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-reason p {
+  color: #f0b6b1;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-grid label > span {
+  color: #dce4f0;
+}
+
+
+html[data-theme="dark"]
+.profile-correction-grid input {
+  color: #edf2f8;
+
+  border-color: #35445b;
+
+  background: #101a2c;
+}
+
+
+html[data-theme="dark"]
+.profile-save-button {
+  color: #edf2f8;
+
+  border-color: #35445b;
+
+  background: #17233a;
+}
+
+
+@media (max-width: 700px) {
+  .profile-correction-grid {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .profile-correction-wide {
+    grid-column: auto;
+  }
+
+
+  .profile-correction-actions {
+    flex-direction: column;
+  }
+
+
+  .profile-save-button,
+  .profile-resubmit-button {
+    width: 100%;
+  }
+}
