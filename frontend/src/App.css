@@ -5386,3 +5386,312 @@ html[data-theme="dark"]
       1fr;
   }
 }
+
+/* =========================================================
+   COLABORADORES DISPONIBLES PARA GENERACION
+   ========================================================= */
+
+.available-section {
+  margin-bottom: 32px;
+}
+
+
+.available-collaborators-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 18px;
+}
+
+
+.available-collaborator-card {
+  padding: 24px;
+
+  border:
+    1px solid #e2e7ef;
+
+  border-radius: 17px;
+
+  background: #fbfcfe;
+}
+
+
+.available-collaborator-header {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+}
+
+
+.available-collaborator-header strong {
+  display: block;
+
+  color: #26324b;
+
+  font-size: 18px;
+}
+
+
+.available-collaborator-header span {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7b879a;
+
+  font-size: 14px;
+}
+
+
+.available-collaborator-info {
+  margin-top: 21px;
+
+  padding:
+    17px 0;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 17px;
+
+  border-top:
+    1px solid #e5e9f0;
+
+  border-bottom:
+    1px solid #e5e9f0;
+}
+
+
+.available-collaborator-info span {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #8a94a6;
+
+  font-size: 12px;
+  font-weight: 800;
+
+  text-transform: uppercase;
+}
+
+
+.available-collaborator-info strong {
+  color: #344054;
+
+  font-size: 15px;
+}
+
+
+.available-note {
+  margin-top: 16px;
+
+  padding:
+    12px 14px;
+
+  border-radius: 10px;
+
+  color: #175cd3;
+
+  background: #eff8ff;
+
+  font-size: 14px;
+  font-weight: 750;
+}
+
+
+html[data-theme="dark"]
+.available-collaborator-card {
+  border-color: #26334a;
+
+  background: #111b2d;
+}
+
+
+html[data-theme="dark"]
+.available-collaborator-header strong,
+html[data-theme="dark"]
+.available-collaborator-info strong {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.available-collaborator-header span,
+html[data-theme="dark"]
+.available-collaborator-info span {
+  color: #9eabba;
+}
+
+
+html[data-theme="dark"]
+.available-collaborator-info {
+  border-color: #29364c;
+}
+
+
+html[data-theme="dark"]
+.available-note {
+  color: #9ec5ff;
+
+  background: #11233e;
+}
+
+
+@media (max-width: 900px) {
+  .available-collaborators-grid {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+
+@media (max-width: 600px) {
+  .available-collaborator-info {
+    grid-template-columns:
+      1fr;
+  }
+}
+
+/* =========================================================
+   ASIGNACION A GENERACIONES
+   ========================================================= */
+
+.generation-assignment-panel {
+  margin-top: 18px;
+
+  padding-top: 18px;
+
+  border-top:
+    1px solid #e5e9f0;
+}
+
+
+.generation-assignment-panel label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #344054;
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+
+.generation-assignment-controls {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+
+  gap: 11px;
+}
+
+
+.generation-assignment-controls select {
+  min-height: 49px;
+
+  padding:
+    0 13px;
+
+  border:
+    1px solid #d5dce8;
+
+  border-radius: 10px;
+
+  outline: none;
+
+  color: #344054;
+
+  background: white;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+
+.generation-assignment-controls select:focus {
+  border-color: #5270db;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(82, 112, 219, 0.1);
+}
+
+
+.generation-assignment-controls button {
+  min-height: 49px;
+
+  padding:
+    0 18px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      135deg,
+      #365dd9,
+      #5d78e9
+    );
+
+  font-size: 14px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.generation-assignment-controls button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+html[data-theme="dark"]
+.generation-assignment-panel {
+  border-color: #29364c;
+}
+
+
+html[data-theme="dark"]
+.generation-assignment-panel label {
+  color: #dce4f0;
+}
+
+
+html[data-theme="dark"]
+.generation-assignment-controls select {
+  color: #edf2f8;
+
+  border-color: #35445b;
+
+  background: #101a2c;
+}
+
+
+@media (max-width: 600px) {
+  .generation-assignment-controls {
+    grid-template-columns:
+      1fr;
+  }
+}

@@ -20,6 +20,11 @@ function App() {
   setPendingApplications,
 ] = useState([]);
 
+  const [
+  availableCollaborators,
+  setAvailableCollaborators,
+] = useState([]);
+
   const [loading, setLoading] = useState(false);
   const [loginStage, setLoginStage] = useState("VALIDATING");
   const [checkingSession, setCheckingSession] = useState(true);
@@ -72,6 +77,7 @@ function App() {
     setGenerations([]);
     setPendingDocuments([]);
     setPendingApplications([]);
+    setAvailableCollaborators([]);
 
     setEmail("");
     setPassword("");
@@ -239,6 +245,7 @@ const loadCurrentUser =
           generationsResponse,
           pendingResponse,
           applicationsResponse,
+          availableResponse,
           ] = await Promise.all([
             apiFetch(
               "/api/onboarding/generations/"
@@ -250,6 +257,10 @@ const loadCurrentUser =
 
             apiFetch(
               "/api/accounts/applications/pending/"
+            ),
+
+            apiFetch(
+               "/api/onboarding/collaborators/available/"
             ),
           ]);
 
@@ -277,6 +288,14 @@ const loadCurrentUser =
           );
         }
 
+        if (
+           !availableResponse.ok
+        ) {
+          throw new Error(
+            "No fue posible consultar los colaboradores disponibles."
+          );
+        }
+
         const generationsData =
           await generationsResponse.json();
 
@@ -285,6 +304,9 @@ const loadCurrentUser =
 
         const applicationsData =
           await applicationsResponse.json();
+
+        const availableData =
+          await availableResponse.json();
 
         setGenerations(
           generationsData
@@ -296,6 +318,10 @@ const loadCurrentUser =
 
         setPendingApplications(
           applicationsData
+        );
+
+        setAvailableCollaborators(
+          availableData
         );
 
         setDocuments([]);
@@ -476,6 +502,9 @@ const loadCurrentUser =
           }
           pendingApplications={
              pendingApplications
+          }
+          availableCollaborators={
+            availableCollaborators
           }
           apiFetch={apiFetch}
           onRefresh={loadCurrentUser}
@@ -908,6 +937,7 @@ function Dashboard({
   generations,
   pendingDocuments,
   pendingApplications,
+  availableCollaborators,
   apiFetch,
   onRefresh,
   onLogout,
@@ -922,6 +952,9 @@ function Dashboard({
         }
         pendingApplications={
           pendingApplications
+        }
+        availableCollaborators={
+         availableCollaborators
         }
         apiFetch={apiFetch}
         onRefresh={onRefresh}
@@ -1722,6 +1755,7 @@ function ManagerHome({
   generations,
   pendingDocuments,
   pendingApplications,
+  availableCollaborators,
   apiFetch,
   onRefresh,
   onLogout,
@@ -1792,6 +1826,49 @@ const selectedGeneration =
             avatar="E"
           />
         </header>
+
+        <section
+  className="content-section available-section"
+  id="disponibles"
+>
+  <div className="section-heading">
+    <div>
+      <span className="eyebrow">
+        INCORPORACIÓN
+      </span>
+
+      <h2>
+        Colaboradores disponibles
+      </h2>
+    </div>
+
+    <span className="document-count">
+      {availableCollaborators.length} disponibles
+    </span>
+  </div>
+
+
+  {availableCollaborators.length > 0 ? (
+    <div className="available-collaborators-grid">
+      {availableCollaborators.map(
+  (collaborator) => (
+    <AvailableCollaboratorCard
+      key={collaborator.id}
+      collaborator={collaborator}
+      generations={generations}
+      apiFetch={apiFetch}
+      onRefresh={onRefresh}
+    />
+  )
+)}
+    </div>
+  ) : (
+    <EmptyState
+      title="Sin colaboradores disponibles"
+      text="No hay colaboradores aprobados esperando asignación a una generación."
+    />
+  )}
+</section>
 
 
         <section className="manager-summary-grid">
@@ -2044,6 +2121,257 @@ const selectedGeneration =
         </section>
       </main>
     </div>
+  );
+}
+
+function AvailableCollaboratorCard({
+  collaborator,
+  generations,
+  apiFetch,
+  onRefresh,
+}) {
+  const openGenerations =
+    generations.filter(
+      (generation) =>
+        generation.status === "OPEN"
+    );
+
+  const [
+    generationId,
+    setGenerationId,
+  ] = useState(
+    openGenerations[0]?.id
+      ? String(
+          openGenerations[0].id
+        )
+      : ""
+  );
+
+  const [
+    assigning,
+    setAssigning,
+  ] = useState(false);
+
+  const [
+    assignmentError,
+    setAssignmentError,
+  ] = useState("");
+
+  const [
+    assignmentFeedback,
+    setAssignmentFeedback,
+  ] = useState("");
+
+
+  const assignCollaborator =
+    async () => {
+      if (!generationId) {
+        setAssignmentError(
+          "Selecciona una generación abierta."
+        );
+
+        return;
+      }
+
+      setAssigning(true);
+      setAssignmentError("");
+      setAssignmentFeedback("");
+
+      try {
+        const response =
+          await apiFetch(
+            `/api/onboarding/generations/${generationId}/members/`,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type":
+                  "application/json",
+              },
+
+              body: JSON.stringify({
+                collaborator_id:
+                  collaborator.id,
+              }),
+            }
+          );
+
+        const data =
+          await response
+            .json()
+            .catch(() => ({}));
+
+        if (!response.ok) {
+          throw new Error(
+            data.detail ||
+              data.collaborator_id?.[0] ||
+              "No fue posible asignar al colaborador."
+          );
+        }
+
+        setAssignmentFeedback(
+          data.message ||
+            "Colaborador asignado correctamente."
+        );
+
+        await onRefresh();
+      } catch (error) {
+        setAssignmentError(
+          error.message
+        );
+      } finally {
+        setAssigning(false);
+      }
+    };
+
+
+  return (
+    <article className="available-collaborator-card">
+      <div className="available-collaborator-header">
+        <div className="pending-avatar">
+          {initials(
+            collaborator.full_name
+          )}
+        </div>
+
+        <div>
+          <strong>
+            {collaborator.full_name}
+          </strong>
+
+          <span>
+            {collaborator.email}
+          </span>
+        </div>
+      </div>
+
+
+      <div className="available-collaborator-info">
+        <div>
+          <span>
+            Universidad
+          </span>
+
+          <strong>
+            {
+              collaborator
+                .university_acronym
+            }
+          </strong>
+        </div>
+
+        <div>
+          <span>
+            Carrera
+          </span>
+
+          <strong>
+            {collaborator.career}
+          </strong>
+        </div>
+
+        <div>
+          <span>
+            Horas
+          </span>
+
+          <strong>
+            {
+              collaborator
+                .required_hours
+            }
+          </strong>
+        </div>
+
+        <div>
+          <span>
+            Estado
+          </span>
+
+          <strong>
+            {
+              collaborator
+                .application_status
+            }
+          </strong>
+        </div>
+      </div>
+
+
+      {openGenerations.length > 0 ? (
+        <div className="generation-assignment-panel">
+          <label
+            htmlFor={
+              `generation-${collaborator.id}`
+            }
+          >
+            Asignar a generación
+          </label>
+
+          <div className="generation-assignment-controls">
+            <select
+              id={
+                `generation-${collaborator.id}`
+              }
+              value={generationId}
+              disabled={assigning}
+              onChange={(event) => {
+                setGenerationId(
+                  event.target.value
+                );
+
+                setAssignmentError("");
+              }}
+            >
+              {openGenerations.map(
+                (generation) => (
+                  <option
+                    key={generation.id}
+                    value={generation.id}
+                  >
+                    Generación{" "}
+                    {generation.number}
+                  </option>
+                )
+              )}
+            </select>
+
+            <button
+              type="button"
+              disabled={
+                assigning ||
+                !generationId
+              }
+              onClick={
+                assignCollaborator
+              }
+            >
+              {assigning
+                ? "Asignando..."
+                : "Asignar colaborador"}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="available-note">
+          No existen generaciones abiertas.
+        </div>
+      )}
+
+
+      {assignmentFeedback && (
+        <div className="document-feedback success">
+          {assignmentFeedback}
+        </div>
+      )}
+
+
+      {assignmentError && (
+        <div className="document-feedback error">
+          {assignmentError}
+        </div>
+      )}
+    </article>
   );
 }
 

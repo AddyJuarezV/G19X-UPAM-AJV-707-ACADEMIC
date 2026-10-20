@@ -1210,3 +1210,47 @@ La prueba no modificó permanentemente los datos de Gwen, por lo que podrá util
 ### Próximo paso
 
 Implementar desde el panel del encargado la asignación visual de colaboradores aprobados a generaciones abiertas.
+
+---
+
+## 20 de octubre de 2026
+
+### Actividad
+
+Integración y validación de la asignación de colaboradores aprobados a generaciones desde React.
+
+### Trabajo realizado
+
+- Se conectó React con `GET /api/onboarding/collaborators/available/`.
+- Se agregó una sección de colaboradores disponibles en el panel del encargado.
+- Se muestran únicamente colaboradores aprobados que todavía no pertenecen a una generación.
+- Se agregó un selector de generaciones abiertas.
+- Se agregó la acción para asignar colaboradores desde la interfaz.
+- La asignación utiliza `POST /api/onboarding/generations/<id>/members/`.
+- Se utilizó a Gwen Stacy para la validación funcional.
+- Gwen apareció correctamente como colaboradora disponible en estado `APPROVED`.
+- El encargado seleccionó la Generación 19 y realizó la asignación desde React.
+- Gwen desapareció automáticamente de la lista de colaboradores disponibles.
+- La Generación 19 pasó de 2 a 3 integrantes.
+- Gwen apareció en la generación con estado visual `EN PROCESO`.
+- La tarjeta de Gwen mostró 0 de 3 documentos completados.
+- Se inició sesión nuevamente como Gwen.
+- Su portal mostró correctamente 0% de progreso y 0 de 3 documentos completados.
+- Se comprobaron los documentos NDA, Carta de presentación y Carta de aceptación en estado `PENDING`.
+- NDA y Carta de aceptación quedaron esperando la publicación de su plantilla por parte de PluriOne.
+- Carta de presentación quedó habilitada para carga directa por parte de la colaboradora.
+- El panel del encargado mostró 2 pendientes de gestión correspondientes a las plantillas iniciales requeridas.
+
+### Resultado
+
+La asignación de un colaborador aprobado a una generación ya puede realizarse completamente desde React.
+
+El flujo validado es:
+
+`APPROVED → disponible → asignación a Generación 19 → creación automática de documentos → 0/3`
+
+La asignación a una generación funciona como inicio formal del circuito documental del onboarding.
+
+### Próximo paso
+
+Completar y validar el circuito de corrección de solicitudes iniciales, incluyendo edición de datos y reenvío desde el portal del colaborador.

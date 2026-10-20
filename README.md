@@ -374,28 +374,45 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Durante la prueba Gwen fue asignada temporalmente a la Generación 19 y se generaron correctamente sus tres documentos.
 - Después del rollback, Gwen continuó aprobada, sin generación y con 0 documentos, lista para probar la asignación real desde React.
 
+- Se integró desde React la consulta de colaboradores aprobados disponibles para asignación.
+- El panel del encargado consume `GET /api/onboarding/collaborators/available/`.
+- Los colaboradores aprobados que todavía no pertenecen a una generación aparecen en una sección independiente.
+- Se agregó un selector que muestra únicamente generaciones abiertas.
+- Se agregó la acción visual para asignar colaboradores a una generación.
+- React se conectó con `POST /api/onboarding/generations/<id>/members/`.
+- Se comprobó el flujo utilizando a Gwen Stacy.
+- Gwen apareció correctamente como colaboradora disponible en estado `APPROVED`.
+- El encargado asignó a Gwen a la Generación 19 desde React.
+- Después de la asignación, Gwen dejó de aparecer entre los colaboradores disponibles.
+- La Generación 19 pasó de 2 a 3 colaboradores.
+- Gwen apareció en el tablero como `Gwen Stacy - UPM`.
+- Su estado visual inicial es amarillo, `EN PROCESO`.
+- Gwen inició con 0 de 3 documentos completados.
+- Al iniciar sesión como Gwen aparecieron automáticamente NDA, Carta de presentación y Carta de aceptación en estado `PENDING`.
+- El NDA y la Carta de aceptación esperan la publicación de una plantilla por parte de PluriOne.
+- La Carta de presentación quedó disponible para carga directa por parte de la colaboradora.
+
 
 
 \---
 
 ## En progreso
 
-1. Integrar desde React la asignación de colaboradores aprobados a generaciones.
-2. Mostrar los colaboradores aprobados que todavía no pertenecen a una generación.
-3. Permitir seleccionar una generación abierta para realizar la asignación.
-4. Completar posteriormente el circuito de corrección de solicitudes iniciales.
-5. Revisar Mis datos, Notificaciones y detalles visuales del modo oscuro.
+1. Completar el circuito de corrección de solicitudes iniciales.
+2. Integrar desde React las acciones administrativas restantes de generaciones.
+3. Mejorar el apartado Mis datos del colaborador.
+4. Definir e integrar el apartado de Notificaciones del MVP.
+5. Corregir detalles visuales pendientes y preparar las pruebas finales.
 \---
 
 ## Próximo paso
 
-1. Consultar desde React `GET /api/onboarding/collaborators/available/`.
-2. Mostrar a Gwen Stacy como colaboradora disponible para asignación.
-3. Permitir seleccionar una generación abierta.
-4. Conectar React con `POST /api/onboarding/generations/<id>/members/`.
-5. Asignar realmente a Gwen a la Generación 19.
-6. Verificar que aparezca en la generación con 0 de 3 documentos completados.
-7. Iniciar sesión como Gwen y comprobar que aparezcan NDA, Carta de presentación y Carta de aceptación en estado pendiente.
+1. Validar desde React la opción `Solicitar corrección` de una solicitud inicial.
+2. Mostrar al colaborador el motivo indicado por el encargado.
+3. Permitir editar los datos del perfil cuando la solicitud esté en `NEEDS_CORRECTION`.
+4. Permitir reenviar la solicitud corregida.
+5. Comprobar el flujo `NEEDS_CORRECTION → IN_REVIEW → APPROVED`.
+6. Continuar después con la creación y cierre de generaciones desde React.
 \---
 
 ## Idea principal del sistema
