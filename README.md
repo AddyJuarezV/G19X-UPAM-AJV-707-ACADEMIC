@@ -494,6 +494,19 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se validó el seguimiento automático utilizando los tres documentos pendientes de Gwen Stacy.
 - La primera ejecución detectó 3 pendientes y generó 3 recordatorios.
 - Una segunda ejecución inmediata detectó 0 pendientes elegibles, comprobando el control anti-spam.
+
+- Se agregaron pruebas automáticas para el módulo `onboarding`.
+- `backend/onboarding/tests.py` dejó de estar vacío.
+- Se implementaron 5 pruebas automáticas utilizando la base de datos temporal de Django.
+- Se validó que un NDA aprobado pase de `DELIVERED` a `COMPLETE`.
+- Se validó que una Carta de presentación aprobada pase de `DELIVERED` a `PENDING_SIGNATURE`.
+- Se comprobó que un colaborador no pueda modificar documentos pertenecientes a otro colaborador.
+- Se comprobó que una generación en estado `CLOSED` rechace nuevas asignaciones.
+- Se agregó una prueba para el seguimiento automático de documentos detenidos.
+- La prueba automática verifica que un documento detenido genere un recordatorio.
+- La misma prueba verifica que el recordatorio no se repita inmediatamente debido al intervalo configurado.
+- `python manage.py test onboarding` ejecutó 5 pruebas correctamente.
+- El resultado final fue `OK`.
 \---
 
 ## En progreso
@@ -513,6 +526,8 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 4. Crear pruebas básicas en `backend/accounts/tests.py`.
 5. Después mover `SECRET_KEY` y `DEBUG` al archivo `.env`.
 6. Continuar con la limpieza final de documentación y reproducibilidad.
+
+
 \---
 
 ## Idea principal del sistema

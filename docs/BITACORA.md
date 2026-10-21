@@ -1502,3 +1502,47 @@ Esto responde directamente a la retroalimentación académica que solicitaba una
 ### Próximo paso
 
 Agregar pruebas automáticas del backend para validar transiciones de estado, permisos y reglas críticas del proceso de incorporación.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Implementación de pruebas automáticas del módulo onboarding.
+
+### Trabajo realizado
+
+- Se comenzó a atender la observación académica relacionada con los archivos `tests.py` vacíos.
+- Se reemplazó el contenido inicial de `backend/onboarding/tests.py`.
+- Se creó una configuración base de usuarios y colaboradores ficticios para las pruebas.
+- Se agregó una prueba para verificar que un NDA en estado `DELIVERED` pase a `COMPLETE` después de ser aprobado.
+- Se agregó una prueba para verificar que una Carta de presentación aprobada pase a `PENDING_SIGNATURE`.
+- Se agregó una prueba de seguridad para impedir que un colaborador modifique documentos de otro usuario.
+- Se agregó una prueba que confirma que una generación cerrada rechaza nuevas asignaciones.
+- Se agregó una prueba para el comando automático `revisar_pendientes`.
+- La prueba del seguimiento automático simula un documento detenido durante 3 días.
+- Se verifica que el sistema genere un recordatorio.
+- Se verifica que `last_reminder_at` sea registrado.
+- Se verifica que una segunda ejecución inmediata no genere otro recordatorio.
+- Para las pruebas de correo se utilizó `locmem.EmailBackend`.
+- Django creó y eliminó correctamente una base de datos temporal de pruebas.
+- Se ejecutó `python manage.py test onboarding`.
+- Se encontraron y ejecutaron 5 pruebas.
+- Las 5 pruebas terminaron correctamente con resultado `OK`.
+
+### Resultado
+
+Las principales reglas del módulo de onboarding cuentan ahora con pruebas automáticas reproducibles.
+
+El comando ejecutado fue:
+
+`python manage.py test onboarding`
+
+Resultado:
+
+`Ran 5 tests - OK`
+
+### Próximo paso
+
+Agregar pruebas automáticas del módulo accounts para validar envío, revisión, corrección y aprobación de solicitudes.
