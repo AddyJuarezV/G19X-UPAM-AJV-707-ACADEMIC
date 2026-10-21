@@ -1829,6 +1829,11 @@ const [
   setGenerationFeedback,
 ] = useState("");
 
+const [
+  closingGenerationId,
+  setClosingGenerationId,
+] = useState(null);
+
 const createGeneration =
   async (event) => {
     event.preventDefault();
@@ -1896,6 +1901,69 @@ const createGeneration =
       );
     } finally {
       setCreatingGeneration(false);
+    }
+  };
+
+  const closeGeneration =
+  async (generation) => {
+    if (
+      generation.status !==
+      "OPEN"
+    ) {
+      return;
+    }
+
+    const confirmed =
+      window.confirm(
+        `¿Cerrar la Generación ${generation.number}? Después del cierre ya no podrán agregarse nuevos colaboradores.`
+      );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setClosingGenerationId(
+      generation.id
+    );
+
+    setGenerationError("");
+    setGenerationFeedback("");
+
+    try {
+      const response =
+        await apiFetch(
+          `/api/onboarding/generations/${generation.id}/close/`,
+          {
+            method: "POST",
+          }
+        );
+
+      const data =
+        await response
+          .json()
+          .catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail ||
+            "No fue posible cerrar la generación."
+        );
+      }
+
+      setGenerationFeedback(
+        data.message ||
+          `Generación ${generation.number} cerrada correctamente.`
+      );
+
+      await onRefresh();
+    } catch (error) {
+      setGenerationError(
+        error.message
+      );
+    } finally {
+      setClosingGenerationId(
+        null
+      );
     }
   };
 
@@ -2187,19 +2255,44 @@ const createGeneration =
                   </p>
                 </div>
 
-                <span
-                  className={
-                    selectedGeneration
-                      .status === "OPEN"
-                      ? "generation-status open"
-                      : "generation-status closed"
-                  }
-                >
-                  {
-                    selectedGeneration
-                      .status
-                  }
-                </span>
+                <div className="generation-info-actions">
+  <span
+    className={
+      selectedGeneration
+        .status === "OPEN"
+        ? "generation-status open"
+        : "generation-status closed"
+    }
+  >
+    {
+      selectedGeneration
+        .status
+    }
+  </span>
+
+
+  {selectedGeneration.status ===
+    "OPEN" && (
+    <button
+      type="button"
+      className="generation-close-button"
+      disabled={
+        closingGenerationId ===
+        selectedGeneration.id
+      }
+      onClick={() =>
+        closeGeneration(
+          selectedGeneration
+        )
+      }
+    >
+      {closingGenerationId ===
+      selectedGeneration.id
+        ? "Cerrando..."
+        : "Cerrar generación"}
+    </button>
+  )}
+</div>
               </div>
 
 

@@ -5952,3 +5952,73 @@ html[data-theme="dark"]
     width: 100%;
   }
 }
+
+/* =========================================================
+   CIERRE DE GENERACIONES
+   ========================================================= */
+
+.generation-info-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+.generation-close-button {
+  min-height: 42px;
+
+  padding:
+    0 15px;
+
+  border:
+    1px solid #f0b0ab;
+
+  border-radius: 10px;
+
+  color: #b42318;
+
+  background: #fff5f4;
+
+  font-size: 13px;
+  font-weight: 850;
+
+  cursor: pointer;
+}
+
+
+.generation-close-button:hover:not(:disabled) {
+  background: #fef3f2;
+}
+
+
+.generation-close-button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+
+html[data-theme="dark"]
+.generation-close-button {
+  color: #fda29b;
+
+  border-color: #69302d;
+
+  background: #301918;
+}
+
+
+@media (max-width: 720px) {
+  .generation-info-actions {
+    width: 100%;
+
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+
+  .generation-close-button {
+    width: 100%;
+  }
+}

@@ -426,26 +426,40 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - La Generación 21 inicia con 0 colaboradores asignados.
 - G21 permanecerá abierta temporalmente para comprobar posteriormente el cierre de generaciones desde React.
 
+- Se integró desde React el cierre administrativo de generaciones.
+- Las generaciones en estado `OPEN` muestran la acción `Cerrar generación`.
+- Antes del cierre se solicita confirmación al encargado.
+- React se conectó con `POST /api/onboarding/generations/<id>/close/`.
+- Se utilizó la Generación 21 para validar el flujo.
+- G21 cambió correctamente de `OPEN` a `CLOSED`.
+- Después del cierre, su indicador visual cambió de abierto a cerrado.
+- La opción para cerrar desaparece cuando la generación ya se encuentra en estado `CLOSED`.
+- Las generaciones cerradas dejan de aparecer en el selector utilizado para asignar colaboradores.
+- Miguel O'Hara permaneció disponible para asignación, pero G21 dejó de aparecer entre sus opciones.
+- Se realizó adicionalmente una prueba directa contra el backend intentando asignar a Miguel a la Generación 21 cerrada.
+- El backend respondió con HTTP 400 y rechazó correctamente la operación.
+- Miguel permaneció sin generación después del intento.
+- La protección contra asignaciones a generaciones cerradas queda validada tanto en React como en Django.
 
 \---
 
 ## En progreso
 
-1. Integrar desde React el cierre administrativo de generaciones.
-2. Verificar que una generación cerrada deje de aceptar nuevos colaboradores.
-3. Mejorar el apartado Mis datos para consulta habitual del colaborador.
-4. Definir el apartado de Notificaciones del MVP.
-5. Realizar el pulido visual y las pruebas finales de entrega.
+1. Mejorar el apartado Mis datos del colaborador.
+2. Definir e integrar el apartado de Notificaciones del MVP.
+3. Corregir detalles visuales pendientes del modo oscuro.
+4. Preparar las pruebas finales de funcionamiento.
+5. Preparar la entrega reproducible y documentación final del proyecto.
 \---
 
 ## Próximo paso
 
-1. Agregar al panel del encargado la opción para cerrar una generación abierta.
-2. Conectar React con `POST /api/onboarding/generations/<id>/close/`.
-3. Utilizar la Generación 21 para validar el cierre.
-4. Comprobar que G21 cambie de `OPEN` a `CLOSED`.
-5. Verificar que G21 deje de aparecer entre las generaciones disponibles para nuevas asignaciones.
-6. Continuar después con Mis datos, Notificaciones y cierre técnico del MVP.
+1. Convertir Mis datos en una sección funcional de consulta del perfil del colaborador.
+2. Permitir edición cuando el estado del proceso lo autorice.
+3. Definir las notificaciones mínimas necesarias para el MVP.
+4. Corregir detalles de contraste y presentación visual.
+5. Ejecutar posteriormente pruebas finales de frontend y backend.
+6. Actualizar la base de datos de demostración y preparar la entrega reproducible.
 \---
 
 ## Idea principal del sistema

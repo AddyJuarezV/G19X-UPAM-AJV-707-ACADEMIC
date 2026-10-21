@@ -1335,3 +1335,45 @@ El flujo validado fue:
 ### Próximo paso
 
 Integrar y validar desde React el cierre de la Generación 21.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Integración y validación del cierre administrativo de generaciones desde React.
+
+### Trabajo realizado
+
+- Se agregó al panel del encargado la acción para cerrar generaciones abiertas.
+- La acción solamente está disponible cuando la generación se encuentra en estado `OPEN`.
+- Antes de ejecutar el cierre se solicita confirmación al encargado.
+- Se conectó React con `POST /api/onboarding/generations/<id>/close/`.
+- Se utilizó la Generación 21 para validar el funcionamiento.
+- G21 cambió correctamente de `OPEN` a `CLOSED`.
+- Después del cierre, el indicador visual de G21 cambió al estado correspondiente.
+- El botón para cerrar la generación dejó de mostrarse.
+- Se comprobó que las generaciones cerradas ya no aparecen en los selectores de asignación.
+- Miguel O'Hara permaneció aprobado y disponible para asignación.
+- Para Miguel únicamente apareció la Generación 19, debido a que G20 y G21 se encuentran cerradas.
+- Se realizó además una prueba directa contra el endpoint de asignación intentando agregar a Miguel a G21.
+- El backend respondió con HTTP 400.
+- El mensaje recibido fue: `No se pueden agregar colaboradores a una generación cerrada.`
+- Después del intento, Miguel continuó sin asignación.
+
+### Resultado
+
+El cierre de generaciones queda protegido tanto desde la interfaz como desde el backend.
+
+El flujo validado fue:
+
+`OPEN → cierre desde React → CLOSED → exclusión del selector de asignación`
+
+También se comprobó:
+
+`intento directo de asignación a CLOSED → HTTP 400 → operación rechazada`
+
+### Próximo paso
+
+Continuar con Mis datos, Notificaciones, ajustes visuales y preparación de las pruebas finales del MVP.
