@@ -455,25 +455,43 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El botón `Mis datos` del menú lateral ahora desplaza al usuario hasta su perfil.
 - El botón `Documentación` del menú lateral ahora desplaza al usuario hasta `Mis documentos`.
 
+- Se integró el apartado de Notificaciones del MVP.
+- Se creó el componente independiente `NotificationsPanel.jsx`.
+- Se creó la hoja de estilos `NotificationsPanel.css`.
+- Las notificaciones se generan dinámicamente a partir del estado real de la solicitud y de los documentos del colaborador.
+- No se agregó una tabla adicional de notificaciones para el MVP; los avisos se derivan de la información actual del proceso.
+- Se agregaron avisos para solicitudes en `DRAFT`, `IN_REVIEW`, `NEEDS_CORRECTION` y `APPROVED`.
+- Se agregaron avisos para documentos pendientes, en revisión, con corrección solicitada, pendientes de firma y disponibles para descarga.
+- El sistema distingue entre avisos informativos y acciones que realmente requieren intervención del colaborador.
+- El botón `Notificaciones` del menú lateral ahora desplaza a la sección correspondiente.
+- Se validó el comportamiento utilizando a Gwen Stacy.
+- Gwen visualizó correctamente tres avisos relacionados con sus documentos.
+- NDA y Carta de aceptación mostraron que están esperando una plantilla de PluriOne.
+- Carta de presentación apareció como una acción pendiente de entrega.
+- El contador indicó correctamente una acción que requiere atención.
+- Se validó también el comportamiento utilizando a Miguel O'Hara.
+- Miguel visualizó el aviso de que su solicitud fue aprobada y está esperando asignación a una generación.
+- Para Miguel se mostró correctamente `Sin acciones urgentes`.
 \---
 
 ## En progreso
 
-1. Definir e integrar el apartado de Notificaciones del MVP.
-2. Corregir detalles visuales pendientes, especialmente contraste en modo oscuro.
-3. Ejecutar pruebas finales completas de frontend y backend.
+1. Corregir detalles visuales pendientes, especialmente contraste en modo oscuro.
+2. Ejecutar pruebas finales completas del frontend.
+3. Ejecutar pruebas finales completas del backend.
 4. Actualizar la base de datos de demostración.
 5. Preparar la instalación reproducible y documentación final de entrega.
 \---
 
 ## Próximo paso
 
-1. Implementar Notificaciones como resumen de acciones y pendientes relevantes del colaborador.
-2. Hacer funcional el botón `Notificaciones` del menú lateral.
-3. Revisar estados que requieren atención, como documentos pendientes, correcciones y documentos disponibles.
-4. Corregir después detalles de contraste y presentación visual.
-5. Ejecutar las pruebas finales del MVP.
-6. Actualizar `db/base-de-datos.sql` y preparar la entrega reproducible.
+1. Realizar un bloque de pulido visual del portal del colaborador y del encargado.
+2. Corregir textos con poco contraste en modo oscuro.
+3. Revisar alineación, separación y estados visuales.
+4. Ejecutar `npm run lint` y `npm run build`.
+5. Ejecutar las comprobaciones finales de Django.
+6. Regenerar posteriormente `db/base-de-datos.sql`.
+7. Revisar README, dependencias, `.env.example` y preparación final del repositorio.
 \---
 
 ## Idea principal del sistema

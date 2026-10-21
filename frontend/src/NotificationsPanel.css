@@ -1,0 +1,235 @@
+.notifications-section {
+  margin-bottom: 32px;
+}
+
+
+.notification-count {
+  padding:
+    9px 14px;
+
+  border-radius: 999px;
+
+  color: #475467;
+
+  background: #f2f4f7;
+
+  font-size: 13px;
+  font-weight: 850;
+}
+
+
+.notifications-list {
+  display: grid;
+
+  gap: 14px;
+}
+
+
+.notification-card {
+  padding: 18px;
+
+  display: grid;
+
+  grid-template-columns:
+    auto
+    minmax(0, 1fr);
+
+  align-items: flex-start;
+
+  gap: 15px;
+
+  border:
+    1px solid #e3e8ef;
+
+  border-radius: 14px;
+
+  background: #fbfcfe;
+}
+
+
+.notification-indicator {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  color: #175cd3;
+
+  background: #eff8ff;
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+
+.notification-card strong {
+  display: block;
+
+  color: #344054;
+
+  font-size: 16px;
+}
+
+
+.notification-card p {
+  margin:
+    6px 0 0;
+
+  color: #667085;
+
+  font-size: 14px;
+
+  line-height: 1.55;
+}
+
+
+.notification-card.action {
+  border-color: #fedf89;
+
+  background: #fffcf5;
+}
+
+
+.notification-card.action
+.notification-indicator {
+  color: #b54708;
+
+  background: #fef0c7;
+}
+
+
+.notification-card.danger {
+  border-color: #fecdca;
+
+  background: #fff8f7;
+}
+
+
+.notification-card.danger
+.notification-indicator {
+  color: #b42318;
+
+  background: #fee4e2;
+}
+
+
+.notification-card.success {
+  border-color: #abefc6;
+
+  background: #f6fef9;
+}
+
+
+.notification-card.success
+.notification-indicator {
+  color: #067647;
+
+  background: #dcfae6;
+}
+
+
+.notifications-empty {
+  padding: 38px 20px;
+
+  text-align: center;
+
+  border:
+    1px dashed #d4dae5;
+
+  border-radius: 14px;
+
+  background: #fbfcfe;
+}
+
+
+.notifications-empty strong {
+  color: #344054;
+
+  font-size: 17px;
+}
+
+
+.notifications-empty p {
+  margin:
+    7px 0 0;
+
+  color: #8490a3;
+}
+
+
+/* Tema oscuro */
+
+html[data-theme="dark"]
+.notification-count {
+  color: #c5cfdd;
+
+  background: #17233a;
+}
+
+
+html[data-theme="dark"]
+.notification-card {
+  border-color: #29364c;
+
+  background: #111b2d;
+}
+
+
+html[data-theme="dark"]
+.notification-card strong {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.notification-card p {
+  color: #aeb9ca;
+}
+
+
+html[data-theme="dark"]
+.notification-card.action {
+  border-color: #664315;
+
+  background: #211b12;
+}
+
+
+html[data-theme="dark"]
+.notification-card.danger {
+  border-color: #69302d;
+
+  background: #211617;
+}
+
+
+html[data-theme="dark"]
+.notification-card.success {
+  border-color: #155b3d;
+
+  background: #102c22;
+}
+
+
+html[data-theme="dark"]
+.notifications-empty {
+  border-color: #35445b;
+
+  background: #111b2d;
+}
+
+
+html[data-theme="dark"]
+.notifications-empty strong {
+  color: #edf2f8;
+}
+
+
+html[data-theme="dark"]
+.notifications-empty p {
+  color: #9eabba;
+}

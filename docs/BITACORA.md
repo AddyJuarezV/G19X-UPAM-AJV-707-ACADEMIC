@@ -1417,3 +1417,39 @@ El apartado lateral deja de ser únicamente visual y permite navegación real ha
 ### Próximo paso
 
 Implementar el apartado de Notificaciones del MVP y posteriormente comenzar el pulido y las pruebas finales.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Integración y validación del apartado de Notificaciones del MVP.
+
+### Trabajo realizado
+
+- Se creó el componente independiente `NotificationsPanel.jsx`.
+- Se creó la hoja de estilos `NotificationsPanel.css`.
+- Los avisos se generan dinámicamente a partir del estado actual del colaborador.
+- Se contemplaron estados de solicitud como `DRAFT`, `IN_REVIEW`, `NEEDS_CORRECTION` y `APPROVED`.
+- Se contemplaron diferentes estados del flujo documental.
+- Se diferencian avisos informativos de acciones que requieren atención del colaborador.
+- Se hizo funcional el botón `Notificaciones` del menú lateral.
+- Se utilizó a Gwen Stacy para validar un escenario con documentos pendientes.
+- Gwen visualizó avisos para NDA, Carta de aceptación y Carta de presentación.
+- NDA y Carta de aceptación indicaron correctamente que dependen de la publicación de plantillas por parte de PluriOne.
+- Carta de presentación apareció como una acción pendiente del colaborador.
+- El sistema indicó correctamente una acción que requiere atención.
+- Se utilizó a Miguel O'Hara para validar un escenario sin documentos y con solicitud aprobada.
+- Miguel visualizó correctamente el aviso de que está esperando asignación a una generación.
+- El sistema indicó `Sin acciones urgentes` debido a que Miguel no tiene ninguna acción pendiente en ese momento.
+
+### Resultado
+
+El colaborador dispone ahora de un centro de avisos que resume su situación actual y señala claramente cuándo una acción depende de él o de PluriOne.
+
+Las notificaciones del MVP se derivan del estado real del proceso, evitando introducir infraestructura adicional innecesaria para esta primera versión.
+
+### Próximo paso
+
+Realizar el pulido visual final y comenzar las pruebas técnicas completas del MVP.

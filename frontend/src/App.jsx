@@ -7,6 +7,7 @@ import "./App.css";
 import Register from "./Register";
 import ProfileCorrection from "./ProfileCorrection";
 import MyProfile from "./MyProfile";
+import NotificationsPanel from "./NotificationsPanel";
 
 
 function App() {
@@ -1176,15 +1177,15 @@ function CollaboratorHome({
           </article>
         </section>
         {profile.application_status ===
-  "NEEDS_CORRECTION" && (
-  <ProfileCorrection
-    correctionReason={
-      profile.correction_reason
-    }
-    apiFetch={apiFetch}
-    onRefresh={onRefresh}
-  />
-)}
+          "NEEDS_CORRECTION" && (
+          <ProfileCorrection
+            correctionReason={
+              profile.correction_reason
+            }
+            apiFetch={apiFetch}
+            onRefresh={onRefresh}
+          />
+        )}
 
                 {canSubmitApplication && (
           <section className="application-submit-card">
@@ -1255,6 +1256,11 @@ function CollaboratorHome({
 
 <MyProfile
   apiFetch={apiFetch}
+/>
+
+<NotificationsPanel
+  profile={profile}
+  documents={documents}
 />
 
 
@@ -3798,13 +3804,18 @@ function Sidebar({
                   Documentación
                 </button>
 
-                <button
-                  className="nav-item"
-                  type="button"
-                >
-                  <span>○</span>
-                  Notificaciones
-                </button>
+             <button
+  className="nav-item"
+  type="button"
+  onClick={() =>
+    goTo(
+      "notificaciones"
+    )
+  }
+>
+  <span>○</span>
+  Notificaciones
+</button>
               </>
             ) : (
               <>
