@@ -1546,3 +1546,48 @@ Resultado:
 ### Próximo paso
 
 Agregar pruebas automáticas del módulo accounts para validar envío, revisión, corrección y aprobación de solicitudes.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Implementación de pruebas automáticas del módulo accounts y validación conjunta del backend.
+
+### Trabajo realizado
+
+- Se reemplazó el contenido inicial de `backend/accounts/tests.py`.
+- Se agregaron usuarios y perfiles ficticios específicos para pruebas.
+- Se creó una prueba para validar el envío de una solicitud desde `DRAFT` hacia `IN_REVIEW`.
+- Se comprobó que una solicitud `APPROVED` no pueda enviarse nuevamente.
+- Se comprobó que un usuario con rol colaborador no pueda revisar solicitudes.
+- Se validó que una solicitud de corrección requiera un motivo.
+- Se creó una prueba del flujo completo de corrección y aprobación.
+- El flujo probado fue `DRAFT → IN_REVIEW → NEEDS_CORRECTION → IN_REVIEW → APPROVED`.
+- Durante la corrección se cambió `required_hours` de 480 a 500.
+- Se comprobó que el nuevo valor permanezca después de la aprobación.
+- Se ejecutó `python manage.py test accounts`.
+- Las 5 pruebas de accounts finalizaron correctamente.
+- Se ejecutó después `python manage.py test accounts onboarding`.
+- Django encontró 10 pruebas en total.
+- Las 10 pruebas terminaron correctamente con resultado `OK`.
+- Todas las pruebas se ejecutaron utilizando una base de datos temporal creada y eliminada automáticamente por Django.
+
+### Resultado
+
+Los módulos principales `accounts` y `onboarding` cuentan ahora con pruebas automáticas para reglas críticas del proceso.
+
+El resultado conjunto fue:
+
+`Found 10 test(s)`
+
+`Ran 10 tests`
+
+`OK`
+
+Esto atiende directamente la observación académica que indicaba que ambos archivos `tests.py` se encontraban vacíos.
+
+### Próximo paso
+
+Mover `SECRET_KEY` y `DEBUG` a variables de entorno y comprobar nuevamente el backend y las pruebas automáticas.

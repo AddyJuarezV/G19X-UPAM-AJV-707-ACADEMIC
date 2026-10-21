@@ -507,25 +507,42 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - La misma prueba verifica que el recordatorio no se repita inmediatamente debido al intervalo configurado.
 - `python manage.py test onboarding` ejecutó 5 pruebas correctamente.
 - El resultado final fue `OK`.
+
+- Se agregaron pruebas automáticas para el módulo `accounts`.
+- `backend/accounts/tests.py` dejó de estar vacío.
+- Se implementaron 5 pruebas automáticas para el flujo de solicitudes de incorporación.
+- Se comprobó que una solicitud en `DRAFT` pueda pasar a `IN_REVIEW`.
+- Se comprobó que una solicitud `APPROVED` no pueda enviarse nuevamente.
+- Se comprobó que un colaborador no pueda revisar ni aprobar solicitudes.
+- Se comprobó que una solicitud de corrección requiera obligatoriamente un motivo.
+- Se automatizó la prueba del flujo completo de corrección utilizado previamente con Miguel O'Hara.
+- La prueba valida el recorrido `DRAFT → IN_REVIEW → NEEDS_CORRECTION → IN_REVIEW → APPROVED`.
+- Durante la prueba de corrección se actualizan las horas a cumplir de 480 a 500.
+- Después de la aprobación se conserva correctamente el nuevo valor de 500 horas.
+- `python manage.py test accounts` ejecutó 5 pruebas correctamente.
+- Se ejecutaron posteriormente `accounts` y `onboarding` juntos.
+- `python manage.py test accounts onboarding` encontró y ejecutó 10 pruebas.
+- Las 10 pruebas finalizaron correctamente con resultado `OK`.
 \---
 
 ## En progreso
 
-1. Agregar pruebas automáticas para las reglas principales del backend.
-2. Mover `SECRET_KEY` y `DEBUG` a variables de entorno.
+1. Mover `SECRET_KEY` y `DEBUG` a variables de entorno.
+2. Actualizar `.env.example`.
 3. Limpiar y actualizar completamente el README.
 4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-5. Preparar las pruebas finales y la entrega reproducible.
+5. Preparar pruebas finales, build del frontend y entrega reproducible.
 \---
 
 ## Próximo paso
 
-1. Crear pruebas en `backend/onboarding/tests.py`.
-2. Probar transiciones importantes del flujo documental.
-3. Probar permisos para impedir que un colaborador modifique documentos ajenos.
-4. Crear pruebas básicas en `backend/accounts/tests.py`.
-5. Después mover `SECRET_KEY` y `DEBUG` al archivo `.env`.
-6. Continuar con la limpieza final de documentación y reproducibilidad.
+1. Eliminar `SECRET_KEY` fijo de `backend/config/settings.py`.
+2. Leer `SECRET_KEY` desde `.env`.
+3. Leer `DEBUG` desde `.env`.
+4. Agregar ambas variables a `.env.example`.
+5. Ejecutar `python manage.py check`.
+6. Ejecutar nuevamente las 10 pruebas automáticas.
+7. Después continuar con la limpieza final de documentación.
 
 
 \---
