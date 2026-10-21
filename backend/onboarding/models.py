@@ -167,6 +167,12 @@ class OnboardingDocument(models.Model):
         auto_now=True,
     )
 
+    last_reminder_at = models.DateTimeField(
+    null=True,
+    blank=True,
+    verbose_name="último recordatorio enviado",
+    )
+
     class Meta:
         constraints = [
             models.UniqueConstraint(

@@ -1453,3 +1453,52 @@ Las notificaciones del MVP se derivan del estado real del proceso, evitando intr
 ### Próximo paso
 
 Realizar el pulido visual final y comenzar las pruebas técnicas completas del MVP.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Implementación y validación del seguimiento automático de documentos detenidos.
+
+### Trabajo realizado
+
+- Se analizó la retroalimentación académica recibida en el Corte 2.
+- Se identificó como prioridad demostrar una función que actuara automáticamente sobre pendientes del proceso.
+- Se agregó el campo `last_reminder_at` al modelo `OnboardingDocument`.
+- Se creó y aplicó la migración `0003_onboardingdocument_last_reminder_at`.
+- Se corrigió la configuración de correo de Django utilizando `EMAIL_BACKEND`.
+- Para el MVP se utiliza `django.core.mail.backends.console.EmailBackend`.
+- Se creó la estructura `onboarding/management/commands/`.
+- Se implementó el comando `python manage.py revisar_pendientes`.
+- El comando identifica documentos que no han tenido movimiento durante un periodo configurable.
+- El valor predeterminado es de 2 días.
+- Se implementó la opción `--days` para modificar el umbral.
+- Se implementó `--repeat-hours` para controlar cada cuánto puede repetirse un recordatorio.
+- El valor predeterminado es de 24 horas.
+- Se agregó `--dry-run` para ejecutar simulaciones sin enviar correos ni actualizar la base.
+- El sistema determina automáticamente al responsable de la siguiente acción según el estado del documento.
+- Se utilizó a Gwen Stacy para realizar la validación.
+- En modo simulación se detectaron correctamente tres documentos pendientes.
+- NDA y Carta de aceptación fueron identificados como responsabilidad de PluriOne debido a que requieren una plantilla.
+- Carta de presentación fue identificada como responsabilidad de la colaboradora.
+- En la primera ejecución real se detectaron 3 pendientes y se generaron 3 recordatorios por correo de consola.
+- Después de cada envío se almacenó la fecha en `last_reminder_at`.
+- Se ejecutó inmediatamente el comando una segunda vez.
+- En la segunda ejecución se detectaron 0 documentos elegibles para recordatorio debido al intervalo de 24 horas.
+- `python manage.py check` terminó sin errores.
+
+### Resultado
+
+El sistema ya cuenta con una función de seguimiento automático que actúa sobre documentos detenidos.
+
+El flujo validado es:
+
+`documento detenido → detección automática → identificación del responsable → recordatorio → registro de envío → control de repetición`
+
+Esto responde directamente a la retroalimentación académica que solicitaba una función automática relacionada con alertas o recordatorios.
+
+### Próximo paso
+
+Agregar pruebas automáticas del backend para validar transiciones de estado, permisos y reglas críticas del proceso de incorporación.

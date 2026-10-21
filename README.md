@@ -472,26 +472,47 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se validó también el comportamiento utilizando a Miguel O'Hara.
 - Miguel visualizó el aviso de que su solicitud fue aprobada y está esperando asignación a una generación.
 - Para Miguel se mostró correctamente `Sin acciones urgentes`.
+
+
+- Se implementó seguimiento automático de documentos detenidos en el backend.
+- Se creó el comando administrativo `python manage.py revisar_pendientes`.
+- El comando detecta documentos de incorporación que llevan un número configurable de días sin movimiento.
+- Por defecto, se consideran detenidos los documentos con 2 días sin cambios.
+- El sistema determina automáticamente quién debe realizar la siguiente acción.
+- Para NDA y Carta de aceptación pendientes de plantilla, el responsable identificado es PluriOne.
+- Para documentos pendientes de entrega, el responsable identificado es el colaborador.
+- Para documentos entregados o en revisión, el responsable es PluriOne.
+- Para documentos con corrección solicitada, el responsable vuelve a ser el colaborador.
+- Para documentos pendientes de firma, el responsable es PluriOne.
+- Para documentos disponibles para descarga, el responsable es el colaborador.
+- Se configuró el backend de correo de consola de Django para las pruebas del MVP.
+- Cada recordatorio incluye colaborador, documento, estado, último movimiento, días sin movimiento, responsable y acción requerida.
+- Se agregó `last_reminder_at` a los documentos para controlar la frecuencia de los recordatorios.
+- El sistema evita repetir inmediatamente un aviso ya generado.
+- Por defecto, un mismo pendiente no vuelve a generar recordatorio antes de 24 horas.
+- Se agregó la opción `--dry-run` para simular la revisión sin enviar correos ni modificar la base de datos.
+- Se validó el seguimiento automático utilizando los tres documentos pendientes de Gwen Stacy.
+- La primera ejecución detectó 3 pendientes y generó 3 recordatorios.
+- Una segunda ejecución inmediata detectó 0 pendientes elegibles, comprobando el control anti-spam.
 \---
 
 ## En progreso
 
-1. Corregir detalles visuales pendientes, especialmente contraste en modo oscuro.
-2. Ejecutar pruebas finales completas del frontend.
-3. Ejecutar pruebas finales completas del backend.
-4. Actualizar la base de datos de demostración.
-5. Preparar la instalación reproducible y documentación final de entrega.
+1. Agregar pruebas automáticas para las reglas principales del backend.
+2. Mover `SECRET_KEY` y `DEBUG` a variables de entorno.
+3. Limpiar y actualizar completamente el README.
+4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+5. Preparar las pruebas finales y la entrega reproducible.
 \---
 
 ## Próximo paso
 
-1. Realizar un bloque de pulido visual del portal del colaborador y del encargado.
-2. Corregir textos con poco contraste en modo oscuro.
-3. Revisar alineación, separación y estados visuales.
-4. Ejecutar `npm run lint` y `npm run build`.
-5. Ejecutar las comprobaciones finales de Django.
-6. Regenerar posteriormente `db/base-de-datos.sql`.
-7. Revisar README, dependencias, `.env.example` y preparación final del repositorio.
+1. Crear pruebas en `backend/onboarding/tests.py`.
+2. Probar transiciones importantes del flujo documental.
+3. Probar permisos para impedir que un colaborador modifique documentos ajenos.
+4. Crear pruebas básicas en `backend/accounts/tests.py`.
+5. Después mover `SECRET_KEY` y `DEBUG` al archivo `.env`.
+6. Continuar con la limpieza final de documentación y reproducibilidad.
 \---
 
 ## Idea principal del sistema
