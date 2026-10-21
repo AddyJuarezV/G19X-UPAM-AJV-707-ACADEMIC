@@ -6,6 +6,7 @@ import {
 import "./App.css";
 import Register from "./Register";
 import ProfileCorrection from "./ProfileCorrection";
+import MyProfile from "./MyProfile";
 
 
 function App() {
@@ -1252,39 +1253,46 @@ function CollaboratorHome({
           </div>
         )}
 
-
-        <section className="content-section">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">
-                DOCUMENTACIÓN
-              </span>
-
-              <h2>
-                Mis documentos
-              </h2>
-            </div>
-
-            <span className="document-count">
-              {completedDocuments}/
-              {documents.length} completos
-            </span>
-          </div>
+<MyProfile
+  apiFetch={apiFetch}
+/>
 
 
-          <div className="documents-grid">
-            {documents.map(
-              (document) => (
-                <DocumentCard
-                  key={document.id}
-                  document={document}
-                  apiFetch={apiFetch}
-                  onRefresh={onRefresh}
-                />
-              )
-            )}
-          </div>
-        </section>
+<section
+  className="content-section"
+  id="documentacion"
+>
+  <div className="section-heading">
+    <div>
+      <span className="eyebrow">
+        DOCUMENTACIÓN
+      </span>
+
+      <h2>
+        Mis documentos
+      </h2>
+    </div>
+
+    <span className="document-count">
+      {completedDocuments}/
+      {documents.length} completos
+    </span>
+  </div>
+
+
+  <div className="documents-grid">
+    {documents.map(
+      (document) => (
+        <DocumentCard
+          key={document.id}
+          document={document}
+          apiFetch={apiFetch}
+          onRefresh={onRefresh}
+        />
+      )
+    )}
+  </div>
+</section>
       </main>
     </div>
   );
@@ -3767,14 +3775,24 @@ function Sidebar({
                 <button
                   className="nav-item"
                   type="button"
+                  onClick={() =>
+                    goTo(
+                      "mis-datos"
+                    )
+                  }
                 >
                   <span>◎</span>
                   Mis datos
-                </button>
+                  </button>
 
                 <button
                   className="nav-item"
                   type="button"
+                  onClick={() =>
+                    goTo(
+                      "documentacion"
+                    )
+                  }
                 >
                   <span>▤</span>
                   Documentación

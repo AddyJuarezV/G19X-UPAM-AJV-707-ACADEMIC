@@ -1377,3 +1377,43 @@ También se comprobó:
 ### Próximo paso
 
 Continuar con Mis datos, Notificaciones, ajustes visuales y preparación de las pruebas finales del MVP.
+
+---
+
+## 21 de octubre de 2026
+
+### Actividad
+
+Integración y validación del apartado Mis datos del colaborador.
+
+### Trabajo realizado
+
+- Se creó el componente independiente `MyProfile.jsx`.
+- Se creó la hoja de estilos `MyProfile.css`.
+- La sección consulta el perfil completo mediante `GET /api/accounts/profile/`.
+- Se muestran los principales datos personales y académicos registrados.
+- Se muestra el estado actual de la solicitud.
+- Se agregó acceso al CV registrado.
+- Se agregó acceso a la credencial universitaria registrada.
+- Se utilizó a Miguel O'Hara para validar el funcionamiento.
+- La interfaz mostró correctamente las 500 horas actualizadas durante la corrección anterior.
+- Se comprobó que el enlace `Ver CV` abre correctamente el archivo asociado al colaborador.
+- Se comprobó que `Ver credencial` abre correctamente el archivo asociado.
+- Debido a que los archivos utilizados durante las pruebas son ficticios y de texto, el navegador mostró su contenido en una pestaña nueva.
+- Se hizo funcional el botón `Mis datos` del menú lateral mediante desplazamiento a la sección correspondiente.
+- Se hizo funcional el botón `Documentación` para desplazarse a `Mis documentos`.
+- `npm run lint` finalizó sin errores después de corregir una etiqueta JSX duplicada.
+
+### Resultado
+
+El colaborador ya puede consultar desde React su información completa de incorporación y los archivos principales que entregó durante su registro.
+
+El apartado lateral deja de ser únicamente visual y permite navegación real hacia:
+
+`Mis datos → información del perfil`
+
+`Documentación → documentos del onboarding`
+
+### Próximo paso
+
+Implementar el apartado de Notificaciones del MVP y posteriormente comenzar el pulido y las pruebas finales.

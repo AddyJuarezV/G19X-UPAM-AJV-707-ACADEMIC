@@ -441,25 +441,39 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Miguel permaneció sin generación después del intento.
 - La protección contra asignaciones a generaciones cerradas queda validada tanto en React como en Django.
 
+- Se convirtió el apartado `Mis datos` en una sección funcional del portal del colaborador.
+- Se creó el componente independiente `MyProfile.jsx`.
+- Se creó la hoja de estilos `MyProfile.css`.
+- La sección consulta la información completa mediante `GET /api/accounts/profile/`.
+- Se muestran nombre completo, CURP, teléfono, correo personal, correo institucional, universidad, siglas, carrera y horas a cumplir.
+- Se muestra el estado actual de la solicitud del colaborador.
+- Se comprobó con Miguel O'Hara que la información mostrada corresponde a los datos actuales almacenados.
+- La sección mostró correctamente las 500 horas modificadas durante el circuito de corrección.
+- El colaborador puede consultar desde la interfaz su CV registrado.
+- El colaborador puede consultar desde la interfaz su credencial universitaria.
+- Se validó que ambos archivos se abren correctamente en una pestaña independiente.
+- El botón `Mis datos` del menú lateral ahora desplaza al usuario hasta su perfil.
+- El botón `Documentación` del menú lateral ahora desplaza al usuario hasta `Mis documentos`.
+
 \---
 
 ## En progreso
 
-1. Mejorar el apartado Mis datos del colaborador.
-2. Definir e integrar el apartado de Notificaciones del MVP.
-3. Corregir detalles visuales pendientes del modo oscuro.
-4. Preparar las pruebas finales de funcionamiento.
-5. Preparar la entrega reproducible y documentación final del proyecto.
+1. Definir e integrar el apartado de Notificaciones del MVP.
+2. Corregir detalles visuales pendientes, especialmente contraste en modo oscuro.
+3. Ejecutar pruebas finales completas de frontend y backend.
+4. Actualizar la base de datos de demostración.
+5. Preparar la instalación reproducible y documentación final de entrega.
 \---
 
 ## Próximo paso
 
-1. Convertir Mis datos en una sección funcional de consulta del perfil del colaborador.
-2. Permitir edición cuando el estado del proceso lo autorice.
-3. Definir las notificaciones mínimas necesarias para el MVP.
-4. Corregir detalles de contraste y presentación visual.
-5. Ejecutar posteriormente pruebas finales de frontend y backend.
-6. Actualizar la base de datos de demostración y preparar la entrega reproducible.
+1. Implementar Notificaciones como resumen de acciones y pendientes relevantes del colaborador.
+2. Hacer funcional el botón `Notificaciones` del menú lateral.
+3. Revisar estados que requieren atención, como documentos pendientes, correcciones y documentos disponibles.
+4. Corregir después detalles de contraste y presentación visual.
+5. Ejecutar las pruebas finales del MVP.
+6. Actualizar `db/base-de-datos.sql` y preparar la entrega reproducible.
 \---
 
 ## Idea principal del sistema
