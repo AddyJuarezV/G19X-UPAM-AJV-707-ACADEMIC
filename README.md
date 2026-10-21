@@ -413,25 +413,38 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Miguel terminó correctamente en estado `APPROVED`.
 - Miguel continúa con 0 documentos porque todavía no pertenece a una generación.
 
+- Se integró desde React la creación administrativa de generaciones.
+- El panel del encargado ahora incluye la opción `+ Nueva generación`.
+- Se agregó un formulario para indicar el número de la nueva generación.
+- React se conectó con `POST /api/onboarding/generations/create/`.
+- Las nuevas generaciones se crean automáticamente en estado `OPEN`.
+- Se agregó validación visual para números de generación inválidos o duplicados.
+- Después de crear una generación, React actualiza automáticamente el tablero.
+- Se utilizó la Generación 21 para validar el flujo.
+- La Generación 21 se creó correctamente desde React.
+- G21 aparece actualmente en estado `OPEN`.
+- La Generación 21 inicia con 0 colaboradores asignados.
+- G21 permanecerá abierta temporalmente para comprobar posteriormente el cierre de generaciones desde React.
+
 
 \---
 
 ## En progreso
 
-1. Integrar las acciones administrativas restantes de generaciones desde React.
-2. Permitir crear nuevas generaciones desde el panel del encargado.
-3. Permitir cerrar generaciones abiertas desde React.
-4. Mejorar el apartado Mis datos para consulta habitual del colaborador.
-5. Definir el apartado de Notificaciones y continuar con el pulido visual y las pruebas finales.
+1. Integrar desde React el cierre administrativo de generaciones.
+2. Verificar que una generación cerrada deje de aceptar nuevos colaboradores.
+3. Mejorar el apartado Mis datos para consulta habitual del colaborador.
+4. Definir el apartado de Notificaciones del MVP.
+5. Realizar el pulido visual y las pruebas finales de entrega.
 \---
 
 ## Próximo paso
 
-1. Integrar desde React la creación de nuevas generaciones.
-2. Conectar la interfaz con `POST /api/onboarding/generations/create/`.
-3. Permitir cerrar una generación abierta desde el panel del encargado.
-4. Conectar la interfaz con `POST /api/onboarding/generations/<id>/close/`.
-5. Comprobar que una generación cerrada ya no acepte nuevos colaboradores.
+1. Agregar al panel del encargado la opción para cerrar una generación abierta.
+2. Conectar React con `POST /api/onboarding/generations/<id>/close/`.
+3. Utilizar la Generación 21 para validar el cierre.
+4. Comprobar que G21 cambie de `OPEN` a `CLOSED`.
+5. Verificar que G21 deje de aparecer entre las generaciones disponibles para nuevas asignaciones.
 6. Continuar después con Mis datos, Notificaciones y cierre técnico del MVP.
 \---
 

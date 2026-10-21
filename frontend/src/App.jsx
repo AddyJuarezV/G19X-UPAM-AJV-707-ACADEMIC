@@ -1804,6 +1804,101 @@ const selectedGeneration =
         member.visual_status === "GREEN"
     ).length;
 
+    const [
+  showGenerationForm,
+  setShowGenerationForm,
+] = useState(false);
+
+const [
+  generationNumber,
+  setGenerationNumber,
+] = useState("");
+
+const [
+  creatingGeneration,
+  setCreatingGeneration,
+] = useState(false);
+
+const [
+  generationError,
+  setGenerationError,
+] = useState("");
+
+const [
+  generationFeedback,
+  setGenerationFeedback,
+] = useState("");
+
+const createGeneration =
+  async (event) => {
+    event.preventDefault();
+
+    const number =
+      Number(generationNumber);
+
+    if (
+      !Number.isInteger(number) ||
+      number <= 0
+    ) {
+      setGenerationError(
+        "Escribe un número de generación válido."
+      );
+
+      return;
+    }
+
+    setCreatingGeneration(true);
+    setGenerationError("");
+    setGenerationFeedback("");
+
+    try {
+      const response =
+        await apiFetch(
+          "/api/onboarding/generations/create/",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+            },
+
+            body: JSON.stringify({
+              number,
+            }),
+          }
+        );
+
+      const data =
+        await response
+          .json()
+          .catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(
+          data.detail ||
+            data.number?.[0] ||
+            "No fue posible crear la generación."
+        );
+      }
+
+      setGenerationFeedback(
+        `Generación ${number} creada correctamente.`
+      );
+
+      setGenerationNumber("");
+      setShowGenerationForm(false);
+
+      await onRefresh();
+    } catch (error) { 
+      setGenerationError(
+        error.message
+      );
+    } finally {
+      setCreatingGeneration(false);
+    }
+  };
+
   
 
   return (
@@ -1941,39 +2036,135 @@ const selectedGeneration =
               </h2>
             </div>
 
-            <div className="generation-tabs">
-              {generations.map(
-                (generation) => (
-                  <button
-                    key={generation.id}
-                    type="button"
-                    className={
-                      selectedGeneration?.id ===
-                      generation.id
-                        ? "generation-tab active"
-                        : "generation-tab"
-                    }
-                    onClick={() =>
-                      setSelectedGenerationId(
-                        generation.id
-                      )
-                    }
-                  >
-                    G{generation.number}
+            <div className="generation-manager-actions">
+  <div className="generation-tabs">
+    {generations.map(
+      (generation) => (
+        <button
+          key={generation.id}
+          type="button"
+          className={
+            selectedGeneration?.id ===
+            generation.id
+              ? "generation-tab active"
+              : "generation-tab"
+          }
+          onClick={() =>
+            setSelectedGenerationId(
+              generation.id
+            )
+          }
+        >
+          G{generation.number}
 
-                    <span
-                      className={
-                        generation.status ===
-                        "OPEN"
-                          ? "generation-dot open"
-                          : "generation-dot closed"
-                      }
-                    ></span>
-                  </button>
-                )
-              )}
-            </div>
+          <span
+            className={
+              generation.status ===
+              "OPEN"
+                ? "generation-dot open"
+                : "generation-dot closed"
+            }
+          ></span>
+        </button>
+      )
+    )}
+  </div>
+
+  <button
+    type="button"
+    className="generation-create-toggle"
+    onClick={() => {
+      setShowGenerationForm(
+        (current) =>
+          !current
+      );
+
+      setGenerationError("");
+      setGenerationFeedback("");
+    }}
+  >
+    + Nueva generación
+  </button>
+</div>
           </div>
+
+          {showGenerationForm && (
+  <form
+    className="generation-create-panel"
+    onSubmit={createGeneration}
+  >
+    <div>
+      <span className="eyebrow">
+        NUEVA GENERACIÓN
+      </span>
+
+      <h3>
+        Crear grupo de incorporación
+      </h3>
+
+      <p>
+        La nueva generación comenzará
+        abierta y podrá recibir
+        colaboradores aprobados.
+      </p>
+    </div>
+
+    <div className="generation-create-controls">
+      <label
+        htmlFor="generation-number"
+      >
+        Número de generación
+      </label>
+
+      <div>
+        <input
+          id="generation-number"
+          type="number"
+          min="1"
+          inputMode="numeric"
+          placeholder="Ej. 21"
+          value={generationNumber}
+          disabled={
+            creatingGeneration
+          }
+          onChange={(event) => {
+            setGenerationNumber(
+              event.target.value
+            );
+
+            setGenerationError("");
+          }}
+          required
+        />
+
+        <button
+          type="submit"
+          disabled={
+            creatingGeneration
+          }
+        >
+          {creatingGeneration
+            ? "Creando..."
+            : "Crear generación"}
+        </button>
+      </div>
+    </div>
+  </form>
+)}
+
+
+{generationFeedback && (
+  <div className="generation-feedback success">
+    {generationFeedback}
+  </div>
+)}
+
+
+{generationError && (
+  <div className="generation-feedback error">
+    {generationError}
+  </div>
+)}
 
 
           {selectedGeneration ? (

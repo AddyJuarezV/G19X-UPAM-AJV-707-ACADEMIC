@@ -1299,3 +1299,39 @@ El flujo validado fue:
 ### Próximo paso
 
 Integrar desde React la creación y el cierre administrativo de generaciones.
+
+---
+
+## 20 de octubre de 2026
+
+### Actividad
+
+Integración y validación de la creación de generaciones desde React.
+
+### Trabajo realizado
+
+- Se agregó al panel del encargado la opción `+ Nueva generación`.
+- Se creó un formulario administrativo para indicar el número de generación.
+- Se conectó React con `POST /api/onboarding/generations/create/`.
+- Se agregaron validaciones para números inválidos.
+- Se muestran los errores enviados por el backend, incluyendo generaciones duplicadas.
+- Después de una creación exitosa, el panel vuelve a consultar automáticamente las generaciones.
+- Se utilizó la Generación 21 para validar el funcionamiento.
+- La Generación 21 fue creada correctamente desde React.
+- G21 apareció automáticamente en las pestañas del tablero.
+- La generación fue creada en estado `OPEN`.
+- G21 inició con 0 colaboradores asignados.
+- Se comprobó que la nueva generación puede seleccionarse desde el panel del encargado.
+- La Generación 21 se conservará abierta para validar posteriormente su cierre administrativo.
+
+### Resultado
+
+El encargado ya puede crear nuevas generaciones sin utilizar Django Admin ni peticiones manuales.
+
+El flujo validado fue:
+
+`Panel encargado → Nueva generación → POST de creación → Generación 21 OPEN`
+
+### Próximo paso
+
+Integrar y validar desde React el cierre de la Generación 21.
