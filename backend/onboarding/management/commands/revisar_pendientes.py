@@ -7,7 +7,10 @@ from django.db.models import Q
 from django.utils import timezone
 
 from accounts.models import User
-from onboarding.models import OnboardingDocument
+from onboarding.models import (
+    AutomaticNotification,
+    OnboardingDocument,
+)
 
 
 class Command(BaseCommand):
@@ -80,16 +83,12 @@ class Command(BaseCommand):
             )
         )
 
-        manager_emails = list(
+        manager_users = list(
             User.objects.filter(
                 role=User.Role.ENCARGADO,
                 is_active=True,
             )
             .exclude(email="")
-            .values_list(
-                "email",
-                flat=True,
-            )
         )
 
         documents = (
@@ -162,13 +161,19 @@ class Command(BaseCommand):
             detected += 1
 
             (
-                responsible,
-                recipients,
-                action_text,
+               responsible,
+               recipient_users,
+               action_text,
             ) = self.get_next_action(
-                document,
-                manager_emails,
+               document,
+               manager_users,
             )
+
+            recipient_emails = [
+                user.email
+                for user in recipient_users
+                if user.email
+            ]
 
             stalled_days = max(
                 (
@@ -211,7 +216,7 @@ class Command(BaseCommand):
                 )
             )
 
-            if not recipients:
+            if not recipient_emails:
                 skipped += 1
 
                 self.stdout.write(
@@ -225,7 +230,7 @@ class Command(BaseCommand):
             self.stdout.write(
                 (
                     "  Destinatarios: "
-                    f"{', '.join(recipients)}"
+                    f"{', '.join(recipient_emails)}"
                 )
             )
 
@@ -257,9 +262,28 @@ class Command(BaseCommand):
                     settings
                     .DEFAULT_FROM_EMAIL
                 ),
-                recipient_list=recipients,
+                recipient_list=recipient_emails,
                 fail_silently=False,
             )
+
+            for recipient_user in recipient_users:
+                AutomaticNotification.objects.create(
+                    recipient=recipient_user,
+                    document=document,
+                    title=(
+                        f"{label}: "
+                        "recordatorio automático"
+                    ),
+                    message=(
+                        f"{label} lleva "
+                        f"{stalled_days} días "
+                        "sin movimiento. "
+                        f"{action_text}"
+                    ),
+                    responsible=responsible,
+                    document_status=document.status,
+                    stalled_days=stalled_days,
+                 )
 
             document.last_reminder_at = (
                 now
@@ -309,13 +333,12 @@ class Command(BaseCommand):
     def get_next_action(
         self,
         document,
-        manager_emails,
+        manager_users,
     ):
-        collaborator_email = (
+        collaborator_user = (
             document
             .collaborator
             .user
-            .email
         )
 
         requires_template = (
@@ -345,7 +368,7 @@ class Command(BaseCommand):
             ):
                 return (
                     "PluriOne",
-                    manager_emails,
+                    manager_users,
                     (
                         "Publicar la plantilla "
                         "del documento."
@@ -354,7 +377,7 @@ class Command(BaseCommand):
 
             return (
                 "Colaborador",
-                [collaborator_email],
+                [collaborator_user],
                 (
                     "Completar y entregar "
                     "el documento."
@@ -375,7 +398,7 @@ class Command(BaseCommand):
         ):
             return (
                 "PluriOne",
-                manager_emails,
+                manager_users,
                 (
                     "Revisar el documento "
                     "entregado."
@@ -391,7 +414,7 @@ class Command(BaseCommand):
         ):
             return (
                 "Colaborador",
-                [collaborator_email],
+                [collaborator_user],
                 (
                     "Corregir y volver a "
                     "entregar el documento."
@@ -407,7 +430,7 @@ class Command(BaseCommand):
         ):
             return (
                 "PluriOne",
-                manager_emails,
+                manager_users,
                 (
                     "Firmar y devolver "
                     "el documento."
@@ -428,7 +451,7 @@ class Command(BaseCommand):
         ):
             return (
                 "Colaborador",
-                [collaborator_email],
+                [collaborator_user],
                 (
                     "Descargar el documento "
                     "y confirmar su recepción."

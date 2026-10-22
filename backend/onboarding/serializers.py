@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from .models import (
+    AutomaticNotification,
     Generation,
     GenerationMembership,
     OnboardingDocument,
@@ -463,3 +464,46 @@ class CompanyTemplateUploadSerializer(serializers.ModelSerializer):
             old_storage.delete(old_name)
 
         return instance
+
+class AutomaticNotificationSerializer(
+    serializers.ModelSerializer
+):
+
+    document_id = serializers.IntegerField(
+        source="document.id",
+        read_only=True,
+    )
+
+    document_type = serializers.CharField(
+        source="document.document_type",
+        read_only=True,
+    )
+
+    document_type_label = serializers.CharField(
+        source="document.get_document_type_display",
+        read_only=True,
+    )
+
+    collaborator_name = serializers.CharField(
+        source="document.collaborator.full_name",
+        read_only=True,
+    )
+
+    class Meta:
+        model = AutomaticNotification
+
+        fields = (
+            "id",
+            "document_id",
+            "title",
+            "message",
+            "responsible",
+            "document_status",
+            "stalled_days",
+            "document_type",
+            "document_type_label",
+            "collaborator_name",
+            "created_at",
+        )
+
+        read_only_fields = fields

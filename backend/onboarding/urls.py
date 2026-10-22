@@ -14,6 +14,7 @@ from .views import (
     UploadCompanySignedDocumentView,
     ConfirmMyDocumentReceiptView,
     UploadCompanyTemplateView,
+    MyAutomaticNotificationsView,
 )
 
 
@@ -94,6 +95,12 @@ urlpatterns = [
     "documents/<int:pk>/company-template/",
     UploadCompanyTemplateView.as_view(),
     name="upload-company-template",
+    ),
+
+    path(
+    "notifications/mine/",
+    MyAutomaticNotificationsView.as_view(),
+    name="my-automatic-notifications",
     ),
 
 ]

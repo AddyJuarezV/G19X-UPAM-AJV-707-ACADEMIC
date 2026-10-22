@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
@@ -188,4 +189,59 @@ class OnboardingDocument(models.Model):
         return (
             f"{self.collaborator.full_name} - "
             f"{self.get_document_type_display()}"
+        )
+
+class AutomaticNotification(models.Model):
+    recipient = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="automatic_notifications",
+        verbose_name="destinatario",
+    )
+
+    document = models.ForeignKey(
+        OnboardingDocument,
+        on_delete=models.CASCADE,
+        related_name="automatic_notifications",
+        verbose_name="documento",
+    )
+
+    title = models.CharField(
+        max_length=255,
+        verbose_name="título",
+    )
+
+    message = models.TextField(
+        verbose_name="mensaje",
+    )
+
+    responsible = models.CharField(
+        max_length=40,
+        verbose_name="responsable de la acción",
+    )
+
+    document_status = models.CharField(
+        max_length=30,
+        verbose_name="estado del documento al generar el aviso",
+    )
+
+    stalled_days = models.PositiveIntegerField(
+        default=0,
+        verbose_name="días sin movimiento",
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="fecha de generación",
+    )
+
+    class Meta:
+        ordering = [
+            "-created_at",
+        ]
+
+    def __str__(self):
+        return (
+            f"{self.recipient.email} - "
+            f"{self.title}"
         )

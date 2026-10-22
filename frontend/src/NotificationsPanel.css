@@ -233,3 +233,101 @@ html[data-theme="dark"]
 .notifications-empty p {
   color: #9eabba;
 }
+
+.notification-card.automatic {
+  border-color: #b2ccff;
+  background: #f5f8ff;
+}
+
+
+.notification-card.automatic
+.notification-indicator {
+  color: #3538cd;
+  background: #e0e7ff;
+}
+
+
+.notification-meta {
+  display: block;
+
+  margin-top: 9px;
+
+  color: #667085;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+.automatic-notification-status {
+  margin-bottom: 14px;
+
+  padding: 12px 14px;
+
+  border-radius: 10px;
+
+  color: #475467;
+
+  background: #f2f4f7;
+
+  font-size: 13px;
+}
+
+
+.automatic-notification-error {
+  margin-bottom: 14px;
+
+  padding: 12px 14px;
+
+  border: 1px solid #fecdca;
+
+  border-radius: 10px;
+
+  color: #b42318;
+
+  background: #fff8f7;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+html[data-theme="dark"]
+.notification-card.automatic {
+  border-color: #3448a5;
+
+  background: #151b35;
+}
+
+
+html[data-theme="dark"]
+.notification-card.automatic
+.notification-indicator {
+  color: #c7d7fe;
+
+  background: #263876;
+}
+
+
+html[data-theme="dark"]
+.notification-meta {
+  color: #98a6ba;
+}
+
+
+html[data-theme="dark"]
+.automatic-notification-status {
+  color: #c5cfdd;
+
+  background: #17233a;
+}
+
+
+html[data-theme="dark"]
+.automatic-notification-error {
+  border-color: #69302d;
+
+  color: #fda29b;
+
+  background: #211617;
+}

@@ -1261,6 +1261,7 @@ function CollaboratorHome({
 <NotificationsPanel
   profile={profile}
   documents={documents}
+  apiFetch={apiFetch}
 />
 
 

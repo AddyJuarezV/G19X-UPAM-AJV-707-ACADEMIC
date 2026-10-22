@@ -1,9 +1,15 @@
+import {
+  useEffect,
+  useState,
+} from "react";
+
 import "./NotificationsPanel.css";
 
 
 function buildNotifications(
   profile,
-  documents
+  documents,
+  automaticNotifications
 ) {
   const notifications = [];
 
@@ -207,6 +213,49 @@ function buildNotifications(
   }
 
 
+  automaticNotifications.forEach(
+    (automaticNotification) => {
+      const currentDocument =
+        documents.find(
+          (document) =>
+            document.id ===
+            automaticNotification.document_id
+        );
+
+      if (
+        currentDocument &&
+        currentDocument.status !==
+          automaticNotification.document_status
+      ) {
+        return;
+      }
+
+      const generatedAt =
+        new Date(
+          automaticNotification.created_at
+        ).toLocaleString(
+          "es-MX",
+          {
+            dateStyle: "medium",
+            timeStyle: "short",
+          }
+        );
+
+      notifications.unshift({
+        id:
+          `automatic-${automaticNotification.id}`,
+        type: "automatic",
+        title:
+          automaticNotification.title,
+        text:
+          automaticNotification.message,
+        meta:
+          `Generado automáticamente · ${generatedAt}`,
+      });
+    }
+  );
+
+
   return notifications;
 }
 
@@ -214,12 +263,94 @@ function buildNotifications(
 function NotificationsPanel({
   profile,
   documents,
+  apiFetch,
 }) {
+  const [
+    automaticNotifications,
+    setAutomaticNotifications,
+  ] = useState([]);
+
+  const [
+    loadingAutomatic,
+    setLoadingAutomatic,
+  ] = useState(true);
+
+  const [
+    automaticError,
+    setAutomaticError,
+  ] = useState("");
+
+
+  useEffect(
+    () => {
+      let mounted = true;
+
+      const loadAutomaticNotifications =
+        async () => {
+          setLoadingAutomatic(true);
+          setAutomaticError("");
+
+          try {
+            const response =
+              await apiFetch(
+                "/api/onboarding/notifications/mine/"
+              );
+
+            const data =
+              await response
+                .json()
+                .catch(
+                  () => []
+                );
+
+            if (!response.ok) {
+              throw new Error(
+                "No fue posible consultar los recordatorios automáticos."
+              );
+            }
+
+            if (mounted) {
+              setAutomaticNotifications(
+                Array.isArray(data)
+                  ? data
+                  : []
+              );
+            }
+          } catch (error) {
+            if (mounted) {
+              setAutomaticError(
+                error.message
+              );
+            }
+          } finally {
+            if (mounted) {
+              setLoadingAutomatic(
+                false
+              );
+            }
+          }
+        };
+
+      loadAutomaticNotifications();
+
+      return () => {
+        mounted = false;
+      };
+    },
+    [
+      apiFetch,
+      documents,
+    ]
+  );
+
+
   const notifications =
     buildNotifications(
       profile,
-      documents
+      documents,
+      automaticNotifications
     );
+
 
   const actionCount =
     notifications.filter(
@@ -227,6 +358,7 @@ function NotificationsPanel({
         [
           "action",
           "danger",
+          "automatic",
         ].includes(
           notification.type
         )
@@ -257,6 +389,20 @@ function NotificationsPanel({
       </div>
 
 
+      {loadingAutomatic && (
+        <div className="automatic-notification-status">
+          Consultando recordatorios automáticos...
+        </div>
+      )}
+
+
+      {automaticError && (
+        <div className="automatic-notification-error">
+          {automaticError}
+        </div>
+      )}
+
+
       {notifications.length > 0 ? (
         <div className="notifications-list">
           {notifications.map(
@@ -283,7 +429,10 @@ function NotificationsPanel({
                         : notification.type ===
                             "action"
                           ? "→"
-                          : "i"
+                          : notification.type ===
+                              "automatic"
+                            ? "⏱"
+                            : "i"
                   }
                 </div>
 
@@ -299,6 +448,14 @@ function NotificationsPanel({
                       notification.text
                     }
                   </p>
+
+                  {notification.meta && (
+                    <span className="notification-meta">
+                      {
+                        notification.meta
+                      }
+                    </span>
+                  )}
                 </div>
               </article>
             )

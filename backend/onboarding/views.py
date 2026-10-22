@@ -11,6 +11,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from accounts.models import CollaboratorProfile
 
 from .models import (
+    AutomaticNotification,
     Generation,
     GenerationMembership,
     OnboardingDocument,
@@ -26,6 +27,7 @@ from .serializers import (
     ManagerDocumentReviewSerializer,
     CompanySignedDocumentUploadSerializer,
     CompanyTemplateUploadSerializer,
+    AutomaticNotificationSerializer,
 )
 
 
@@ -606,4 +608,30 @@ class UploadCompanyTemplateView(APIView):
                 ).data,
             },
             status=status.HTTP_200_OK,
+        )
+
+class MyAutomaticNotificationsView(
+    generics.ListAPIView
+):
+    serializer_class = (
+        AutomaticNotificationSerializer
+    )
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+
+    def get_queryset(self):
+        return (
+            AutomaticNotification.objects
+            .filter(
+                recipient=self.request.user
+            )
+            .select_related(
+                "document",
+                "document__collaborator",
+            )
+            .order_by(
+                "-created_at"
+            )
         )

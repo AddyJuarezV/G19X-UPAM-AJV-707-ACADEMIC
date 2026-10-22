@@ -1626,3 +1626,51 @@ El backend continúa funcionando correctamente después del cambio y mantiene la
 ### Próximo paso
 
 Actualizar la documentación técnica y de reproducibilidad del repositorio.
+
+---
+
+## 22 de octubre de 2026
+
+### Actividad
+
+Integración de los recordatorios automáticos con la interfaz web de PluriOne Onboarding.
+
+### Trabajo realizado
+
+- Se amplió el seguimiento automático para que los recordatorios no existan únicamente como salida de consola o correo.
+- Se creó el modelo `AutomaticNotification`.
+- El modelo almacena el destinatario, documento relacionado, título, mensaje, responsable de la acción, estado del documento, días sin movimiento y fecha de generación.
+- Se creó y aplicó la migración `0004_automaticnotification`.
+- Se modificó el comando `revisar_pendientes` para identificar usuarios destinatarios además de direcciones de correo.
+- Cuando el siguiente responsable es el colaborador, el recordatorio queda asociado a su cuenta.
+- Cuando el siguiente responsable es PluriOne, el recordatorio queda asociado a los encargados activos.
+- El comando continúa enviando correo mediante el backend configurado y ahora también registra el recordatorio en PostgreSQL.
+- El modo `--dry-run` continúa sin crear recordatorios ni modificar la base de datos.
+- Se conservó `last_reminder_at` para evitar la repetición de avisos antes del intervalo configurado.
+- Se agregó el serializer de notificaciones automáticas.
+- Se creó el endpoint `GET /api/onboarding/notifications/mine/`.
+- El endpoint filtra los resultados utilizando el usuario autenticado para impedir que una persona consulte avisos dirigidos a otra.
+- Se agregó una prueba automatizada para validar la consulta de notificaciones.
+- Las pruebas del módulo `onboarding` aumentaron de 5 a 6 y finalizaron correctamente.
+- Las pruebas combinadas de `accounts` y `onboarding` aumentaron de 10 a 11 y finalizaron correctamente.
+- Se modificó `NotificationsPanel.jsx` para consultar los recordatorios automáticos desde Django.
+- Los recordatorios automáticos se combinan con los avisos calculados a partir del estado actual del proceso.
+- Se agregó un estilo visual específico para distinguir un recordatorio automático.
+- React oculta como vigente un recordatorio histórico cuando el documento ya cambió del estado en el que fue generado.
+- `npm run lint` finalizó correctamente.
+- `npm run build` generó correctamente la versión de producción del frontend.
+- Se realizó una prueba funcional con la colaboradora ficticia Gwen Stacy.
+- El sistema mostró dentro de la sección Notificaciones un recordatorio automático correspondiente a su Carta de presentación.
+- Los avisos de NDA y Carta de aceptación no fueron mostrados a Gwen porque la siguiente acción corresponde a PluriOne.
+
+### Resultado
+
+El seguimiento automático ya se encuentra conectado de extremo a extremo:
+
+`Documento detenido → Django detecta el retraso → determina responsable → genera recordatorio → guarda en PostgreSQL → API filtra por destinatario → React muestra el aviso`.
+
+Con esto, los recordatorios generados por el backend ya son visibles desde la aplicación web y no únicamente desde la terminal.
+
+### Próximo paso
+
+Programar la ejecución periódica del comando `revisar_pendientes` para que el proceso de detección se ejecute sin intervención manual y posteriormente continuar con la limpieza de documentación y reproducibilidad del proyecto.

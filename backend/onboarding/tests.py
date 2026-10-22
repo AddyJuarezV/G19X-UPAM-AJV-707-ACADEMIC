@@ -16,6 +16,7 @@ from accounts.models import (
 )
 
 from .models import (
+    AutomaticNotification,
     Generation,
     GenerationMembership,
     OnboardingDocument,
@@ -363,6 +364,33 @@ class AutomaticReminderTests(
             document.last_reminder_at
         )
 
+        self.assertEqual(
+            AutomaticNotification.objects.filter(
+                recipient=self.collaborator_user,
+                document=document,
+            ).count(),
+            1,
+        )
+
+        automatic_notification = (
+            AutomaticNotification.objects.get(
+                recipient=self.collaborator_user,
+                document=document,
+            )
+        )
+
+        self.assertEqual(
+            automatic_notification.responsible,
+            "Colaborador",
+        )
+
+        self.assertEqual(
+            automatic_notification.document_status,
+            OnboardingDocument
+            .Status
+            .PENDING,
+        )
+
         self.assertIn(
             self.collaborator_user.email,
             mail.outbox[0].to,
@@ -386,7 +414,84 @@ class AutomaticReminderTests(
             1,
         )
 
+        self.assertEqual(
+            AutomaticNotification.objects.filter(
+                recipient=self.collaborator_user,
+                document=document,
+            ).count(),
+            1,
+        )
+
         self.assertIn(
             "Pendientes detectados: 0",
             second_output.getvalue(),
+        )
+
+    def test_user_can_only_list_own_automatic_notifications(
+        self,
+    ):
+        document = (
+            OnboardingDocument.objects.create(
+                collaborator=self.collaborator,
+                document_type=(
+                    OnboardingDocument
+                    .DocumentType
+                    .PRESENTATION_LETTER
+                ),
+                status=(
+                    OnboardingDocument
+                    .Status
+                    .PENDING
+                ),
+            )
+        )
+
+        AutomaticNotification.objects.create(
+            recipient=self.collaborator_user,
+            document=document,
+            title=(
+                "Carta de presentación: "
+                "recordatorio automático"
+            ),
+            message=(
+                "La Carta de presentación "
+                "lleva 2 días sin movimiento."
+            ),
+            responsible="Colaborador",
+            document_status=(
+                OnboardingDocument
+                .Status
+                .PENDING
+            ),
+            stalled_days=2,
+        )
+
+        self.client.force_authenticate(
+            user=self.collaborator_user
+        )
+
+        response = self.client.get(
+            reverse(
+                "my-automatic-notifications"
+            )
+        )
+
+        self.assertEqual(
+            response.status_code,
+            status.HTTP_200_OK,
+        )
+
+        self.assertEqual(
+            len(response.data),
+            1,
+        )
+
+        self.assertEqual(
+            response.data[0]["responsible"],
+            "Colaborador",
+        )
+
+        self.assertEqual(
+            response.data[0]["stalled_days"],
+            2,
         )

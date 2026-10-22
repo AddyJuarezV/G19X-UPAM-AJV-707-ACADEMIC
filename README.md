@@ -534,28 +534,50 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se verificó la configuración con `python manage.py check`.
 - Después del cambio se ejecutaron nuevamente las 10 pruebas automáticas.
 - `python manage.py test accounts onboarding` finalizó correctamente con resultado `OK`.
+
+- Se integraron recordatorios automáticos persistentes dentro de la aplicación web.
+- Se creó el modelo `AutomaticNotification` para almacenar los avisos generados por el seguimiento automático.
+- Cada notificación conserva destinatario, documento relacionado, estado del documento, responsable, días sin movimiento, mensaje y fecha de generación.
+- El comando `python manage.py revisar_pendientes` ahora, además de enviar el recordatorio por correo, registra el aviso en PostgreSQL.
+- Se mantiene el control mediante `last_reminder_at` para evitar repetir recordatorios antes del intervalo configurado.
+- Los recordatorios automáticos respetan al responsable de la siguiente acción.
+- Si la acción corresponde al colaborador, el aviso se asigna únicamente a ese colaborador.
+- Si la acción corresponde a PluriOne, el aviso se asigna a los encargados activos.
+- Se creó la API `GET /api/onboarding/notifications/mine/`.
+- Cada usuario autenticado consulta únicamente las notificaciones automáticas dirigidas a su propia cuenta.
+- React consulta la API de notificaciones automáticas desde `NotificationsPanel.jsx`.
+- Los recordatorios generados automáticamente se muestran dentro de la sección Notificaciones del portal.
+- Los avisos automáticos se distinguen visualmente de los avisos derivados del estado actual.
+- Una notificación automática deja de mostrarse como vigente cuando el documento relacionado cambia del estado en el que se generó.
+- Se agregó una prueba automática para validar la consulta de notificaciones por usuario.
+- Las pruebas de `onboarding` aumentaron de 5 a 6.
+- Las pruebas combinadas de `accounts` y `onboarding` aumentaron de 10 a 11.
+- `python manage.py test accounts onboarding` finalizó con 11 pruebas y resultado `OK`.
+- `npm run lint` finalizó sin errores.
+- `npm run build` generó correctamente el build de producción.
+- Se comprobó visualmente el flujo utilizando a Gwen Stacy.
+- Gwen recibió dentro de la página un recordatorio automático de su Carta de presentación pendiente.
 \---
 
 ## En progreso
 
-1. Limpiar y actualizar completamente el README.
-2. Documentar todos los endpoints actuales de onboarding.
-3. Documentar instalación y ejecución del frontend.
-4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-5. Revisar `frontend/README.md`.
-6. Preparar build, base de datos y entrega reproducible final.
+1. Programar la ejecución periódica de `revisar_pendientes` para que no dependa de ejecución manual.
+2. Limpiar y actualizar completamente el README.
+3. Documentar todos los endpoints actuales de onboarding.
+4. Documentar instalación y ejecución del frontend.
+5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+6. Revisar `frontend/README.md`.
+7. Preparar build, base de datos y entrega reproducible final.
 \---
 
 ## Próximo paso
 
-1. Limpiar información histórica desactualizada del README.
-2. Actualizar el estado actual del proyecto.
-3. Agregar los endpoints de `onboarding`.
-4. Agregar instrucciones completas para levantar React + Vite.
-5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-6. Reemplazar la plantilla predeterminada de `frontend/README.md`.
-7. Después ejecutar las pruebas técnicas finales.
-
+1. Configurar una ejecución periódica para `revisar_pendientes`.
+2. Comprobar que el seguimiento automático pueda ejecutarse sin intervención manual.
+3. Limpiar la documentación histórica del README.
+4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+5. Reemplazar la plantilla predeterminada de `frontend/README.md`.
+6. Preparar las comprobaciones técnicas y de reproducibilidad finales.
 
 \---
 
