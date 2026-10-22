@@ -1771,3 +1771,29 @@ El repositorio documenta tanto la ejecución del backend como del frontend, los 
 ### Próximo paso
 
 Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el respaldo de PostgreSQL y revisar posibles mejoras de modularización del frontend.
+
+## 22 de octubre de 2026 - Normalización de requirements.txt
+
+**Actividad:** revisión de dependencias y reproducibilidad del entorno Python.
+
+**Motivo:** durante la revisión final del repositorio se detectó que `requirements.txt` tenía un tamaño mayor al esperado y se necesitaba comprobar que pudiera utilizarse correctamente para reproducir el backend.
+
+**Trabajo realizado:**
+
+- Se revisó el contenido completo de `requirements.txt`.
+- Se confirmó que contiene 11 dependencias con versiones específicas.
+- Se ejecutó `python -m pip check`.
+- No se encontraron dependencias rotas.
+- Se inspeccionó la codificación mediante `Format-Hex`.
+- Se detectó que el archivo estaba almacenado en UTF-16 LE con BOM.
+- Se convirtió `requirements.txt` a UTF-8.
+- El contenido y las versiones de las dependencias se conservaron.
+- El archivo pasó de 472 bytes a 224 bytes.
+- Se ejecutó `python -m pip install --dry-run -r requirements.txt`.
+- pip reconoció correctamente las 11 dependencias.
+- Todas las dependencias se encontraron satisfechas en el entorno virtual actual.
+- Se ejecutó `git diff --check` sin detectar errores de formato.
+
+**Resultado:** `requirements.txt` quedó normalizado en UTF-8 y validado para utilizarse como archivo reproducible de dependencias del backend.
+
+**Próximo paso:** regenerar `db/base-de-datos.sql` utilizando el esquema actual de PostgreSQL.

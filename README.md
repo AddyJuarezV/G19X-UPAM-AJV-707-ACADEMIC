@@ -586,25 +586,33 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se ejecutaron 11 pruebas automáticas de `accounts` y `onboarding`, todas con resultado `OK`.
 - Se ejecutó `npm run lint` sin errores.
 - Se ejecutó `npm run build` correctamente.
+
+- Se revisó la reproducibilidad de `requirements.txt`.
+- Se detectó que `requirements.txt` estaba almacenado en UTF-16 LE con BOM.
+- Se normalizó `requirements.txt` a UTF-8.
+- Se conservaron las 11 dependencias y sus versiones actuales.
+- El archivo pasó de 472 bytes a 224 bytes al eliminar la codificación UTF-16 innecesaria.
+- Se comprobó la instalación declarada mediante `python -m pip install --dry-run -r requirements.txt`.
+- Todas las dependencias declaradas fueron reconocidas correctamente por pip.
+- Se ejecutó `python -m pip check` y no se encontraron dependencias rotas.
+- `git diff --check` no detectó errores de formato.
 \---
 
 ## En progreso
 
-1. Verificar la codificación y reproducibilidad de `requirements.txt`.
-2. Regenerar el respaldo final de PostgreSQL con el esquema actual.
-3. Revisar modularización adicional de los paneles del encargado.
-4. Preparar la entrega reproducible final.
-\---
+1. Regenerar el respaldo final de PostgreSQL con el esquema actual.
+2. Revisar modularización adicional de los paneles del encargado.
+3. Preparar la entrega reproducible final.
 
+\---
 ## Próximo paso
 
-1. Verificar `requirements.txt`.
-2. Regenerar `db/base-de-datos.sql`.
+1. Regenerar `db/base-de-datos.sql` con el esquema actual de PostgreSQL.
+2. Verificar que el respaldo incluya las migraciones y tablas actuales.
 3. Revisar la modularización adicional de los paneles del encargado.
 4. Ejecutar las comprobaciones finales de backend y frontend.
 5. Actualizar `docs/BITACORA.md` con la validación final.
 6. Revisar `git status`, crear el commit y hacer push a GitHub.
-
 \---
 
 ## Idea principal del sistema
