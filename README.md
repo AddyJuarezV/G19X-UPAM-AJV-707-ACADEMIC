@@ -523,26 +523,38 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - Se ejecutaron posteriormente `accounts` y `onboarding` juntos.
 - `python manage.py test accounts onboarding` encontró y ejecutó 10 pruebas.
 - Las 10 pruebas finalizaron correctamente con resultado `OK`.
+
+- Se eliminó el `SECRET_KEY` fijo de `backend/config/settings.py`.
+- `SECRET_KEY` ahora se obtiene desde la variable de entorno `SECRET_KEY`.
+- El backend detiene el arranque si `SECRET_KEY` no está configurado.
+- `DEBUG` dejó de estar fijo en `True`.
+- `DEBUG` ahora se obtiene desde la variable de entorno `DEBUG`.
+- Se actualizó `.env.example` con las variables `SECRET_KEY` y `DEBUG`.
+- La clave real permanece únicamente en `.env`, archivo ignorado por Git.
+- Se verificó la configuración con `python manage.py check`.
+- Después del cambio se ejecutaron nuevamente las 10 pruebas automáticas.
+- `python manage.py test accounts onboarding` finalizó correctamente con resultado `OK`.
 \---
 
 ## En progreso
 
-1. Mover `SECRET_KEY` y `DEBUG` a variables de entorno.
-2. Actualizar `.env.example`.
-3. Limpiar y actualizar completamente el README.
+1. Limpiar y actualizar completamente el README.
+2. Documentar todos los endpoints actuales de onboarding.
+3. Documentar instalación y ejecución del frontend.
 4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-5. Preparar pruebas finales, build del frontend y entrega reproducible.
+5. Revisar `frontend/README.md`.
+6. Preparar build, base de datos y entrega reproducible final.
 \---
 
 ## Próximo paso
 
-1. Eliminar `SECRET_KEY` fijo de `backend/config/settings.py`.
-2. Leer `SECRET_KEY` desde `.env`.
-3. Leer `DEBUG` desde `.env`.
-4. Agregar ambas variables a `.env.example`.
-5. Ejecutar `python manage.py check`.
-6. Ejecutar nuevamente las 10 pruebas automáticas.
-7. Después continuar con la limpieza final de documentación.
+1. Limpiar información histórica desactualizada del README.
+2. Actualizar el estado actual del proyecto.
+3. Agregar los endpoints de `onboarding`.
+4. Agregar instrucciones completas para levantar React + Vite.
+5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+6. Reemplazar la plantilla predeterminada de `frontend/README.md`.
+7. Después ejecutar las pruebas técnicas finales.
 
 
 \---

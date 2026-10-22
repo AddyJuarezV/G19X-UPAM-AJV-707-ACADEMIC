@@ -1591,3 +1591,38 @@ Esto atiende directamente la observación académica que indicaba que ambos arch
 ### Próximo paso
 
 Mover `SECRET_KEY` y `DEBUG` a variables de entorno y comprobar nuevamente el backend y las pruebas automáticas.
+
+---
+
+## 22 de octubre de 2026
+
+### Actividad
+
+Externalización de configuración sensible del backend.
+
+### Trabajo realizado
+
+- Se atendió la observación académica relacionada con `SECRET_KEY` y `DEBUG`.
+- Se eliminó la clave secreta escrita directamente en `backend/config/settings.py`.
+- `SECRET_KEY` ahora se obtiene desde el archivo `.env`.
+- Se agregó una validación para impedir que Django arranque sin una clave configurada.
+- `DEBUG` ahora se obtiene desde una variable de entorno.
+- Se actualizó `.env.example` para documentar ambas variables.
+- La clave secreta real permanece únicamente en `.env`.
+- Se confirmó que `.env` continúa fuera del control de versiones.
+- Durante la primera prueba se detectó que `DB_PASSWORD` no estaba configurado en el `.env` local.
+- PostgreSQL rechazó la conexión con el mensaje `fe_sendauth: no password supplied`.
+- Se corrigió únicamente la configuración local sin publicar la contraseña.
+- Después de corregirla se ejecutó nuevamente `python manage.py test accounts onboarding`.
+- Django encontró 10 pruebas.
+- Las 10 pruebas finalizaron correctamente con resultado `OK`.
+
+### Resultado
+
+La configuración sensible ya no permanece escrita directamente en el código fuente.
+
+El backend continúa funcionando correctamente después del cambio y mantiene las 10 pruebas automáticas aprobadas.
+
+### Próximo paso
+
+Actualizar la documentación técnica y de reproducibilidad del repositorio.
