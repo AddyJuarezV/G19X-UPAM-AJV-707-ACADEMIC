@@ -1797,3 +1797,32 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** `requirements.txt` quedó normalizado en UTF-8 y validado para utilizarse como archivo reproducible de dependencias del backend.
 
 **Próximo paso:** regenerar `db/base-de-datos.sql` utilizando el esquema actual de PostgreSQL.
+
+## 22 de octubre de 2026 - Regeneración y validación del respaldo PostgreSQL
+
+**Actividad:** actualización y prueba del respaldo de la base de datos del proyecto.
+
+**Motivo:** el respaldo existente correspondía al 7 de octubre de 2026 y no contenía las últimas modificaciones del módulo de onboarding, incluyendo las notificaciones automáticas persistentes.
+
+**Trabajo realizado:**
+
+- Se verificó que PostgreSQL 18.6 se encuentra instalado.
+- Se comprobó que todas las migraciones actuales de `accounts` y `onboarding` están aplicadas.
+- Se confirmó la migración `0004_automaticnotification`.
+- Se regeneró `db/base-de-datos.sql` utilizando `pg_dump`.
+- El respaldo se generó en formato SQL plano y codificación UTF-8.
+- Se utilizaron las opciones `--no-owner`, `--no-privileges`, `--clean` y `--if-exists`.
+- Se comprobó que el respaldo incluye la tabla `onboarding_automaticnotification`.
+- Se comprobaron las tablas actuales de `accounts` y `onboarding`.
+- Se verificó que el respaldo registra la migración `0004_automaticnotification`.
+- Se creó la base temporal `plurione_restore_test`.
+- Se restauró el respaldo completo sobre la base temporal utilizando `ON_ERROR_STOP=1`.
+- La restauración finalizó correctamente con código de salida `0`.
+- La base restaurada contiene 15 tablas.
+- Se comprobaron las seis migraciones actuales correspondientes a `accounts` y `onboarding`.
+- Se validaron 5 usuarios, 4 perfiles, 3 generaciones, 3 asignaciones, 9 documentos y 3 notificaciones automáticas.
+- La base temporal utilizada para la validación fue eliminada después de la prueba.
+
+**Resultado:** `db/base-de-datos.sql` quedó actualizado con el esquema y los datos de demostración actuales, y se comprobó mediante una restauración real que el respaldo puede reconstruir correctamente la base de datos del proyecto.
+
+**Próximo paso:** revisar la modularización adicional de los paneles del encargado sin alterar los flujos funcionales ya validados.

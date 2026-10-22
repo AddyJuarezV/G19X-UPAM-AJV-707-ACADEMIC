@@ -596,23 +596,35 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Todas las dependencias declaradas fueron reconocidas correctamente por pip.
 - Se ejecutó `python -m pip check` y no se encontraron dependencias rotas.
 - `git diff --check` no detectó errores de formato.
+
+- Se regeneró el respaldo `db/base-de-datos.sql` utilizando PostgreSQL 18.6.
+- El respaldo fue generado a partir del estado actual de la base `plurione_onboarding`.
+- El nuevo respaldo incluye la migración `0004_automaticnotification`.
+- Se comprobó la presencia de las tablas actuales de `accounts` y `onboarding`.
+- Se confirmó la inclusión de la tabla `onboarding_automaticnotification`.
+- Se creó una base temporal `plurione_restore_test` para validar la restauración completa del respaldo.
+- El respaldo fue restaurado con `ON_ERROR_STOP=1` para detener la ejecución ante cualquier error SQL.
+- La restauración finalizó con código de salida `0`.
+- La base restaurada contiene las 15 tablas esperadas.
+- Se comprobaron las seis migraciones actuales de `accounts` y `onboarding`.
+- Se validaron los datos restaurados: 5 usuarios, 4 perfiles, 3 generaciones, 3 asignaciones, 9 documentos y 3 notificaciones automáticas.
+- La base temporal utilizada para la prueba fue eliminada después de completar la validación.
+
 \---
 
 ## En progreso
 
-1. Regenerar el respaldo final de PostgreSQL con el esquema actual.
-2. Revisar modularización adicional de los paneles del encargado.
-3. Preparar la entrega reproducible final.
+1. Revisar modularización adicional de los paneles del encargado.
+2. Preparar la entrega reproducible final.
 
 \---
 ## Próximo paso
 
-1. Regenerar `db/base-de-datos.sql` con el esquema actual de PostgreSQL.
-2. Verificar que el respaldo incluya las migraciones y tablas actuales.
-3. Revisar la modularización adicional de los paneles del encargado.
-4. Ejecutar las comprobaciones finales de backend y frontend.
-5. Actualizar `docs/BITACORA.md` con la validación final.
-6. Revisar `git status`, crear el commit y hacer push a GitHub.
+1. Revisar la modularización adicional de los paneles del encargado.
+2. Evaluar la reducción del tamaño de `App.jsx` sin alterar los flujos funcionales ya validados.
+3. Ejecutar las comprobaciones finales de backend y frontend.
+4. Actualizar `docs/BITACORA.md` con la validación final.
+5. Revisar `git status`, crear el commit y hacer push a GitHub.
 \---
 
 ## Idea principal del sistema
