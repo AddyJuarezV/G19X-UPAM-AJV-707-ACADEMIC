@@ -12,15 +12,11 @@ El caso inicial de referencia será el de practicantes y residentes profesionale
 
 ## Estado actual
 
-**Fase actual:** definición y documentación inicial del proyecto.
+**Fase actual:** cierre funcional del MVP, pruebas, documentación técnica y preparación de entrega.
 
-Actualmente se está trabajando en definir con claridad qué se va a desarrollar antes de comenzar con la programación.
+Los flujos principales del sistema ya se encuentran implementados en Django y React, incluyendo registro, autenticación, revisión de solicitudes, generaciones, documentación, notificaciones y seguimiento automático de pendientes.
 
-
-
-**Fase actual:** inicio del desarrollo.
-
-La documentación inicial del proyecto ya fue definida y se comenzó la construcción de la base técnica del sistema.
+Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualizar la documentación del repositorio y preparar una versión reproducible para la revisión final.
 \---
 
 ## Completado
@@ -33,7 +29,7 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 * Caso real de incorporación utilizado como referencia para detectar necesidades.
 * Se definió que el sistema se enfocará en el seguimiento de incorporación y no en la gestión de proyectos o entregables técnicos.
 * Se definió la visualización general por generaciones mediante tarjetas o cuadros de estado.
-* Se definió el PRB del proyecto.
+* Se definió el PRD del proyecto.
 * Se definió el stack tecnológico base propuesto.
 * &#x20;MVP definido y aprobado.
 * &#x20;MVP agregado a la documentación del proyecto.
@@ -573,28 +569,41 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - El script registra cada ejecución en `%LOCALAPPDATA%\PluriOne\logs\revisar_pendientes.log`.
 - El log confirmó la ejecución real de Django y finalizó con código `0`.
 - El seguimiento automático ya no depende de ejecutar manualmente `python manage.py revisar_pendientes`.
+
+- Se actualizó la documentación técnica principal del proyecto.
+- Se renombró `docs/PRB.md` a `docs/PRD.md` para utilizar la terminología correcta de Product Requirements Document.
+- Se conservaron en la bitácora las referencias históricas al antiguo nombre `PRB.md`.
+- Se creó documentación propia para `frontend/README.md`, reemplazando la plantilla predeterminada de Vite.
+- Se documentaron los requisitos de Node.js y npm para ejecutar el frontend.
+- Se aclaró que Node.js se utiliza únicamente para React y Vite y no forma parte del backend.
+- Se documentó la ejecución del frontend mediante `npm install` y `npm run dev`.
+- Se documentó el proxy de Vite hacia el backend Django en `http://127.0.0.1:8000`.
+- Se actualizaron los endpoints principales actualmente implementados.
+- Se documentó el endpoint `GET /api/onboarding/notifications/mine/`.
+- Se documentó la ejecución periódica de `revisar_pendientes` mediante el Programador de tareas de Windows.
+- Se ejecutó `python manage.py check` sin detectar problemas.
+- Se ejecutó `python manage.py makemigrations --check --dry-run` y no se detectaron migraciones pendientes.
+- Se ejecutaron 11 pruebas automáticas de `accounts` y `onboarding`, todas con resultado `OK`.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
 \---
 
 ## En progreso
 
-1. Limpiar y actualizar completamente el README.
-2. Documentar todos los endpoints actuales de onboarding.
-3. Documentar instalación y ejecución del frontend.
-4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-5. Revisar `frontend/README.md`.
-6. Preparar build, base de datos y entrega reproducible final.
-7. Revisar modularización adicional de los paneles del encargado.
+1. Verificar la codificación y reproducibilidad de `requirements.txt`.
+2. Regenerar el respaldo final de PostgreSQL con el esquema actual.
+3. Revisar modularización adicional de los paneles del encargado.
+4. Preparar la entrega reproducible final.
 \---
 
 ## Próximo paso
 
-1. Limpiar información histórica desactualizada del README.
-2. Completar la documentación de instalación y automatización.
-3. Completar la lista de endpoints actuales.
-4. Agregar instrucciones completas para levantar React + Vite.
-5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-6. Reemplazar la plantilla predeterminada de `frontend/README.md`.
-7. Ejecutar las comprobaciones finales de reproducibilidad.
+1. Verificar `requirements.txt`.
+2. Regenerar `db/base-de-datos.sql`.
+3. Revisar la modularización adicional de los paneles del encargado.
+4. Ejecutar las comprobaciones finales de backend y frontend.
+5. Actualizar `docs/BITACORA.md` con la validación final.
+6. Revisar `git status`, crear el commit y hacer push a GitHub.
 
 \---
 
@@ -657,7 +666,7 @@ El sistema no administrará el trabajo técnico que realice una persona después
 
 Quedan fuera del alcance:
 
-* PRB de los proyectos asignados.
+* PRD de los proyectos asignados.
 * MVP de los proyectos asignados.
 * Código fuente.
 * Commits de los colaboradores.
@@ -741,7 +750,7 @@ No se agregará una tecnología únicamente porque aparezca en la propuesta inic
 * PostgreSQL será la base de datos principal.
 * Django REST Framework se utilizará para construir la API.
 * El sistema se desarrollará paso a paso.
-* PRB y MVP no llevarán números de versión.
+* PRD y MVP no llevarán números de versión.
 * Git será el encargado de conservar el historial de versiones.
 * Se utilizarán datos ficticios en documentación, demostraciones y pruebas.
 * Los ejemplos podrán utilizar nombres de personajes ficticios.
@@ -755,7 +764,7 @@ No se agregará una tecnología únicamente porque aparezca en la propuesta inic
 ```text
 README.md
 docs/
-├── PRB.md
+├── PRD.md
 ├── MVP.md
 └── BITACORA.md
 ```
@@ -766,7 +775,7 @@ Indica dónde se encuentra actualmente el proyecto, qué decisiones se han tomad
 
 Este será el archivo principal que se podrá proporcionar a una IA o a Codex para recuperar rápidamente el contexto del proyecto.
 
-### `docs/PRB.md`
+### `docs/PRD.md`
 
 Contiene las ideas, necesidades, problema observado, alcance y propuesta inicial del sistema.
 
@@ -846,6 +855,8 @@ Para ejecutar el proyecto se requiere:
 - PostgreSQL
 - Git
 - pip
+- Node.js
+- npm
 - Navegador web
 
 ## Preparar el proyecto
@@ -897,11 +908,22 @@ Después editar `.env` y colocar la configuración local de PostgreSQL.
 Ejemplo:
 
 ```env
+# Django
+SECRET_KEY=GENERA_UNA_CLAVE_SECRETA_LOCAL
+DEBUG=True
+
+# PostgreSQL
 DB_NAME=plurione_onboarding
 DB_USER=postgres
 DB_PASSWORD=TU_PASSWORD_LOCAL
 DB_HOST=127.0.0.1
 DB_PORT=5432
+```
+
+Puede generarse una clave local de Django con:
+
+```powershell
+python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
 ```
 
 El archivo `.env` contiene información sensible y no debe subirse al repositorio.
@@ -1000,23 +1022,95 @@ El administrador de Django está disponible en:
 http://127.0.0.1:8000/admin/
 ```
 
-## API implementada actualmente
+## Ejecutar el frontend
 
-Actualmente se encuentran implementados, entre otros, los siguientes endpoints:
+Abrir una segunda terminal y entrar a la carpeta del frontend desde la raíz del proyecto:
+
+```powershell
+cd frontend
+```
+
+Instalar las dependencias:
+
+```powershell
+npm install
+```
+
+Iniciar Vite:
+
+```powershell
+npm run dev
+```
+
+El frontend estará disponible normalmente en:
 
 ```text
-POST  /api/accounts/register/
+http://localhost:5173/
+```
+
+El backend Django debe permanecer ejecutándose en:
+
+```text
+http://127.0.0.1:8000/
+```
+
+Durante el desarrollo, Vite redirige las solicitudes `/api` hacia Django mediante el proxy definido en `frontend/vite.config.js`.
+
+Node.js se utiliza únicamente como entorno de ejecución para las herramientas de React y Vite y para gestionar las dependencias con npm. El backend del sistema continúa implementado con Python, Django y Django REST Framework.
+
+## API implementada actualmente
+
+Los endpoints principales implementados son:
+
+### Autenticación
+
+```text
 POST  /api/auth/login/
 POST  /api/auth/refresh/
+```
 
+### Cuentas y solicitudes
+
+```text
+GET   /api/accounts/me/
+POST  /api/accounts/register/
 GET   /api/accounts/profile/
 PATCH /api/accounts/profile/
-
 POST  /api/accounts/application/submit/
-
 GET   /api/accounts/applications/pending/
 POST  /api/accounts/applications/<id>/review/
 ```
+
+### Generaciones
+
+```text
+GET   /api/onboarding/generations/
+POST  /api/onboarding/generations/create/
+GET   /api/onboarding/generations/<id>/
+POST  /api/onboarding/generations/<id>/members/
+POST  /api/onboarding/generations/<id>/close/
+GET   /api/onboarding/collaborators/available/
+```
+
+### Documentos
+
+```text
+GET   /api/onboarding/documents/mine/
+POST  /api/onboarding/documents/<id>/upload/
+GET   /api/onboarding/documents/pending/
+POST  /api/onboarding/documents/<id>/review/
+POST  /api/onboarding/documents/<id>/company-template/
+POST  /api/onboarding/documents/<id>/company-sign/
+POST  /api/onboarding/documents/<id>/confirm-receipt/
+```
+
+### Notificaciones automáticas
+
+```text
+GET   /api/onboarding/notifications/mine/
+```
+
+Los endpoints privados utilizan autenticación JWT y aplican permisos según el rol del usuario.
 
 ## Flujo funcional actual
 
@@ -1077,19 +1171,60 @@ Mis documentos → Técnicos → Accesos de prueba
 
 de la plataforma académica.
 
-## Estado actual
+## Estado funcional actual
 
-El proyecto continúa en desarrollo.
+El MVP ya cuenta con los principales módulos funcionales definidos para el proceso de incorporación.
 
-Entre los siguientes módulos previstos se encuentran:
+Actualmente se encuentran implementados:
 
-- generaciones de colaboradores;
-- asignación de colaboradores aprobados a generaciones abiertas;
-- seguimiento de documentación de incorporación;
-- estados visuales de las tarjetas;
+- registro de colaboradores;
+- autenticación mediante JWT;
+- envío, revisión, corrección y aprobación de solicitudes;
+- consulta y edición controlada de datos del colaborador;
+- creación, consulta y cierre de generaciones;
+- asignación de colaboradores aprobados;
+- creación automática de documentos al asignar una generación;
+- flujo completo de NDA;
+- flujo completo de Carta de presentación;
+- flujo completo de Carta de aceptación;
+- publicación de plantillas;
+- revisión y corrección documental;
+- firma y devolución de documentos;
+- confirmación de recepción;
+- estados visuales por generación;
 - panel de pendientes del encargado;
-- frontend con React y Vite.
+- sección Mis datos;
+- notificaciones del colaborador;
+- recordatorios automáticos persistentes;
+- ejecución periódica del seguimiento mediante el Programador de tareas de Windows;
+- pruebas automáticas de los principales flujos.
 
+El proyecto se encuentra en etapa de cierre técnico, documentación y preparación de entrega.
+
+## Verificación del proyecto
+
+### Backend
+
+Desde `backend/`:
+
+```powershell
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test accounts onboarding
+```
+
+La validación más reciente ejecutó 11 pruebas automáticas con resultado `OK`.
+
+### Frontend
+
+Desde `frontend/`:
+
+```powershell
+npm run lint
+npm run build
+```
+
+Ambos comandos fueron ejecutados correctamente durante la validación actual del MVP.
 
 ## Ejecución periódica del seguimiento automático
 
@@ -1120,12 +1255,14 @@ PluriOne Seguimiento Automatico
 
 La tarea se ejecuta cada hora.
 
-Puede registrarse con:
+Puede registrarse desde la raíz del proyecto obteniendo primero la ruta real del script:
 
 ```powershell
+$scriptPath = (Resolve-Path .\scripts\revisar_pendientes.ps1).Path
+
 schtasks.exe /Create `
   /TN "PluriOne Seguimiento Automatico" `
-  /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"C:\Users\adria\Desktop\plurione-onboarding\scripts\revisar_pendientes.ps1`"" `
+  /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"$scriptPath`"" `
   /SC HOURLY `
   /MO 1 `
   /F

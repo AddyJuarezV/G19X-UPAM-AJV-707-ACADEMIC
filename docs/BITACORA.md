@@ -1722,3 +1722,52 @@ Con esto queda atendida la observación académica de documentar y demostrar có
 ### Próximo paso
 
 Actualizar la documentación principal del repositorio, renombrar el PRD y completar las instrucciones de instalación y reproducibilidad.
+
+---
+
+## 22 de octubre de 2026
+
+### Actividad
+
+Actualización y corrección de la documentación técnica del repositorio.
+
+### Motivo
+
+Durante la revisión académica se detectó que el README conservaba información histórica correcta, pero también contenía secciones desactualizadas que podían generar contradicciones respecto al estado real del proyecto.
+
+Se decidió conservar el historial detallado de desarrollo y modificar únicamente la información que ya no representaba el estado actual del sistema.
+
+### Trabajo realizado
+
+- Se conservó el historial detallado de funcionalidades y pruebas del `README.md`.
+- Se eliminaron las dos descripciones contradictorias de `Fase actual`.
+- Se definió una única fase actual correspondiente al cierre funcional del MVP, pruebas, documentación y preparación de entrega.
+- Se eliminó el apartado que todavía presentaba generaciones, documentación y React como funcionalidades futuras.
+- Se actualizó el estado funcional del proyecto con los módulos que ya se encuentran implementados.
+- Se actualizaron las referencias documentales principales de PRB a PRD.
+- `docs/PRB.md` fue renombrado a `docs/PRD.md`.
+- Se actualizó el encabezado interno del documento para identificarlo como PRD.
+- Se actualizó la estructura de documentos mostrada en el README.
+- Se agregaron Node.js y npm como requisitos necesarios para ejecutar las herramientas de React y Vite.
+- Se aclaró que Node.js no se utiliza como backend del sistema.
+- Se documentó la ejecución del frontend mediante `npm install` y `npm run dev`.
+- Se documentó que Django permanece disponible en `http://127.0.0.1:8000/`.
+- Se documentó el proxy de Vite utilizado para las rutas `/api`.
+- Se amplió la sección de API con los endpoints actuales de autenticación, cuentas, generaciones, colaboradores disponibles, documentos y notificaciones.
+- Se agregó la documentación de `GET /api/onboarding/notifications/mine/`.
+- Se conservó y actualizó la explicación del comando `revisar_pendientes`.
+- Se mantuvo documentada la ejecución automática mediante el Programador de tareas de Windows.
+- Se documentaron las variables de entorno `SECRET_KEY` y `DEBUG`.
+- Se documentaron las 11 pruebas automáticas actuales.
+- Se documentaron las validaciones del frontend mediante `npm run lint` y `npm run build`.
+- Se reemplazó el README predeterminado de Vite en `frontend/README.md` por documentación específica de PluriOne Onboarding.
+
+### Resultado
+
+La documentación principal conserva el historial detallado del proyecto, pero ahora refleja correctamente el estado actual del MVP.
+
+El repositorio documenta tanto la ejecución del backend como del frontend, los endpoints actuales, la configuración de entorno, las pruebas y el mecanismo de seguimiento automático.
+
+### Próximo paso
+
+Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el respaldo de PostgreSQL y revisar posibles mejoras de modularización del frontend.

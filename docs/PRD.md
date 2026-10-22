@@ -1,4 +1,4 @@
-# PRB – Sistema de Seguimiento Automático del Proceso de Incorporación
+# PRD – Sistema de Seguimiento Automático del Proceso de Incorporación
 
 ## 1. Idea general
 
@@ -425,7 +425,7 @@ El sistema no tendrá como objetivo controlar el trabajo técnico que posteriorm
 
 Por lo tanto, quedan fuera del alcance:
 
-- PRB de los proyectos asignados.
+- PRD de los proyectos asignados.
 - MVP de los proyectos asignados.
 - Actividades de programación.
 - Código fuente de los proyectos.
