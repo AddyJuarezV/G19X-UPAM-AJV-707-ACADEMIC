@@ -1674,3 +1674,51 @@ Con esto, los recordatorios generados por el backend ya son visibles desde la ap
 ### Próximo paso
 
 Programar la ejecución periódica del comando `revisar_pendientes` para que el proceso de detección se ejecute sin intervención manual y posteriormente continuar con la limpieza de documentación y reproducibilidad del proyecto.
+
+---
+
+## 22 de octubre de 2026
+
+### Actividad
+
+Automatización periódica del seguimiento de pendientes.
+
+### Trabajo realizado
+
+- Se creó `scripts/revisar_pendientes.ps1`.
+- El script ejecuta el seguimiento utilizando directamente el Python del entorno virtual del proyecto.
+- El script localiza automáticamente `backend/manage.py`.
+- Se configuró el seguimiento normal con un umbral de 2 días y una repetición mínima de 24 horas.
+- Se agregó un log local de ejecuciones.
+- El log se guarda en `%LOCALAPPDATA%\PluriOne\logs\revisar_pendientes.log`.
+- Se comprobó primero la ejecución manual del script.
+- Posteriormente se creó una tarea en el Programador de tareas de Windows.
+- La tarea fue registrada como `PluriOne Seguimiento Automatico`.
+- Se configuró una ejecución cada hora.
+- Se detectó inicialmente que Windows podía dejar la tarea en cola debido a las restricciones de energía.
+- Se actualizó la configuración con `AllowStartIfOnBatteries`, `DontStopIfGoingOnBatteries` y `StartWhenAvailable`.
+- Después del ajuste la tarea quedó en estado `Ready`.
+- Se solicitó una ejecución directamente al Programador de tareas de Windows.
+- La ejecución registrada ocurrió el 22 de octubre de 2026 a las 10:36 a. m.
+- `LastTaskResult` devolvió `0`.
+- `NumberOfMissedRuns` devolvió `0`.
+- La siguiente ejecución fue programada automáticamente para las 11:27 a. m.
+- El archivo de log confirmó que Django ejecutó correctamente `revisar_pendientes`.
+- La ejecución terminó con código `0`.
+- La prueba se realizó sin ejecutar manualmente `python manage.py revisar_pendientes`.
+
+### Resultado
+
+El seguimiento automático ya cuenta con ejecución periódica real dentro del entorno Windows de desarrollo.
+
+El sistema puede revisar periódicamente los documentos detenidos, determinar al responsable, generar recordatorios persistentes y mostrarlos posteriormente en la interfaz web.
+
+El flujo comprobado es:
+
+`Programador de tareas → PowerShell → Django → revisar_pendientes → PostgreSQL → API → Notificaciones de React`.
+
+Con esto queda atendida la observación académica de documentar y demostrar cómo el comando de seguimiento puede ejecutarse sin intervención manual.
+
+### Próximo paso
+
+Actualizar la documentación principal del repositorio, renombrar el PRD y completar las instrucciones de instalación y reproducibilidad.

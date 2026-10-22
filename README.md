@@ -557,27 +557,44 @@ La documentación inicial del proyecto ya fue definida y se comenzó la construc
 - `npm run build` generó correctamente el build de producción.
 - Se comprobó visualmente el flujo utilizando a Gwen Stacy.
 - Gwen recibió dentro de la página un recordatorio automático de su Carta de presentación pendiente.
+
+- Se agregó `scripts/revisar_pendientes.ps1` para ejecutar el seguimiento automático sin activar manualmente el entorno virtual.
+- El script localiza automáticamente el Python de `.venv` y el `manage.py` del backend.
+- El seguimiento periódico utiliza un umbral normal de 2 días y un intervalo mínimo de 24 horas entre recordatorios.
+- Se configuró el Programador de tareas de Windows para ejecutar el seguimiento cada hora.
+- La tarea se registró como `PluriOne Seguimiento Automatico`.
+- Se permitió la ejecución de la tarea cuando el equipo funciona con batería.
+- Se configuró `StartWhenAvailable` para facilitar la recuperación de ejecuciones disponibles.
+- Se comprobó una ejecución iniciada directamente desde el Programador de tareas.
+- `LastTaskResult` devolvió `0`.
+- `NumberOfMissedRuns` devolvió `0`.
+- La tarea regresó correctamente al estado `Ready`.
+- Windows registró automáticamente la siguiente ejecución una hora después.
+- El script registra cada ejecución en `%LOCALAPPDATA%\PluriOne\logs\revisar_pendientes.log`.
+- El log confirmó la ejecución real de Django y finalizó con código `0`.
+- El seguimiento automático ya no depende de ejecutar manualmente `python manage.py revisar_pendientes`.
 \---
 
 ## En progreso
 
-1. Programar la ejecución periódica de `revisar_pendientes` para que no dependa de ejecución manual.
-2. Limpiar y actualizar completamente el README.
-3. Documentar todos los endpoints actuales de onboarding.
-4. Documentar instalación y ejecución del frontend.
-5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-6. Revisar `frontend/README.md`.
-7. Preparar build, base de datos y entrega reproducible final.
+1. Limpiar y actualizar completamente el README.
+2. Documentar todos los endpoints actuales de onboarding.
+3. Documentar instalación y ejecución del frontend.
+4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+5. Revisar `frontend/README.md`.
+6. Preparar build, base de datos y entrega reproducible final.
+7. Revisar modularización adicional de los paneles del encargado.
 \---
 
 ## Próximo paso
 
-1. Configurar una ejecución periódica para `revisar_pendientes`.
-2. Comprobar que el seguimiento automático pueda ejecutarse sin intervención manual.
-3. Limpiar la documentación histórica del README.
-4. Renombrar `docs/PRB.md` a `docs/PRD.md`.
-5. Reemplazar la plantilla predeterminada de `frontend/README.md`.
-6. Preparar las comprobaciones técnicas y de reproducibilidad finales.
+1. Limpiar información histórica desactualizada del README.
+2. Completar la documentación de instalación y automatización.
+3. Completar la lista de endpoints actuales.
+4. Agregar instrucciones completas para levantar React + Vite.
+5. Renombrar `docs/PRB.md` a `docs/PRD.md`.
+6. Reemplazar la plantilla predeterminada de `frontend/README.md`.
+7. Ejecutar las comprobaciones finales de reproducibilidad.
 
 \---
 
@@ -1072,3 +1089,104 @@ Entre los siguientes módulos previstos se encuentran:
 - estados visuales de las tarjetas;
 - panel de pendientes del encargado;
 - frontend con React y Vite.
+
+
+## Ejecución periódica del seguimiento automático
+
+La lógica de seguimiento se encuentra en el comando de Django:
+
+```text
+python manage.py revisar_pendientes
+```
+
+Para evitar que una persona tenga que ejecutarlo manualmente, el proyecto incluye:
+
+```text
+scripts/revisar_pendientes.ps1
+```
+
+El script utiliza directamente el intérprete de Python del entorno virtual y ejecuta el seguimiento con:
+
+```text
+--days 2
+--repeat-hours 24
+```
+
+En el entorno de desarrollo Windows se configuró una tarea programada llamada:
+
+```text
+PluriOne Seguimiento Automatico
+```
+
+La tarea se ejecuta cada hora.
+
+Puede registrarse con:
+
+```powershell
+schtasks.exe /Create `
+  /TN "PluriOne Seguimiento Automatico" `
+  /TR "powershell.exe -NoProfile -ExecutionPolicy Bypass -File `"C:\Users\adria\Desktop\plurione-onboarding\scripts\revisar_pendientes.ps1`"" `
+  /SC HOURLY `
+  /MO 1 `
+  /F
+```
+
+La configuración utilizada permite iniciar la tarea aunque el equipo se encuentre funcionando con batería y ejecutar una tarea disponible posteriormente:
+
+```powershell
+$settings = New-ScheduledTaskSettingsSet `
+  -AllowStartIfOnBatteries `
+  -DontStopIfGoingOnBatteries `
+  -StartWhenAvailable
+
+Set-ScheduledTask `
+  -TaskName "PluriOne Seguimiento Automatico" `
+  -Settings $settings
+```
+
+El estado puede comprobarse mediante:
+
+```powershell
+Get-ScheduledTaskInfo `
+  -TaskName "PluriOne Seguimiento Automatico"
+```
+
+Una ejecución correcta devuelve:
+
+```text
+LastTaskResult : 0
+```
+
+El script conserva un registro local en:
+
+```text
+%LOCALAPPDATA%\PluriOne\logs\revisar_pendientes.log
+```
+
+El flujo automático es:
+
+```text
+Programador de tareas de Windows
+        ↓
+scripts/revisar_pendientes.ps1
+        ↓
+Django
+        ↓
+revisar_pendientes
+        ↓
+detección del documento detenido
+        ↓
+identificación del responsable
+        ↓
+correo + AutomaticNotification
+        ↓
+PostgreSQL
+        ↓
+API
+        ↓
+Notificaciones en React
+```
+
+La programación actual corresponde al entorno de desarrollo Windows. En un despliegue futuro, el mismo comando puede programarse mediante el mecanismo de tareas disponible en el servidor.
+
+El equipo o servidor debe encontrarse disponible para que la tarea pueda ejecutarse.
