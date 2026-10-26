@@ -1936,3 +1936,30 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** los portales del encargado y del colaborador quedaron separados de `App.jsx`, reduciendo significativamente la concentración de lógica y presentación dentro del componente principal.
 
 **Próximo paso:** revisar la modularización restante y comenzar la prueba de instalación limpia del repositorio.
+
+## 26 de octubre de 2026 - Cierre de la modularización principal de App.jsx
+
+**Actividad:** separación de las vistas de autenticación y cierre de la modularización principal del frontend.
+
+**Motivo:** completar la recomendación académica de reducir `frontend/src/App.jsx` y dejar el componente principal concentrado principalmente en la sesión, carga de información y navegación.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/AuthViews.jsx`.
+- Se trasladó `ThemeSwitcher` al nuevo módulo.
+- Se trasladó `LoginTransition` al nuevo módulo.
+- Se trasladó la vista `Login` al nuevo módulo.
+- `App.jsx` conserva la administración de sesión.
+- `App.jsx` conserva la renovación de tokens JWT.
+- `App.jsx` conserva la carga de información según el rol.
+- `App.jsx` conserva la navegación hacia `ManagerHome` o `CollaboratorHome`.
+- No se modificaron endpoints ni reglas funcionales.
+- `App.jsx` pasó de 980 a 618 líneas.
+- Desde el inicio de la modularización, `App.jsx` pasó de 3,910 a 618 líneas.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 31 módulos y generó correctamente el build de producción.
+
+**Resultado:** la modularización principal del frontend quedó completada, con los portales del encargado y colaborador, las vistas de autenticación y los principales paneles separados en componentes independientes.
+
+**Próximo paso:** realizar una instalación limpia del repositorio siguiendo únicamente la documentación actual.

@@ -624,20 +624,22 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se extrajo el portal completo del colaborador a `CollaboratorHome.jsx`, incluyendo su gestión documental.
 - `App.jsx` se redujo de 3,910 a 980 líneas y las validaciones `npm run lint` y `npm run build` continúan finalizando correctamente.
 
+- Se separaron las vistas de autenticación, transición de acceso y selector de tema en `AuthViews.jsx`.
+- La modularización principal del frontend quedó completada: `App.jsx` pasó de 3,910 a 618 líneas y mantiene correctamente `npm run lint` y `npm run build`.
+
 \---
 
 ## En progreso
 
-1. Completar la revisión final de la modularización del frontend.
-2. Preparar la prueba de instalación limpia del repositorio.
-3. Simplificar el `README.md` para la entrega.
-
+1. Realizar una instalación limpia del repositorio siguiendo únicamente la documentación.
+2. Corregir cualquier inconsistencia detectada durante la instalación limpia.
+3. Simplificar el `README.md` para la entrega final.
 \---
 ## Próximo paso
 
-1. Revisar si conviene separar también los componentes de autenticación de `App.jsx`.
-2. Realizar una instalación limpia siguiendo únicamente el `README.md`.
-3. Corregir cualquier paso faltante detectado durante la instalación limpia.
+1. Clonar el repositorio en una carpeta nueva y realizar una instalación completamente limpia.
+2. Validar entorno virtual, dependencias, `.env`, PostgreSQL, migraciones, backend y frontend.
+3. Corregir cualquier paso faltante del `README.md`.
 4. Acortar y limpiar el `README.md`.
 5. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
 6. Agregar una sección breve sobre el uso de IA.
