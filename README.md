@@ -621,20 +621,23 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se extrajeron los componentes compartidos del dashboard a `DashboardShared.jsx` y el panel completo del encargado a `ManagerHome.jsx`.
 - `App.jsx` se redujo de 3,910 a aproximadamente 1,822 líneas; `npm run lint` y `npm run build` continúan finalizando correctamente.
 
+- Se extrajo el portal completo del colaborador a `CollaboratorHome.jsx`, incluyendo su gestión documental.
+- `App.jsx` se redujo de 3,910 a 980 líneas y las validaciones `npm run lint` y `npm run build` continúan finalizando correctamente.
+
 \---
 
 ## En progreso
 
-1. Completar la modularización final de `App.jsx`.
+1. Completar la revisión final de la modularización del frontend.
 2. Preparar la prueba de instalación limpia del repositorio.
 3. Simplificar el `README.md` para la entrega.
 
 \---
 ## Próximo paso
 
-1. Revisar qué componentes restantes pueden extraerse de `App.jsx` para dejarlo principalmente con sesión y navegación.
-2. Ejecutar nuevamente `npm run lint` y `npm run build`.
-3. Realizar una instalación limpia siguiendo únicamente el `README.md`.
+1. Revisar si conviene separar también los componentes de autenticación de `App.jsx`.
+2. Realizar una instalación limpia siguiendo únicamente el `README.md`.
+3. Corregir cualquier paso faltante detectado durante la instalación limpia.
 4. Acortar y limpiar el `README.md`.
 5. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
 6. Agregar una sección breve sobre el uso de IA.

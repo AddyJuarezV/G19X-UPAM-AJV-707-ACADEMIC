@@ -1906,3 +1906,33 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** los principales paneles administrativos dejaron de estar concentrados en `App.jsx`, manteniendo sin cambios los flujos funcionales existentes.
 
 **Próximo paso:** revisar los componentes restantes de `App.jsx` para completar una modularización segura antes de realizar la prueba de instalación limpia.
+
+## 26 de octubre de 2026 - Modularización del portal del colaborador
+
+**Actividad:** extracción del portal principal del colaborador desde `App.jsx`.
+
+**Motivo:** continuar atendiendo la retroalimentación académica que recomendó reducir el tamaño de `frontend/src/App.jsx` y separar los paneles principales en componentes independientes.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/CollaboratorHome.jsx`.
+- Se trasladó el portal principal del colaborador al nuevo componente.
+- Se conservó el cálculo del progreso documental.
+- Se conservó el envío de la solicitud inicial de incorporación.
+- Se mantuvo la integración con `ProfileCorrection`.
+- Se mantuvo la integración con `MyProfile`.
+- Se mantuvo la integración con `NotificationsPanel`.
+- Se trasladó también `DocumentCard` al módulo del colaborador.
+- Se conservaron la entrega y corrección de documentos.
+- Se conservó la descarga de plantillas y documentos firmados.
+- Se conservó la confirmación de recepción de documentos.
+- No se modificaron endpoints ni reglas funcionales.
+- `App.jsx` pasó de 1,822 a 980 líneas.
+- Desde el inicio de la modularización, `App.jsx` pasó de 3,910 a 980 líneas.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 30 módulos y generó correctamente el build de producción.
+
+**Resultado:** los portales del encargado y del colaborador quedaron separados de `App.jsx`, reduciendo significativamente la concentración de lógica y presentación dentro del componente principal.
+
+**Próximo paso:** revisar la modularización restante y comenzar la prueba de instalación limpia del repositorio.
