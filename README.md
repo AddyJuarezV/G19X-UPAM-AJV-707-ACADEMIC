@@ -615,25 +615,25 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - `App.jsx` se redujo de 3,910 a 3,656 líneas sin modificar el comportamiento funcional.
 - Después de la extracción, `npm run lint` y `npm run build` finalizaron correctamente.
 
+- Se extrajo la revisión y gestión documental del encargado a `PendingDocument.jsx`.
+- `App.jsx` pasó de 3,656 a 3,040 líneas; `npm run lint` y `npm run build` finalizaron correctamente después de la extracción.
+
 \---
 
 ## En progreso
 
-1. Continuar la modularización de los paneles del encargado en `App.jsx`.
-2. Extraer la gestión documental del encargado a un componente independiente.
-3. Extraer posteriormente la gestión de generaciones.
-4. Preparar la prueba de instalación limpia.
-
+1. Continuar la modularización del panel de generaciones del encargado.
+2. Preparar la prueba de instalación limpia del proyecto.
+3. Preparar la simplificación final del `README.md`.
 \---
 ## Próximo paso
 
-1. Extraer `PendingDocument` de `App.jsx`.
+1. Separar la gestión de generaciones de `App.jsx`.
 2. Ejecutar `npm run lint` y `npm run build`.
-3. Continuar con la separación del panel de generaciones.
-4. Realizar una instalación limpia siguiendo únicamente el `README.md`.
-5. Acortar y limpiar el `README.md`.
-6. Ajustar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
-7. Documentar brevemente el uso de IA en el proyecto.
+3. Realizar una instalación limpia siguiendo únicamente el `README.md`.
+4. Acortar y limpiar el `README.md`.
+5. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
+6. Agregar la sección breve sobre uso de IA.
 \---
 
 ## Idea principal del sistema

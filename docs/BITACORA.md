@@ -1852,3 +1852,29 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** la revisión de solicitudes del encargado quedó separada de `App.jsx` sin modificar el comportamiento funcional existente.
 
 **Próximo paso:** extraer `PendingDocument` a un componente independiente y volver a validar lint y build.
+
+## 26 de octubre de 2026 - Segunda modularización de App.jsx
+
+**Actividad:** extracción de la revisión y gestión documental del encargado.
+
+**Motivo:** continuar la separación de los paneles del encargado identificados durante la revisión académica y reducir el tamaño de `frontend/src/App.jsx`.
+
+**Trabajo realizado:**
+
+- Se identificó `PendingDocument` como un bloque independiente de 617 líneas.
+- Se creó `frontend/src/PendingDocument.jsx`.
+- Se mantuvieron las propiedades `document`, `apiFetch` y `onRefresh`.
+- Se conservó la revisión y aprobación de documentos.
+- Se conservó la solicitud de correcciones con motivo obligatorio.
+- Se conservó la publicación de plantillas de empresa.
+- Se conservó la carga de documentos firmados por PluriOne.
+- Se mantuvieron sin cambios los endpoints del backend utilizados por el componente.
+- `App.jsx` pasó de 3,656 a 3,040 líneas.
+- Desde el inicio de la modularización, `App.jsx` se redujo de 3,910 a 3,040 líneas.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 27 módulos y generó el build de producción correctamente.
+
+**Resultado:** la gestión documental del encargado quedó separada en un componente propio sin alterar el comportamiento funcional existente.
+
+**Próximo paso:** separar la gestión de generaciones del encargado y volver a validar lint y build.
