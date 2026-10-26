@@ -618,22 +618,26 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se extrajo la revisión y gestión documental del encargado a `PendingDocument.jsx`.
 - `App.jsx` pasó de 3,656 a 3,040 líneas; `npm run lint` y `npm run build` finalizaron correctamente después de la extracción.
 
+- Se extrajeron los componentes compartidos del dashboard a `DashboardShared.jsx` y el panel completo del encargado a `ManagerHome.jsx`.
+- `App.jsx` se redujo de 3,910 a aproximadamente 1,822 líneas; `npm run lint` y `npm run build` continúan finalizando correctamente.
+
 \---
 
 ## En progreso
 
-1. Continuar la modularización del panel de generaciones del encargado.
-2. Preparar la prueba de instalación limpia del proyecto.
-3. Preparar la simplificación final del `README.md`.
+1. Completar la modularización final de `App.jsx`.
+2. Preparar la prueba de instalación limpia del repositorio.
+3. Simplificar el `README.md` para la entrega.
+
 \---
 ## Próximo paso
 
-1. Separar la gestión de generaciones de `App.jsx`.
-2. Ejecutar `npm run lint` y `npm run build`.
+1. Revisar qué componentes restantes pueden extraerse de `App.jsx` para dejarlo principalmente con sesión y navegación.
+2. Ejecutar nuevamente `npm run lint` y `npm run build`.
 3. Realizar una instalación limpia siguiendo únicamente el `README.md`.
 4. Acortar y limpiar el `README.md`.
 5. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
-6. Agregar la sección breve sobre uso de IA.
+6. Agregar una sección breve sobre el uso de IA.
 \---
 
 ## Idea principal del sistema

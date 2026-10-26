@@ -1878,3 +1878,31 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** la gestión documental del encargado quedó separada en un componente propio sin alterar el comportamiento funcional existente.
 
 **Próximo paso:** separar la gestión de generaciones del encargado y volver a validar lint y build.
+
+## 26 de octubre de 2026 - Modularización del panel del encargado
+
+**Actividad:** separación del panel administrativo y de los componentes compartidos del dashboard.
+
+**Motivo:** atender la retroalimentación académica que identificó `frontend/src/App.jsx` como un archivo demasiado grande y recomendó separar los paneles del encargado en componentes independientes.
+
+**Trabajo realizado:**
+
+- Se identificaron componentes compartidos por las vistas del colaborador y del encargado.
+- Se creó `frontend/src/DashboardShared.jsx`.
+- Se movieron a este archivo `EmptyState`, `UserChip` y `Sidebar`.
+- Se creó `frontend/src/ManagerHome.jsx`.
+- Se trasladó a `ManagerHome.jsx` el panel principal del encargado.
+- Se mantuvo la creación y cierre de generaciones.
+- Se mantuvo la selección y visualización de generaciones.
+- Se mantuvo la asignación de colaboradores aprobados.
+- Se mantuvieron las tarjetas de colaboradores y su estado visual.
+- `ManagerHome.jsx` utiliza los componentes previamente separados `PendingApplication.jsx` y `PendingDocument.jsx`.
+- No se modificaron los endpoints ni las reglas funcionales del backend.
+- `App.jsx` se redujo desde las 3,910 líneas originales hasta aproximadamente 1,822 líneas.
+- Se ejecutó `npm run lint` correctamente.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 29 módulos y generó correctamente el build de producción.
+
+**Resultado:** los principales paneles administrativos dejaron de estar concentrados en `App.jsx`, manteniendo sin cambios los flujos funcionales existentes.
+
+**Próximo paso:** revisar los componentes restantes de `App.jsx` para completar una modularización segura antes de realizar la prueba de instalación limpia.
