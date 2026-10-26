@@ -1826,3 +1826,29 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** `db/base-de-datos.sql` quedó actualizado con el esquema y los datos de demostración actuales, y se comprobó mediante una restauración real que el respaldo puede reconstruir correctamente la base de datos del proyecto.
 
 **Próximo paso:** revisar la modularización adicional de los paneles del encargado sin alterar los flujos funcionales ya validados.
+
+## 26 de octubre de 2026 - Primera modularización de App.jsx
+
+**Actividad:** extracción del componente de revisión de solicitudes del encargado.
+
+**Motivo:** la revisión académica identificó que `frontend/src/App.jsx` tenía aproximadamente 3,910 líneas y recomendó separar los paneles del encargado en componentes independientes.
+
+**Trabajo realizado:**
+
+- Se revisó la estructura actual de `frontend/src/App.jsx`.
+- Se identificó `PendingApplication` como el primer componente seguro para extraer.
+- El componente se encontraba dentro de `App.jsx` entre las funciones del panel del encargado.
+- Se creó `frontend/src/PendingApplication.jsx`.
+- El nuevo componente conserva el manejo de estado necesario para aprobar solicitudes y solicitar correcciones.
+- Se mantuvieron sin cambios las propiedades `application`, `apiFetch` y `onRefresh`.
+- Se mantuvo el mismo endpoint `POST /api/accounts/applications/<id>/review/`.
+- Se mantuvo la validación que exige un motivo al solicitar una corrección.
+- `App.jsx` importa ahora `PendingApplication` como componente independiente.
+- `App.jsx` pasó de 3,910 a 3,656 líneas.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 26 módulos y generó correctamente el build de producción.
+
+**Resultado:** la revisión de solicitudes del encargado quedó separada de `App.jsx` sin modificar el comportamiento funcional existente.
+
+**Próximo paso:** extraer `PendingDocument` a un componente independiente y volver a validar lint y build.

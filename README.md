@@ -610,21 +610,30 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se validaron los datos restaurados: 5 usuarios, 4 perfiles, 3 generaciones, 3 asignaciones, 9 documentos y 3 notificaciones automáticas.
 - La base temporal utilizada para la prueba fue eliminada después de completar la validación.
 
+- Se inició la modularización de `frontend/src/App.jsx`.
+- Se extrajo la revisión de solicitudes del encargado a `PendingApplication.jsx`.
+- `App.jsx` se redujo de 3,910 a 3,656 líneas sin modificar el comportamiento funcional.
+- Después de la extracción, `npm run lint` y `npm run build` finalizaron correctamente.
+
 \---
 
 ## En progreso
 
-1. Revisar modularización adicional de los paneles del encargado.
-2. Preparar la entrega reproducible final.
+1. Continuar la modularización de los paneles del encargado en `App.jsx`.
+2. Extraer la gestión documental del encargado a un componente independiente.
+3. Extraer posteriormente la gestión de generaciones.
+4. Preparar la prueba de instalación limpia.
 
 \---
 ## Próximo paso
 
-1. Revisar la modularización adicional de los paneles del encargado.
-2. Evaluar la reducción del tamaño de `App.jsx` sin alterar los flujos funcionales ya validados.
-3. Ejecutar las comprobaciones finales de backend y frontend.
-4. Actualizar `docs/BITACORA.md` con la validación final.
-5. Revisar `git status`, crear el commit y hacer push a GitHub.
+1. Extraer `PendingDocument` de `App.jsx`.
+2. Ejecutar `npm run lint` y `npm run build`.
+3. Continuar con la separación del panel de generaciones.
+4. Realizar una instalación limpia siguiendo únicamente el `README.md`.
+5. Acortar y limpiar el `README.md`.
+6. Ajustar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
+7. Documentar brevemente el uso de IA en el proyecto.
 \---
 
 ## Idea principal del sistema
