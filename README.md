@@ -638,23 +638,26 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se organizaron las vistas de autenticación en `frontend/src/auth/`, agrupando `AuthViews`, `Register` y sus estilos.
 - La reorganización fue validada con `npm run lint` y `npm run build` sin errores.
 
+- Se realizó una validación visual completa después de la reorganización del frontend. Los portales de colaborador y encargado cargan correctamente y las solicitudes al backend responden sin errores.
+
 \---
 
 ## En progreso
 
-1. Ejecutar la aplicación con `npm run dev` y revisar visualmente los flujos del encargado y colaborador.
-2. Preparar una instalación limpia del repositorio.
-3. Aplicar los ajustes pendientes de configuración y documentación.
+1. Realizar una instalación limpia del proyecto desde el repositorio.
+2. Aplicar los ajustes pendientes de configuración de Django.
+3. Simplificar la documentación principal del proyecto.
 
 \---
 
 ## Próximo paso
 
-1. Ejecutar backend y frontend en modo desarrollo.
-2. Comprobar visualmente autenticación, encargado y colaborador.
-3. Realizar la instalación limpia del proyecto.
-4. Ajustar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
-5. Simplificar el README y documentar el uso de IA.
+1. Clonar el repositorio en una ubicación separada.
+2. Configurar un entorno virtual limpio.
+3. Instalar dependencias desde `requirements.txt`.
+4. Restaurar la base de datos PostgreSQL.
+5. Ejecutar migraciones, pruebas y seguimiento automático en modo `dry-run`.
+6. Instalar y validar el frontend desde cero.
 
 \---
 

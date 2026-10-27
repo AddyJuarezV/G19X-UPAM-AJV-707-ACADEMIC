@@ -2048,3 +2048,26 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** las vistas de autenticación quedaron separadas del resto de la aplicación dentro de `src/auth/`.
 
 **Próximo paso:** ejecutar la aplicación completa en modo desarrollo y validar visualmente ambos roles.
+
+## 27 de octubre de 2026 - Validación visual posterior a la reorganización
+
+**Actividad:** comprobación funcional y visual del frontend después de la modularización.
+
+**Validaciones realizadas:**
+
+- Django inició correctamente y `python manage.py check` no reportó problemas.
+- Vite inició correctamente en modo desarrollo.
+- Se inició sesión como colaborador.
+- El portal del colaborador cargó correctamente.
+- Se verificaron los datos, progreso documental y navegación.
+- Se inició sesión como encargado.
+- El panel administrativo cargó correctamente.
+- Se verificó el tablero de generaciones.
+- Se verificó la sección de documentos pendientes.
+- Las solicitudes observadas hacia la API respondieron con código HTTP 200.
+- No se observaron errores 403, 404 ni 500 durante la validación.
+- La reorganización de `auth/`, `manager/`, `collaborator/`, `components/` y `utils/` no produjo regresiones visuales detectables.
+
+**Resultado:** la modularización del frontend queda validada mediante lint, build y prueba visual en ambos roles.
+
+**Próximo paso:** realizar una instalación limpia del proyecto a partir del repositorio.
