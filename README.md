@@ -632,25 +632,26 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se organizó el módulo administrativo en `frontend/src/manager/`, agrupando `ManagerHome`, `PendingApplication` y `PendingDocument`.
 - Después de reorganizar las rutas de importación, `npm run lint` y `npm run build` finalizaron correctamente.
 
+- Se organizó el portal del colaborador en `frontend/src/collaborator/`, agrupando la vista principal, perfil, correcciones y notificaciones con sus estilos.
+- La reorganización fue validada con `npm run lint` y `npm run build` sin errores.
+
 \---
 
 ## En progreso
 
-1. Organizar el portal del colaborador en `frontend/src/collaborator/`.
-2. Organizar las vistas de autenticación en `frontend/src/auth/`.
-3. Ejecutar `npm run dev` y realizar una revisión visual de ambos roles.
-4. Preparar la instalación limpia del repositorio.
+1. Organizar las vistas de autenticación en `frontend/src/auth/`.
+2. Ejecutar `npm run dev` y revisar visualmente los flujos del encargado y colaborador.
+3. Preparar la instalación limpia del repositorio.
 
 \---
 
 ## Próximo paso
 
-1. Mover el portal del colaborador a `frontend/src/collaborator/`.
+1. Mover las vistas de autenticación a `frontend/src/auth/`.
 2. Ejecutar `npm run lint` y `npm run build`.
-3. Mover las vistas de autenticación a `frontend/src/auth/`.
-4. Ejecutar nuevamente las validaciones.
-5. Abrir la aplicación con `npm run dev` y comprobar visualmente los flujos.
-6. Realizar la instalación limpia del proyecto.
+3. Ejecutar `npm run dev` y comprobar visualmente ambos roles.
+4. Realizar la instalación limpia del proyecto.
+5. Aplicar los ajustes pendientes de configuración y documentación.
 
 \---
 

@@ -6,7 +6,7 @@ import {
 import "./App.css";
 import Register from "./Register";
 import ManagerHome from "./manager/ManagerHome";
-import CollaboratorHome from "./CollaboratorHome";
+import CollaboratorHome from "./collaborator/CollaboratorHome";
 import {
   ThemeSwitcher,
   LoginTransition,

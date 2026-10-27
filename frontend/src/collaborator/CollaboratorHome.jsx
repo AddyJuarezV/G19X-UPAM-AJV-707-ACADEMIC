@@ -1,10 +1,10 @@
-import { firstName, initials } from "./utils/nombres";
+import { firstName, initials } from "../utils/nombres";
 import { useState } from "react";
 import ProfileCorrection from "./ProfileCorrection";
 import MyProfile from "./MyProfile";
 import NotificationsPanel from "./NotificationsPanel";
-import UserChip from "./components/UserChip";
-import Sidebar from "./components/Sidebar";
+import UserChip from "../components/UserChip";
+import Sidebar from "../components/Sidebar";
 
 export default function CollaboratorHome({
   user,

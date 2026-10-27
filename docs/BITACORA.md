@@ -2004,3 +2004,26 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** los principales componentes administrativos quedaron agrupados dentro de `src/manager/`, de acuerdo con la organización recomendada en la retroalimentación.
 
 **Próximo paso:** organizar los componentes correspondientes al portal del colaborador dentro de `frontend/src/collaborator/`.
+
+## 27 de octubre de 2026 - Organización del portal del colaborador
+
+**Actividad:** reorganización de los componentes correspondientes al colaborador.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/collaborator/`.
+- Se movió `CollaboratorHome.jsx`.
+- Se movieron `MyProfile.jsx` y `MyProfile.css`.
+- Se movieron `ProfileCorrection.jsx` y `ProfileCorrection.css`.
+- Se movieron `NotificationsPanel.jsx` y `NotificationsPanel.css`.
+- Se actualizaron las rutas hacia `utils/nombres`.
+- Se actualizaron las rutas hacia los componentes compartidos.
+- Se actualizó `App.jsx` para importar `CollaboratorHome` desde `src/collaborator/`.
+- No se modificó la lógica funcional del portal.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 34 módulos.
+
+**Resultado:** las vistas propias del colaborador quedaron agrupadas dentro de `src/collaborator/`, separadas del módulo administrativo y de los componentes compartidos.
+
+**Próximo paso:** organizar las vistas relacionadas con autenticación dentro de `frontend/src/auth/`.
