@@ -627,22 +627,27 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se separaron las vistas de autenticación, transición de acceso y selector de tema en `AuthViews.jsx`.
 - La modularización principal del frontend quedó completada: `App.jsx` pasó de 3,910 a 618 líneas y mantiene correctamente `npm run lint` y `npm run build`.
 
+- Se centralizaron las utilidades `firstName` e `initials` en `frontend/src/utils/nombres.js`, eliminando duplicación entre los componentes del frontend.
+
 \---
 
 ## En progreso
 
-1. Realizar una instalación limpia del repositorio siguiendo únicamente la documentación.
-2. Corregir cualquier inconsistencia detectada durante la instalación limpia.
-3. Simplificar el `README.md` para la entrega final.
+1. Organizar los módulos del frontend por carpetas `manager/`, `collaborator/` y `auth/`.
+2. Ejecutar la aplicación con `npm run dev` y comprobar visualmente ambos roles.
+3. Preparar la instalación limpia del repositorio.
+
 \---
+
 ## Próximo paso
 
-1. Clonar el repositorio en una carpeta nueva y realizar una instalación completamente limpia.
-2. Validar entorno virtual, dependencias, `.env`, PostgreSQL, migraciones, backend y frontend.
-3. Corregir cualquier paso faltante del `README.md`.
-4. Acortar y limpiar el `README.md`.
-5. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
-6. Agregar una sección breve sobre el uso de IA.
+1. Mover los componentes del encargado a `frontend/src/manager/`.
+2. Ejecutar `npm run lint` y `npm run build`.
+3. Mover los componentes del colaborador a `frontend/src/collaborator/`.
+4. Mover las vistas de autenticación a `frontend/src/auth/`.
+5. Ejecutar `npm run dev` y realizar una revisión visual.
+6. Realizar la instalación limpia del proyecto.
+
 \---
 
 ## Idea principal del sistema

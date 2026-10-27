@@ -1963,3 +1963,22 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** la modularización principal del frontend quedó completada, con los portales del encargado y colaborador, las vistas de autenticación y los principales paneles separados en componentes independientes.
 
 **Próximo paso:** realizar una instalación limpia del repositorio siguiendo únicamente la documentación actual.
+
+## 27 de octubre de 2026 - Centralización de utilidades de nombres
+
+**Actividad:** eliminación de funciones auxiliares duplicadas en el frontend.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/utils/nombres.js`.
+- Se centralizó la función `firstName`.
+- Se centralizó la función `initials`.
+- Se eliminaron las copias locales de estas funciones en `ManagerHome.jsx`, `CollaboratorHome.jsx`, `PendingApplication.jsx` y `PendingDocument.jsx`.
+- Los cuatro componentes importan ahora las utilidades desde una única fuente.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 34 módulos.
+
+**Resultado:** se redujo la duplicación de código y las funciones de presentación de nombres quedaron centralizadas en `src/utils/`.
+
+**Próximo paso:** organizar los componentes administrativos dentro de `frontend/src/manager/`.
