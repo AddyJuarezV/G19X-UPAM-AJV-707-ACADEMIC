@@ -4,14 +4,14 @@ import {
   useState,
 } from "react";
 import "./App.css";
-import Register from "./Register";
+import Register from "./auth/Register";
 import ManagerHome from "./manager/ManagerHome";
 import CollaboratorHome from "./collaborator/CollaboratorHome";
 import {
   ThemeSwitcher,
   LoginTransition,
   Login,
-} from "./AuthViews";
+} from "./auth/AuthViews";
 
 
 function App() {

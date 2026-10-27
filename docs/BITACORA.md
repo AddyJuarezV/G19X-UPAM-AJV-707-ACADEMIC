@@ -2027,3 +2027,24 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** las vistas propias del colaborador quedaron agrupadas dentro de `src/collaborator/`, separadas del módulo administrativo y de los componentes compartidos.
 
 **Próximo paso:** organizar las vistas relacionadas con autenticación dentro de `frontend/src/auth/`.
+
+## 27 de octubre de 2026 - Organización del módulo de autenticación
+
+**Actividad:** reorganización de las vistas relacionadas con autenticación y registro.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/auth/`.
+- Se movió `AuthViews.jsx`.
+- Se movió `Register.jsx`.
+- Se movió `Register.css`.
+- Se actualizaron los imports correspondientes en `App.jsx`.
+- Se verificó que no quedaran referencias antiguas a `./Register` ni `./AuthViews`.
+- No se modificó la lógica funcional de autenticación.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 34 módulos.
+
+**Resultado:** las vistas de autenticación quedaron separadas del resto de la aplicación dentro de `src/auth/`.
+
+**Próximo paso:** ejecutar la aplicación completa en modo desarrollo y validar visualmente ambos roles.

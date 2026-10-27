@@ -635,23 +635,26 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 - Se organizó el portal del colaborador en `frontend/src/collaborator/`, agrupando la vista principal, perfil, correcciones y notificaciones con sus estilos.
 - La reorganización fue validada con `npm run lint` y `npm run build` sin errores.
 
+- Se organizaron las vistas de autenticación en `frontend/src/auth/`, agrupando `AuthViews`, `Register` y sus estilos.
+- La reorganización fue validada con `npm run lint` y `npm run build` sin errores.
+
 \---
 
 ## En progreso
 
-1. Organizar las vistas de autenticación en `frontend/src/auth/`.
-2. Ejecutar `npm run dev` y revisar visualmente los flujos del encargado y colaborador.
-3. Preparar la instalación limpia del repositorio.
+1. Ejecutar la aplicación con `npm run dev` y revisar visualmente los flujos del encargado y colaborador.
+2. Preparar una instalación limpia del repositorio.
+3. Aplicar los ajustes pendientes de configuración y documentación.
 
 \---
 
 ## Próximo paso
 
-1. Mover las vistas de autenticación a `frontend/src/auth/`.
-2. Ejecutar `npm run lint` y `npm run build`.
-3. Ejecutar `npm run dev` y comprobar visualmente ambos roles.
-4. Realizar la instalación limpia del proyecto.
-5. Aplicar los ajustes pendientes de configuración y documentación.
+1. Ejecutar backend y frontend en modo desarrollo.
+2. Comprobar visualmente autenticación, encargado y colaborador.
+3. Realizar la instalación limpia del proyecto.
+4. Ajustar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
+5. Simplificar el README y documentar el uso de IA.
 
 \---
 
