@@ -642,23 +642,25 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 
 - Se validó una instalación limpia desde un clon nuevo del repositorio: entorno virtual, dependencias Python, restauración PostgreSQL, migraciones, 11 pruebas automatizadas, seguimiento en `dry-run`, dependencias frontend, lint, build y ejecución de ambos roles.
 
+- Se ajustó la configuración de Django para México mediante `LANGUAGE_CODE="es-mx"` y `TIME_ZONE="America/Mexico_City"`, y `ALLOWED_HOSTS` quedó configurable mediante variables de entorno.
+
 \---
 
 ## En progreso
 
-1. Aplicar los ajustes pendientes de configuración de Django.
-2. Simplificar el README principal.
-3. Documentar de forma breve el uso de IA durante el desarrollo.
+1. Simplificar el README principal.
+2. Documentar de forma breve el uso de IA durante el desarrollo.
+3. Ejecutar las validaciones finales del proyecto.
 
 \---
 
 ## Próximo paso
 
-1. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
-2. Validar nuevamente Django y las pruebas automatizadas.
-3. Simplificar el README y trasladar el historial detallado a la bitácora.
-4. Agregar una sección breve sobre el uso de IA.
-5. Ejecutar las validaciones finales del proyecto.
+1. Simplificar el README y trasladar el historial detallado a la bitácora.
+2. Eliminar inconsistencias de formato pendientes.
+3. Agregar una sección breve sobre el uso de IA.
+4. Ejecutar las validaciones finales de backend y frontend.
+
 \---
 
 ## Idea principal del sistema

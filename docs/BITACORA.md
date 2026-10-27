@@ -2113,3 +2113,22 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** el proyecto puede reconstruirse y ejecutarse correctamente a partir del contenido disponible en el repositorio.
 
 **Próximo paso:** ajustar la configuración regional y de hosts de Django.
+
+## 27 de octubre de 2026 - Ajustes de configuración de Django
+
+**Actividad:** actualización de la configuración regional y de hosts permitidos.
+
+**Trabajo realizado:**
+
+- Se configuró `LANGUAGE_CODE` como `es-mx`.
+- Se configuró `TIME_ZONE` como `America/Mexico_City`.
+- `ALLOWED_HOSTS` pasó a obtenerse desde la variable de entorno `ALLOWED_HOSTS`.
+- Se dejó como valor predeterminado `127.0.0.1,localhost`.
+- Se agregó `ALLOWED_HOSTS=127.0.0.1,localhost` a `.env.example`.
+- Se ejecutó `python manage.py check` sin errores.
+- Se ejecutó `python manage.py makemigrations --check --dry-run` sin cambios pendientes.
+- Se ejecutaron 11 pruebas automatizadas correctamente.
+
+**Resultado:** la configuración de Django quedó adaptada al entorno del proyecto y preparada para cambiar hosts sin modificar el código fuente.
+
+**Próximo paso:** simplificar el README principal y agregar la sección de uso de IA.
