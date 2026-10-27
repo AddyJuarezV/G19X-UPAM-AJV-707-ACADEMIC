@@ -1,4 +1,4 @@
-import { initials } from "./utils/nombres";
+import { initials } from "../utils/nombres";
 import { useState } from "react";
 
 export default function PendingApplication({

@@ -5,7 +5,7 @@ import {
 } from "react";
 import "./App.css";
 import Register from "./Register";
-import ManagerHome from "./ManagerHome";
+import ManagerHome from "./manager/ManagerHome";
 import CollaboratorHome from "./CollaboratorHome";
 import {
   ThemeSwitcher,

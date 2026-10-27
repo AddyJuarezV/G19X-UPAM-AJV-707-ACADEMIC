@@ -1982,3 +1982,25 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** se redujo la duplicación de código y las funciones de presentación de nombres quedaron centralizadas en `src/utils/`.
 
 **Próximo paso:** organizar los componentes administrativos dentro de `frontend/src/manager/`.
+
+## 27 de octubre de 2026 - Organización del módulo del encargado
+
+**Actividad:** reorganización de los componentes administrativos del frontend.
+
+**Trabajo realizado:**
+
+- Se creó `frontend/src/manager/`.
+- Se movió `ManagerHome.jsx` al módulo administrativo.
+- Se movió `PendingApplication.jsx` al módulo administrativo.
+- Se movió `PendingDocument.jsx` al módulo administrativo.
+- Se actualizaron las rutas hacia `utils/nombres`.
+- Se actualizaron las rutas hacia los componentes compartidos de `src/components/`.
+- Se actualizó `App.jsx` para importar `ManagerHome` desde `src/manager/`.
+- No se modificó la lógica funcional de los componentes.
+- Se ejecutó `npm run lint` sin errores.
+- Se ejecutó `npm run build` correctamente.
+- Vite procesó 34 módulos.
+
+**Resultado:** los principales componentes administrativos quedaron agrupados dentro de `src/manager/`, de acuerdo con la organización recomendada en la retroalimentación.
+
+**Próximo paso:** organizar los componentes correspondientes al portal del colaborador dentro de `frontend/src/collaborator/`.

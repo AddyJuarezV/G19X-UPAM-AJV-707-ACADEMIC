@@ -1,10 +1,10 @@
-import { initials } from "./utils/nombres";
+import { initials } from "../utils/nombres";
 import { useState } from "react";
 import PendingApplication from "./PendingApplication";
 import PendingDocument from "./PendingDocument";
-import EmptyState from "./components/EmptyState";
-import UserChip from "./components/UserChip";
-import Sidebar from "./components/Sidebar";
+import EmptyState from "../components/EmptyState";
+import UserChip from "../components/UserChip";
+import Sidebar from "../components/Sidebar";
 
 export default function ManagerHome({
   user,

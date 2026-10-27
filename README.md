@@ -629,23 +629,27 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 
 - Se centralizaron las utilidades `firstName` e `initials` en `frontend/src/utils/nombres.js`, eliminando duplicación entre los componentes del frontend.
 
+- Se organizó el módulo administrativo en `frontend/src/manager/`, agrupando `ManagerHome`, `PendingApplication` y `PendingDocument`.
+- Después de reorganizar las rutas de importación, `npm run lint` y `npm run build` finalizaron correctamente.
+
 \---
 
 ## En progreso
 
-1. Organizar los módulos del frontend por carpetas `manager/`, `collaborator/` y `auth/`.
-2. Ejecutar la aplicación con `npm run dev` y comprobar visualmente ambos roles.
-3. Preparar la instalación limpia del repositorio.
+1. Organizar el portal del colaborador en `frontend/src/collaborator/`.
+2. Organizar las vistas de autenticación en `frontend/src/auth/`.
+3. Ejecutar `npm run dev` y realizar una revisión visual de ambos roles.
+4. Preparar la instalación limpia del repositorio.
 
 \---
 
 ## Próximo paso
 
-1. Mover los componentes del encargado a `frontend/src/manager/`.
+1. Mover el portal del colaborador a `frontend/src/collaborator/`.
 2. Ejecutar `npm run lint` y `npm run build`.
-3. Mover los componentes del colaborador a `frontend/src/collaborator/`.
-4. Mover las vistas de autenticación a `frontend/src/auth/`.
-5. Ejecutar `npm run dev` y realizar una revisión visual.
+3. Mover las vistas de autenticación a `frontend/src/auth/`.
+4. Ejecutar nuevamente las validaciones.
+5. Abrir la aplicación con `npm run dev` y comprobar visualmente los flujos.
 6. Realizar la instalación limpia del proyecto.
 
 \---
