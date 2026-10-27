@@ -640,25 +640,25 @@ Actualmente el trabajo se concentra en fortalecer la calidad técnica, actualiza
 
 - Se realizó una validación visual completa después de la reorganización del frontend. Los portales de colaborador y encargado cargan correctamente y las solicitudes al backend responden sin errores.
 
+- Se validó una instalación limpia desde un clon nuevo del repositorio: entorno virtual, dependencias Python, restauración PostgreSQL, migraciones, 11 pruebas automatizadas, seguimiento en `dry-run`, dependencias frontend, lint, build y ejecución de ambos roles.
+
 \---
 
 ## En progreso
 
-1. Realizar una instalación limpia del proyecto desde el repositorio.
-2. Aplicar los ajustes pendientes de configuración de Django.
-3. Simplificar la documentación principal del proyecto.
+1. Aplicar los ajustes pendientes de configuración de Django.
+2. Simplificar el README principal.
+3. Documentar de forma breve el uso de IA durante el desarrollo.
 
 \---
 
 ## Próximo paso
 
-1. Clonar el repositorio en una ubicación separada.
-2. Configurar un entorno virtual limpio.
-3. Instalar dependencias desde `requirements.txt`.
-4. Restaurar la base de datos PostgreSQL.
-5. Ejecutar migraciones, pruebas y seguimiento automático en modo `dry-run`.
-6. Instalar y validar el frontend desde cero.
-
+1. Configurar `LANGUAGE_CODE`, `TIME_ZONE` y `ALLOWED_HOSTS`.
+2. Validar nuevamente Django y las pruebas automatizadas.
+3. Simplificar el README y trasladar el historial detallado a la bitácora.
+4. Agregar una sección breve sobre el uso de IA.
+5. Ejecutar las validaciones finales del proyecto.
 \---
 
 ## Idea principal del sistema

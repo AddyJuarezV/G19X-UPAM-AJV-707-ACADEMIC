@@ -2071,3 +2071,45 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** la modularización del frontend queda validada mediante lint, build y prueba visual en ambos roles.
 
 **Próximo paso:** realizar una instalación limpia del proyecto a partir del repositorio.
+
+
+## 27 de octubre de 2026 - Validación mediante instalación limpia
+
+**Actividad:** comprobación de reproducibilidad del proyecto a partir de un clon nuevo del repositorio.
+
+**Entorno de prueba:**
+
+- Windows.
+- Python 3.12.10.
+- Django 6.1.1.
+- PostgreSQL 18.6.
+- Node.js 24.18.0.
+- npm 11.16.0.
+
+**Validaciones realizadas:**
+
+- Se clonó el repositorio desde GitHub en una carpeta independiente.
+- Se creó un entorno virtual Python nuevo.
+- Se instalaron únicamente las dependencias declaradas en `requirements.txt`.
+- `pip check` no detectó dependencias rotas.
+- Se creó una base PostgreSQL independiente para la prueba.
+- Se restauró `db/base-de-datos.sql` con código de salida 0.
+- Se recuperaron 15 tablas.
+- Se comprobaron 5 usuarios, 4 perfiles, 3 generaciones, 3 asignaciones, 9 documentos y 3 notificaciones.
+- `python manage.py migrate` indicó que no existían migraciones pendientes.
+- `python manage.py check` no detectó problemas.
+- `python manage.py makemigrations --check --dry-run` indicó que no existían cambios pendientes.
+- Se ejecutaron 11 pruebas automatizadas correctamente.
+- `python manage.py revisar_pendientes --dry-run` detectó 3 pendientes sin modificar información.
+- Se instaló el frontend mediante `npm install`.
+- npm reportó 0 vulnerabilidades.
+- `npm run lint` finalizó sin errores.
+- `npm run build` finalizó correctamente.
+- Se ejecutaron backend y frontend desde el clon limpio.
+- Se comprobó visualmente el portal de colaborador y el panel del encargado.
+- Las solicitudes posteriores al inicio de sesión respondieron correctamente con HTTP 200.
+- El repositorio de prueba permaneció sin modificaciones rastreadas por Git.
+
+**Resultado:** el proyecto puede reconstruirse y ejecutarse correctamente a partir del contenido disponible en el repositorio.
+
+**Próximo paso:** ajustar la configuración regional y de hosts de Django.
