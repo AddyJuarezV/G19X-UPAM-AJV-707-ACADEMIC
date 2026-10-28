@@ -2132,3 +2132,29 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 **Resultado:** la configuración de Django quedó adaptada al entorno del proyecto y preparada para cambiar hosts sin modificar el código fuente.
 
 **Próximo paso:** simplificar el README principal y agregar la sección de uso de IA.
+
+28 de octubre de 2026 - Separación de ThemeSwitcher
+
+Actividad:
+
+Se terminó de ordenar la estructura compartida del frontend moviendo ThemeSwitcher fuera del módulo de autenticación.
+
+Trabajo realizado:
+
+• Se creó frontend/src/components/ThemeSwitcher.jsx.
+• Se eliminó ThemeSwitcher de frontend/src/auth/AuthViews.jsx.
+• App.jsx ahora importa ThemeSwitcher desde components.
+• Se verificó que AuthViews.jsx ya no contenga referencias a ThemeSwitcher.
+• Se ejecutó npm run lint sin errores.
+• Se ejecutó npm run build correctamente.
+• Vite procesó 35 módulos.
+
+Resultado:
+
+ThemeSwitcher quedó ubicado como componente compartido, ya que se utiliza tanto antes como después del inicio de sesión.
+
+Próximo paso:
+
+1.- Trasladar al BITACORA.md el historial que todavía se encuentra dentro de README.md.
+2.- Simplificar README.md para dejar únicamente instrucciones de instalación, ejecución, verificación y solución de problemas.
+3.- Incluir la sección breve de uso de IA.

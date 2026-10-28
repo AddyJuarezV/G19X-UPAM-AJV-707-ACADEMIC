@@ -8,10 +8,10 @@ import Register from "./auth/Register";
 import ManagerHome from "./manager/ManagerHome";
 import CollaboratorHome from "./collaborator/CollaboratorHome";
 import {
-  ThemeSwitcher,
   LoginTransition,
   Login,
 } from "./auth/AuthViews";
+import { ThemeSwitcher } from "./components/ThemeSwitcher";
 
 
 function App() {
