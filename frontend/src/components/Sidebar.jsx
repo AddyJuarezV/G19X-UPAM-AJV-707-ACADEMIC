@@ -1,10 +1,31 @@
 export default function Sidebar({
   user,
   onLogout,
+  activeSection = "inicio",
+  onSectionChange = null,
 }) {
-  const goTo = (id) => {
+  const navClass = (section) =>
+    activeSection === section
+      ? "nav-item active"
+      : "nav-item";
+
+  const goTo = (section) => {
+    if (onSectionChange) {
+      onSectionChange(section);
+      return;
+    }
+
+    if (section === "inicio") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+
+      return;
+    }
+
     const element =
-      document.getElementById(id);
+      document.getElementById(section);
 
     if (element) {
       element.scrollIntoView({
@@ -34,13 +55,10 @@ export default function Sidebar({
 
         <nav className="sidebar-nav">
           <button
-            className="nav-item active"
+            className={navClass("inicio")}
             type="button"
             onClick={() =>
-              window.scrollTo({
-                top: 0,
-                behavior: "smooth",
-              })
+              goTo("inicio")
             }
           >
             <span>⌂</span>
@@ -52,20 +70,24 @@ export default function Sidebar({
             "COLABORADOR" ? (
               <>
                 <button
-                  className="nav-item"
+                  className={
+                    navClass("mis-datos")
+                  }
                   type="button"
                   onClick={() =>
-                    goTo(
-                      "mis-datos"
-                    )
+                    goTo("mis-datos")
                   }
                 >
                   <span>◎</span>
                   Mis datos
-                  </button>
+                </button>
 
                 <button
-                  className="nav-item"
+                  className={
+                    navClass(
+                      "documentacion"
+                    )
+                  }
                   type="button"
                   onClick={() =>
                     goTo(
@@ -77,18 +99,22 @@ export default function Sidebar({
                   Documentación
                 </button>
 
-             <button
-  className="nav-item"
-  type="button"
-  onClick={() =>
-    goTo(
-      "notificaciones"
-    )
-  }
->
-  <span>○</span>
-  Notificaciones
-</button>
+                <button
+                  className={
+                    navClass(
+                      "notificaciones"
+                    )
+                  }
+                  type="button"
+                  onClick={() =>
+                    goTo(
+                      "notificaciones"
+                    )
+                  }
+                >
+                  <span>○</span>
+                  Notificaciones
+                </button>
               </>
             ) : (
               <>

@@ -16,6 +16,22 @@ export default function CollaboratorHome({
   const profile =
     user.profile || {};
 
+  const [
+    activeSection,
+    setActiveSection,
+  ] = useState("inicio");
+
+  const handleSectionChange = (
+    section
+  ) => {
+    setActiveSection(section);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
     const [
     submittingApplication,
     setSubmittingApplication,
@@ -36,6 +52,102 @@ export default function CollaboratorHome({
       (document) =>
         document.status === "COMPLETE"
     ).length;
+
+  const remainingDocuments =
+    documents.length -
+    completedDocuments;
+
+  const documentsInReview =
+    documents.filter(
+      (document) =>
+        [
+          "DELIVERED",
+          "IN_REVIEW",
+          "PENDING_SIGNATURE",
+          "SIGNED",
+          "DOWNLOADABLE",
+        ].includes(
+          document.status
+        )
+    ).length;
+
+  const documentsPendingAction =
+    documents.filter(
+      (document) =>
+        [
+          "PENDING",
+          "NEEDS_CORRECTION",
+        ].includes(
+          document.status
+        )
+    ).length;
+
+  const applicationApproved =
+    profile.application_status ===
+    "APPROVED";
+
+  const documentationComplete =
+    documents.length > 0 &&
+    remainingDocuments === 0;
+
+  const nextAction =
+    profile.application_status ===
+    "DRAFT"
+      ? {
+          title:
+            "Enviar tu solicitud",
+          text:
+            "Revisa tus datos y envia tu solicitud para iniciar la revision.",
+          target:
+            "mis-datos",
+          button:
+            "Revisar mis datos",
+        }
+      : profile.application_status ===
+        "NEEDS_CORRECTION"
+        ? {
+            title:
+              "Corregir tu informacion",
+            text:
+              "PluriOne solicito cambios en tu registro. Revisa la observacion y corrige tus datos.",
+            target:
+              "mis-datos",
+            button:
+              "Ir a mis datos",
+          }
+        : profile.application_status ===
+          "IN_REVIEW"
+          ? {
+              title:
+                "Solicitud en revision",
+              text:
+                "Tu informacion esta siendo revisada. Puedes consultar tus avisos mientras esperas.",
+              target:
+                "notificaciones",
+              button:
+                "Ver notificaciones",
+            }
+          : documentationComplete
+            ? {
+                title:
+                  "Proceso documental completo",
+                text:
+                  "Tus documentos se encuentran completos. Consulta tus avisos para cualquier nueva indicacion.",
+                target:
+                  "notificaciones",
+                button:
+                  "Ver notificaciones",
+              }
+            : {
+                title:
+                  "Continuar documentación",
+                text:
+                  `Tienes ${remainingDocuments} documento${remainingDocuments === 1 ? "" : "s"} por completar.`,
+                target:
+                  "documentacion",
+                button:
+                  "Ir a documentación",
+              };
 
   const progress =
     documents.length > 0
@@ -99,9 +211,17 @@ export default function CollaboratorHome({
       <Sidebar
         user={user}
         onLogout={onLogout}
+        activeSection={
+          activeSection
+        }
+        onSectionChange={
+          handleSectionChange
+        }
       />
 
       <main className="dashboard-content">
+        {activeSection === "inicio" && (
+          <>
         <header className="dashboard-header">
           <div>
             <span className="eyebrow">
@@ -204,6 +324,254 @@ export default function CollaboratorHome({
             </p>
           </article>
         </section>
+        <section className="collaborator-home-panels">
+          <article className="content-section process-overview-card">
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">
+                  ESTADO DEL PROCESO
+                </span>
+
+                <h2>
+                  Tu incorporación
+                </h2>
+              </div>
+
+              <span className="document-count">
+                {progress}% documental
+              </span>
+            </div>
+
+            <div className="process-steps">
+              <div className="process-step done">
+                <span className="process-step-number">
+                  1
+                </span>
+
+                <div>
+                  <strong>
+                    Registro
+                  </strong>
+
+                  <span>
+                    Datos registrados
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className={
+                  applicationApproved
+                    ? "process-step done"
+                    : "process-step current"
+                }
+              >
+                <span className="process-step-number">
+                  2
+                </span>
+
+                <div>
+                  <strong>
+                    Solicitud
+                  </strong>
+
+                  <span>
+                    {applicationApproved
+                      ? "Aprobada"
+                      : "En proceso"}
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className={
+                  documentationComplete
+                    ? "process-step done"
+                    : applicationApproved
+                      ? "process-step current"
+                      : "process-step"
+                }
+              >
+                <span className="process-step-number">
+                  3
+                </span>
+
+                <div>
+                  <strong>
+                    Documentación
+                  </strong>
+
+                  <span>
+                    {completedDocuments}/
+                    {documents.length} completos
+                  </span>
+                </div>
+              </div>
+
+              <div
+                className={
+                  documentationComplete
+                    ? "process-step done"
+                    : "process-step"
+                }
+              >
+                <span className="process-step-number">
+                  4
+                </span>
+
+                <div>
+                  <strong>
+                    Finalizacion
+                  </strong>
+
+                  <span>
+                    {documentationComplete
+                      ? "Completado"
+                      : "Pendiente"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+
+          <article className="content-section next-action-card">
+            <span className="eyebrow">
+              PRÓXIMA ACCIÓN
+            </span>
+
+            <h2>
+              {nextAction.title}
+            </h2>
+
+            <p>
+              {nextAction.text}
+            </p>
+
+            <button
+              type="button"
+              className="home-action-button"
+              onClick={() =>
+                handleSectionChange(
+                  nextAction.target
+                )
+              }
+            >
+              {nextAction.button}
+            </button>
+          </article>
+
+
+          <article className="content-section document-home-summary">
+            <span className="eyebrow">
+              DOCUMENTOS
+            </span>
+
+            <h2>
+              Resumen documental
+            </h2>
+
+            <div className="document-home-stats">
+              <div>
+                <strong>
+                  {completedDocuments}
+                </strong>
+
+                <span>
+                  Completos
+                </span>
+              </div>
+
+              <div>
+                <strong>
+                  {documentsInReview}
+                </strong>
+
+                <span>
+                  En revision
+                </span>
+              </div>
+
+              <div>
+                <strong>
+                  {remainingDocuments}
+                </strong>
+
+                <span>
+                  Pendientes
+                </span>
+              </div>
+            </div>
+          </article>
+
+
+          <article className="content-section quick-access-card">
+            <div>
+              <span className="eyebrow">
+                ACCESOS RÁPIDOS
+              </span>
+
+              <h2>
+                ¿Qué quieres consultar?
+              </h2>
+            </div>
+
+            <div className="quick-access-grid">
+              <button
+                type="button"
+                onClick={() =>
+                  handleSectionChange(
+                    "mis-datos"
+                  )
+                }
+              >
+                <strong>
+                  Mis datos
+                </strong>
+
+                <span>
+                  Consulta tu información
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  handleSectionChange(
+                    "documentacion"
+                  )
+                }
+              >
+                <strong>
+                  Documentación
+                </strong>
+
+                <span>
+                  Revisa tus documentos
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  handleSectionChange(
+                    "notificaciones"
+                  )
+                }
+              >
+                <strong>
+                  Notificaciones
+                </strong>
+
+                <span>
+                  Consulta avisos y acciones
+                </span>
+              </button>
+            </div>
+          </article>
+        </section>
+
+
         {profile.application_status ===
           "NEEDS_CORRECTION" && (
           <ProfileCorrection
@@ -281,23 +649,29 @@ export default function CollaboratorHome({
             {applicationError}
           </div>
         )}
+          </>
+        )}
 
+{activeSection === "mis-datos" && (
 <MyProfile
   apiFetch={apiFetch}
 />
+)}
 
+{activeSection === "notificaciones" && (
 <NotificationsPanel
   profile={profile}
   documents={documents}
   apiFetch={apiFetch}
 />
+)}
 
-
+{activeSection === "documentacion" && (
 <section
-  className="content-section"
+  className="document-page"
   id="documentacion"
 >
-  <div className="section-heading">
+  <div className="document-page-header">
     <div>
       <span className="eyebrow">
         DOCUMENTACIÓN
@@ -306,11 +680,158 @@ export default function CollaboratorHome({
       <h2>
         Mis documentos
       </h2>
+
+      <p>
+        Consulta el avance y estado de
+        los documentos de tu proceso
+        de incorporación.
+      </p>
     </div>
 
     <span className="document-count">
       {completedDocuments}/
       {documents.length} completos
+    </span>
+  </div>
+
+
+  <section className="document-page-summary">
+    <article>
+      <span>
+        Progreso
+      </span>
+
+      <strong>
+        {progress}%
+      </strong>
+
+      <p>
+        Avance documental
+      </p>
+    </article>
+
+    <article>
+      <span>
+        Completos
+      </span>
+
+      <strong>
+        {completedDocuments}
+      </strong>
+
+      <p>
+        Documentos terminados
+      </p>
+    </article>
+
+    <article>
+      <span>
+        En revisión
+      </span>
+
+      <strong>
+        {documentsInReview}
+      </strong>
+
+      <p>
+        En proceso con PluriOne
+      </p>
+    </article>
+
+    <article>
+      <span>
+        Pendientes
+      </span>
+
+      <strong>
+        {documentsPendingAction}
+      </strong>
+
+      <p>
+        Requieren tu atención
+      </p>
+    </article>
+  </section>
+
+
+  <section className="document-progress-panel">
+    <div className="document-progress-heading">
+      <div>
+        <span className="eyebrow">
+          ESTADO DOCUMENTAL
+        </span>
+
+        <h3>
+          Avance de documentación
+        </h3>
+      </div>
+
+      <strong>
+        {completedDocuments} de{" "}
+        {documents.length}
+      </strong>
+    </div>
+
+    <div className="document-progress-track">
+      <div
+        style={{
+          width: `${progress}%`,
+        }}
+      ></div>
+    </div>
+
+    <div className="document-progress-message">
+      {documentationComplete ? (
+        <>
+          <strong>
+            Documentación completa
+          </strong>
+
+          <span>
+            Todos tus documentos se
+            encuentran completados.
+          </span>
+        </>
+      ) : documentsInReview > 0 ? (
+        <>
+          <strong>
+            Documentos en proceso
+          </strong>
+
+          <span>
+            PluriOne está revisando
+            parte de tu documentación.
+          </span>
+        </>
+      ) : (
+        <>
+          <strong>
+            Continúa con tus documentos
+          </strong>
+
+          <span>
+            Tienes documentos pendientes
+            de completar o entregar.
+          </span>
+        </>
+      )}
+    </div>
+  </section>
+
+
+  <div className="document-list-heading">
+    <div>
+      <span className="eyebrow">
+        ARCHIVOS
+      </span>
+
+      <h3>
+        Documentos asignados
+      </h3>
+    </div>
+
+    <span>
+      {documents.length} documentos
     </span>
   </div>
 
@@ -328,6 +849,7 @@ export default function CollaboratorHome({
     )}
   </div>
 </section>
+)}
       </main>
     </div>
   );

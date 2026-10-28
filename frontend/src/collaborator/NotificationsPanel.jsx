@@ -365,12 +365,20 @@ function NotificationsPanel({
     ).length;
 
 
+  const automaticCount =
+    notifications.filter(
+      (notification) =>
+        notification.type ===
+        "automatic"
+    ).length;
+
+
   return (
-    <section
-      className="content-section notifications-section"
+        <section
+      className="notifications-page"
       id="notificaciones"
     >
-      <div className="section-heading">
+      <div className="notifications-page-header">
         <div>
           <span className="eyebrow">
             NOTIFICACIONES
@@ -379,14 +387,98 @@ function NotificationsPanel({
           <h2>
             Avisos y acciones
           </h2>
+
+          <p>
+            Consulta las acciones pendientes,
+            avisos y recordatorios de tu
+            proceso de incorporación.
+          </p>
         </div>
 
         <span className="notification-count">
           {actionCount > 0
             ? `${actionCount} requieren atención`
-            : "Sin acciones urgentes"}
+            : "Todo al día"}
         </span>
       </div>
+
+
+      <section className="notifications-summary-grid">
+        <article>
+          <span>
+            Requieren atención
+          </span>
+
+          <strong>
+            {actionCount}
+          </strong>
+
+          <p>
+            Acciones que debes revisar
+          </p>
+        </article>
+
+        <article>
+          <span>
+            Avisos totales
+          </span>
+
+          <strong>
+            {notifications.length}
+          </strong>
+
+          <p>
+            Información disponible
+          </p>
+        </article>
+
+        <article>
+          <span>
+            Recordatorios
+          </span>
+
+          <strong>
+            {automaticCount}
+          </strong>
+
+          <p>
+            Generados automáticamente
+          </p>
+        </article>
+      </section>
+
+
+      <section
+        className={
+          actionCount > 0
+            ? "notifications-status-panel attention"
+            : "notifications-status-panel clear"
+        }
+      >
+        <div className="notifications-status-icon">
+          {actionCount > 0
+            ? "!"
+            : "?"}
+        </div>
+
+        <div>
+          <span className="eyebrow">
+            ESTADO GENERAL
+          </span>
+
+          <strong>
+            {actionCount > 0
+              ? "Tienes acciones por revisar"
+              : "No tienes acciones urgentes"}
+          </strong>
+
+          <p>
+            {actionCount > 0
+              ? "Revisa los avisos que requieren tu atención para continuar con tu proceso."
+              : "Tu proceso se encuentra al día. Aquí aparecerán nuevos avisos cuando exista alguna actualización."}
+          </p>
+        </div>
+      </section>
 
 
       {loadingAutomatic && (
@@ -401,6 +493,27 @@ function NotificationsPanel({
           {automaticError}
         </div>
       )}
+
+
+      <div className="notifications-list-heading">
+        <div>
+          <span className="eyebrow">
+            ACTIVIDAD
+          </span>
+
+          <h3>
+            Notificaciones actuales
+          </h3>
+        </div>
+
+        <span>
+          {notifications.length}
+          {" "}
+          {notifications.length === 1
+            ? "aviso"
+            : "avisos"}
+        </span>
+      </div>
 
 
       {notifications.length > 0 ? (

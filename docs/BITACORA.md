@@ -2857,7 +2857,7 @@ PRÓXIMO PASO
 3.- Ejecutar las validaciones finales del frontend.
 4.- Revisar el estado final del repositorio antes de la entrega.
 
-28 de octubre de 2026 - Prueba con DEBUG=False
+## 28 de octubre de 2026 - Prueba con DEBUG=False
 
 Actividad:
 
@@ -2915,3 +2915,49 @@ Resultado:
 Las funciones principales del sistema continuaron operando con DEBUG=False. La diferencia observada fue que Django dejó de servir directamente los archivos MEDIA, comportamiento esperado para esta configuración.
 
 Al finalizar la prueba se restauró DEBUG=True para continuar con el entorno local de desarrollo.
+
+## 28 de octubre de 2026 - Actualización visual del portal del colaborador
+
+Actividad:
+
+Se actualizó la interfaz del portal del colaborador y se reorganizaron sus secciones principales.
+
+Trabajo realizado:
+
+• Se actualizó la escala tipográfica y el espaciado general de la interfaz.
+
+• El menú lateral del colaborador ahora permite navegar entre Inicio, Mis datos, Documentación y Notificaciones como vistas independientes.
+
+• La opción activa del menú lateral se identifica visualmente.
+
+• La vista Inicio incorpora resumen de progreso documental, estado de solicitud, universidad, estado del proceso de incorporación, próxima acción, resumen documental y accesos rápidos.
+
+• La vista Mis datos fue reorganizada en resumen de perfil, información personal, información académica y archivos registrados.
+
+• La vista Documentación incorpora resumen de progreso, documentos completos, documentos en revisión, pendientes, barra de avance y documentos asignados.
+
+• Se conservaron las acciones existentes para consultar, entregar, corregir, descargar y confirmar documentos.
+
+• La vista Notificaciones incorpora resumen de acciones, avisos, recordatorios automáticos, estado general y listado de actividad.
+
+• Se conservaron los recordatorios automáticos existentes y su fecha de generación.
+
+• Se corrigieron textos visibles con caracteres especiales y acentos.
+
+• Se mantuvieron los temas PluriOne, Claro y Oscuro.
+
+• No se realizaron cambios en la API, base de datos ni lógica del backend.
+
+Validación:
+
+• npm run lint finalizó sin errores.
+
+• npm run build finalizó correctamente.
+
+• Vite transformó correctamente los módulos del frontend.
+
+• Las vistas Inicio, Mis datos, Documentación y Notificaciones fueron revisadas visualmente en el portal del colaborador.
+
+Resultado:
+
+El portal del colaborador quedó dividido en vistas independientes y mantiene las funciones existentes de consulta de perfil, seguimiento documental, carga de archivos y notificaciones.

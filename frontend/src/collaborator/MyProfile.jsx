@@ -100,12 +100,31 @@ function MyProfile({
   }
 
 
+  const statusLabels = {
+    DRAFT:
+      "Borrador",
+    IN_REVIEW:
+      "En revisión",
+    NEEDS_CORRECTION:
+      "Requiere corrección",
+    APPROVED:
+      "Aprobado",
+  };
+
+  const statusLabel =
+    statusLabels[
+      profile.application_status
+    ] ||
+    profile.application_status ||
+    "Sin estado";
+
+
   return (
     <section
-      className="content-section my-profile-section"
+      className="my-profile-page"
       id="mis-datos"
     >
-      <div className="section-heading">
+      <div className="my-profile-page-header">
         <div>
           <span className="eyebrow">
             PERFIL
@@ -114,128 +133,229 @@ function MyProfile({
           <h2>
             Mis datos
           </h2>
+
+          <p>
+            Consulta la información
+            registrada para tu proceso
+            de incorporación.
+          </p>
         </div>
 
         <span className="profile-status-badge">
-          {profile.application_status}
+          {statusLabel}
         </span>
       </div>
 
 
-      <div className="my-profile-grid">
-        <ProfileData
-          label="Nombre completo"
-          value={profile.full_name}
+      <section className="profile-summary-grid">
+        <ProfileSummary
+          label="Estado"
+          value={statusLabel}
+          description="Situación de tu solicitud"
         />
 
-        <ProfileData
-          label="CURP"
-          value={profile.curp}
-        />
-
-        <ProfileData
-          label="Teléfono"
-          value={profile.phone}
-        />
-
-        <ProfileData
-          label="Correo personal"
-          value={profile.email}
-        />
-
-        <ProfileData
-          label="Correo institucional"
-          value={
-            profile.institutional_email
-          }
-        />
-
-        <ProfileData
+        <ProfileSummary
           label="Universidad"
-          value={profile.university}
-        />
-
-        <ProfileData
-          label="Siglas"
           value={
-            profile.university_acronym
+            profile.university_acronym ||
+            "-"
+          }
+          description={
+            profile.university ||
+            "Sin universidad"
           }
         />
 
-        <ProfileData
+        <ProfileSummary
           label="Carrera"
-          value={profile.career}
+          value={
+            profile.career ||
+            "-"
+          }
+          description="Programa académico"
         />
 
-        <ProfileData
+        <ProfileSummary
           label="Horas a cumplir"
           value={
-            `${profile.required_hours} horas`
+            `${profile.required_hours || 0}`
           }
+          description="Horas requeridas"
         />
-      </div>
+      </section>
 
 
-      <div className="my-profile-files">
-        <div>
+      <section className="profile-information-card">
+        <div className="profile-block-heading">
+          <div>
+            <span className="eyebrow">
+              INFORMACIÓN PERSONAL
+            </span>
+
+            <h3>
+              Datos personales
+            </h3>
+          </div>
+
           <span>
-            CV
+            Información de contacto
           </span>
-
-          {profile.cv ? (
-            <a
-              href={profile.cv}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Ver CV
-              <strong>↗</strong>
-            </a>
-          ) : (
-            <p>
-              Sin archivo disponible
-            </p>
-          )}
         </div>
 
+        <div className="my-profile-grid personal-data-grid">
+          <ProfileData
+            label="Nombre completo"
+            value={profile.full_name}
+          />
 
-        <div>
-          <span>
-            Credencial universitaria
-          </span>
+          <ProfileData
+            label="CURP"
+            value={profile.curp}
+          />
 
-          {profile.university_id ? (
-            <a
-              href={
-                profile.university_id
-              }
-              target="_blank"
-              rel="noreferrer"
-            >
-              Ver credencial
-              <strong>↗</strong>
-            </a>
-          ) : (
-            <p>
-              Sin archivo disponible
-            </p>
-          )}
+          <ProfileData
+            label="Teléfono"
+            value={profile.phone}
+          />
+
+          <ProfileData
+            label="Correo personal"
+            value={profile.email}
+          />
+
+          <ProfileData
+            label="Correo institucional"
+            value={
+              profile.institutional_email
+            }
+          />
         </div>
-      </div>
+      </section>
+
+
+      <section className="profile-information-card">
+        <div className="profile-block-heading">
+          <div>
+            <span className="eyebrow">
+              INFORMACIÓN ACADÉMICA
+            </span>
+
+            <h3>
+              Datos universitarios
+            </h3>
+          </div>
+
+          <span>
+            Información de estadía
+          </span>
+        </div>
+
+        <div className="my-profile-grid academic-data-grid">
+          <ProfileData
+            label="Universidad"
+            value={profile.university}
+          />
+
+          <ProfileData
+            label="Siglas"
+            value={
+              profile.university_acronym
+            }
+          />
+
+          <ProfileData
+            label="Carrera"
+            value={profile.career}
+          />
+
+          <ProfileData
+            label="Horas a cumplir"
+            value={
+              `${profile.required_hours} horas`
+            }
+          />
+        </div>
+      </section>
+
+
+      <section className="profile-files-card">
+        <div className="profile-block-heading">
+          <div>
+            <span className="eyebrow">
+              ARCHIVOS
+            </span>
+
+            <h3>
+              Documentos registrados
+            </h3>
+          </div>
+
+          <span>
+            Archivos de tu perfil
+          </span>
+        </div>
+
+        <div className="my-profile-files">
+          <ProfileFile
+            title="Currículum Vitae"
+            shortTitle="CV"
+            href={profile.cv}
+            action="Ver CV"
+          />
+
+          <ProfileFile
+            title="Credencial universitaria"
+            shortTitle="ID"
+            href={
+              profile.university_id
+            }
+            action="Ver credencial"
+          />
+        </div>
+      </section>
 
 
       <div className="my-profile-note">
-        <strong>
-          Información de incorporación
-        </strong>
+        <div className="profile-note-icon">
+          i
+        </div>
 
-        <p>
-          Estos son los datos registrados
-          actualmente en tu perfil de
-          PluriOne.
-        </p>
+        <div>
+          <strong>
+            Información de incorporación
+          </strong>
+
+          <p>
+            Estos son los datos registrados
+            actualmente en tu perfil de
+            PluriOne.
+          </p>
+        </div>
       </div>
     </section>
+  );
+}
+
+
+function ProfileSummary({
+  label,
+  value,
+  description,
+}) {
+  return (
+    <article className="profile-summary-card">
+      <span>
+        {label}
+      </span>
+
+      <strong>
+        {value}
+      </strong>
+
+      <p>
+        {description}
+      </p>
+    </article>
   );
 }
 
@@ -254,6 +374,45 @@ function ProfileData({
         {value || "-"}
       </strong>
     </div>
+  );
+}
+
+
+function ProfileFile({
+  title,
+  shortTitle,
+  href,
+  action,
+}) {
+  return (
+    <article className="profile-file-item">
+      <div className="profile-file-icon">
+        {shortTitle}
+      </div>
+
+      <div className="profile-file-content">
+        <span>
+          {title}
+        </span>
+
+        {href ? (
+          <a
+            href={href}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {action}
+            <strong>
+              ↗
+            </strong>
+          </a>
+        ) : (
+          <p>
+            Sin archivo disponible
+          </p>
+        )}
+      </div>
+    </article>
   );
 }
 
