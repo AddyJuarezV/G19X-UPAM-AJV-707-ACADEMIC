@@ -2133,7 +2133,7 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 
 **Próximo paso:** simplificar el README principal y agregar la sección de uso de IA.
 
-28 de octubre de 2026 - Separación de ThemeSwitcher
+ ## 28 de octubre de 2026 - Separación de ThemeSwitcher
 
 Actividad:
 
@@ -2159,13 +2159,13 @@ Próximo paso:
 2.- Simplificar README.md para dejar únicamente instrucciones de instalación, ejecución, verificación y solución de problemas.
 3.- Incluir la sección breve de uso de IA.
 
-28 de octubre de 2026 - Historial trasladado desde README
+ ## 28 de octubre de 2026 - Historial trasladado desde README
 
 Actividad:
 
-Como parte de la simplificaci?n solicitada para README.md, se conserva en esta bit?cora el historial acumulado que anteriormente se encontraba en las secciones Completado, En progreso y Pr?ximo paso.
+Como parte de la simplificacion solicitada para README.md, se conserva en esta bitacora el historial acumulado que anteriormente se encontraba en las secciones Completado, En progreso y Proximo paso.
 
-El contenido siguiente se traslad? antes de reducir README.md para evitar perder el registro hist?rico del desarrollo.
+El contenido siguiente se traslad? antes de reducir README.md para evitar perder el registro historico del desarrollo.
 
 HISTORIAL CONSOLIDADO
 
@@ -2796,7 +2796,7 @@ COMPLETADO
 
 
 
-EN PROGRESO
+## EN PROGRESO
 
 1.- Simplificar el README principal.
 2.- Documentar de forma breve el uso de IA durante el desarrollo.
@@ -2810,3 +2810,48 @@ EN PROGRESO
 2.- Eliminar inconsistencias de formato pendientes.
 3.- Agregar una sección breve sobre el uso de IA.
 4.- Ejecutar las validaciones finales de backend y frontend.
+
+28 de octubre de 2026 - Simplificación del README
+
+Actividad:
+
+Se reorganizó README.md para dejarlo enfocado en la instalación, ejecución y verificación del sistema.
+
+Trabajo realizado:
+
+• El README pasó de 1,385 líneas a 460 líneas.
+• El historial de desarrollo ya había sido trasladado previamente a docs/BITACORA.md.
+• Se eliminaron las secciones Completado, En progreso y Próximo paso del README.
+• Se eliminaron los residuos de formato \--- y &#x20;.
+• Se evitó el uso de encabezados con # y separadores innecesarios.
+• Se reorganizaron las instrucciones utilizando numeración, puntos y texto simple.
+• Se conservaron los pasos necesarios para montar el backend y frontend.
+• Se incluyó la configuración de .env.
+• Se incluyó la restauración de PostgreSQL.
+• Se incluyó la copia de demo_media.
+• Se incluyeron los comandos de pruebas del backend.
+• Se incluyeron npm run lint y npm run build.
+• Se incluyó revisar_pendientes --dry-run.
+• Se agregó una solución alternativa para Windows cuando psql no está disponible en PATH.
+• Se documentó el caso de tokens JWT inválidos después de cambiar SECRET_KEY.
+• Se agregó la sección Uso de inteligencia artificial.
+• Se agregó evidencia resumida de la instalación limpia validada.
+• Se corrigió la codificación del README y se verificó que permaneciera en UTF-8.
+
+Resultado:
+
+README.md funciona ahora como manual para instalar, ejecutar y comprobar PluriOne Onboarding.
+
+El historial detallado del desarrollo permanece en docs/BITACORA.md.
+
+EN PROGRESO
+
+• Revisión final de documentación.
+• Validaciones finales del sistema.
+
+PRÓXIMO PASO
+
+1.- Revisar que README.md contenga todos los comandos necesarios.
+2.- Ejecutar las validaciones finales del backend.
+3.- Ejecutar las validaciones finales del frontend.
+4.- Revisar el estado final del repositorio antes de la entrega.
