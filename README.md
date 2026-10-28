@@ -344,6 +344,34 @@ Si ocurre este caso:
 Un 401 inicial después de cambiar SECRET_KEY no significa necesariamente que la base de datos o el backend están dañados.
 
 
+PRUEBA CON DEBUG=False
+
+Se realizó una prueba temporal del sistema con:
+
+    DEBUG=False
+
+Durante la prueba se comprobó:
+
+• Django inició sin errores.
+• ALLOWED_HOSTS aceptó 127.0.0.1 y localhost.
+• El inicio de sesión continuó funcionando.
+• El portal del colaborador cargó correctamente.
+• El panel del encargado cargó correctamente.
+• Las funciones principales de la API continuaron operando.
+• Los registros de documentos continuaron visibles en el sistema.
+• Los archivos ubicados en MEDIA dejaron de ser servidos directamente por Django.
+
+Al intentar abrir directamente un archivo de MEDIA se obtuvo una respuesta 404 Not Found.
+
+Este comportamiento es esperado en la configuración actual porque backend/config/urls.py sirve los archivos de MEDIA directamente sólo durante el desarrollo.
+
+En un despliegue de producción, los archivos de MEDIA deberán ser servidos mediante la infraestructura correspondiente, por ejemplo un servidor web o un servicio de almacenamiento.
+
+Después de terminar la prueba, el entorno local se regresó a:
+
+    DEBUG=True
+
+
 SEGUIMIENTO AUTOMÁTICO EN WINDOWS
 
 El proyecto incluye:
@@ -389,19 +417,19 @@ DOCUMENTACIÓN DEL PROYECTO
 
 PRD:
 
-    docs\PRD.md
+[Consultar PRD](docs/PRD.md)
 
 Contiene el problema observado, necesidades, alcance y propuesta del sistema.
 
 MVP:
 
-    docs\MVP.md
+[Consultar MVP](docs/MVP.md)
 
 Contiene las funciones definidas para la primera versión funcional.
 
 BITÁCORA:
 
-    docs\BITACORA.md
+[Consultar BITÁCORA](docs/BITACORA.md)
 
 Contiene el registro cronológico del desarrollo, cambios realizados, pruebas, problemas encontrados, soluciones, estado del proyecto y próximos pasos.
 

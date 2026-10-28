@@ -2079,6 +2079,7 @@ Realizar las comprobaciones técnicas finales de reproducibilidad, actualizar el
 
 **Entorno de prueba:**
 
+- Commit probado: `8137d2f`.
 - Windows.
 - Python 3.12.10.
 - Django 6.1.1.
@@ -2855,3 +2856,62 @@ PRÓXIMO PASO
 2.- Ejecutar las validaciones finales del backend.
 3.- Ejecutar las validaciones finales del frontend.
 4.- Revisar el estado final del repositorio antes de la entrega.
+
+28 de octubre de 2026 - Prueba con DEBUG=False
+
+Actividad:
+
+Se realizó una prueba temporal del sistema utilizando DEBUG=False para comprobar el comportamiento del proyecto fuera del modo normal de desarrollo.
+
+Entorno probado:
+
+• Commit probado: db23060.
+• Windows.
+• Python 3.12.10.
+• DEBUG=False.
+• ALLOWED_HOSTS efectivo: 127.0.0.1 y localhost.
+
+Validaciones realizadas:
+
+• python manage.py check finalizó sin problemas.
+• Django reconoció DEBUG=False correctamente.
+• http://127.0.0.1:8000/admin/ respondió HTTP 302.
+• http://localhost:8000/admin/ respondió HTTP 302.
+• El inicio de sesión continuó funcionando.
+• El portal del colaborador cargó correctamente.
+• Mis datos cargó correctamente.
+• Documentación cargó correctamente.
+• Notificaciones cargó correctamente.
+• El panel del encargado cargó correctamente.
+• Generaciones y pendientes cargaron correctamente.
+• Los documentos permanecieron registrados y visibles dentro del sistema.
+
+Prueba de archivos MEDIA:
+
+Al intentar abrir directamente un documento almacenado en MEDIA se obtuvo 404 Not Found.
+
+La prueba se realizó con el archivo:
+
+    /media/onboarding/signed/peter_carta_aceptacion_firmada_empresa.txt
+
+El resultado es esperado porque la configuración actual de urls.py sólo sirve MEDIA directamente cuando DEBUG está activo.
+
+Para un despliegue de producción los archivos de MEDIA deberán ser servidos mediante infraestructura destinada a archivos estáticos o multimedia.
+
+Observación encontrada durante la prueba:
+
+Inicialmente Django continuaba mostrando DEBUG=True aunque .env ya contenía DEBUG=False.
+
+Se comprobó que la sesión de PowerShell tenía una variable de entorno DEBUG=True que tenía prioridad sobre el archivo .env.
+
+Se eliminó temporalmente de la sesión mediante:
+
+    Remove-Item Env:DEBUG
+
+Después de retirarla, Django reconoció correctamente DEBUG=False.
+
+Resultado:
+
+Las funciones principales del sistema continuaron operando con DEBUG=False. La diferencia observada fue que Django dejó de servir directamente los archivos MEDIA, comportamiento esperado para esta configuración.
+
+Al finalizar la prueba se restauró DEBUG=True para continuar con el entorno local de desarrollo.
