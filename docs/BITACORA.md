@@ -3061,3 +3061,65 @@ Validación:
 Resultado:
 
 PluriOne cuenta con tres temas visuales diferenciados y estados de solicitud en español, manteniendo las funciones existentes de ambos portales.
+
+## 29 de octubre de 2026 - Rediseño del login y pantalla de carga
+
+Actividad:
+
+Se actualizó el diseño de la pantalla de inicio de sesión y se personalizó la pantalla de transición de acceso para los tres temas visuales de PluriOne.
+
+Trabajo realizado:
+
+• Se rediseñó la interfaz del login para mantener la identidad visual del sistema.
+
+• Se conservó la portada de bienvenida y su animación de transición hacia el formulario de inicio de sesión.
+
+• Se amplió la tarjeta del formulario y se ajustaron sus dimensiones, bordes, colores y espaciados.
+
+• Se aumentó el tamaño de los títulos, descripciones, etiquetas, campos de entrada y botones para mejorar su legibilidad.
+
+• Se actualizaron los estilos de los campos de correo electrónico y contraseña.
+
+• Se incorporó un botón con icono de ojo para mostrar y ocultar la contraseña.
+
+• Se ajustaron los colores y estados visuales de los botones del formulario.
+
+• Se adaptó el formulario de acceso a los temas PluriOne, Claro y Oscuro.
+
+• Se actualizó la pantalla de carga del tema PluriOne con azul corporativo y detalles dorados.
+
+• Se actualizó la pantalla de carga del tema Claro con gris azulado y verde petróleo.
+
+• Se actualizó la pantalla de carga del tema Oscuro con azul medianoche y detalles turquesas.
+
+• Se ajustaron los colores de las órbitas, silueta, barra de progreso y elementos animados de la pantalla de carga.
+
+• Se conservaron las animaciones y los mensajes de validación del inicio de sesión.
+
+• Se incorporaron ajustes de visualización para diferentes tamaños de pantalla.
+
+• Se mantuvieron las funciones existentes de inicio de sesión y registro de colaboradores.
+
+• No se modificaron los endpoints, la base de datos ni la lógica del backend.
+
+Validación:
+
+• Se revisó visualmente la portada y el formulario de inicio de sesión.
+
+• Se comprobó el funcionamiento del botón para mostrar y ocultar la contraseña.
+
+• Se revisó la visualización del login en los tres temas disponibles.
+
+• Se comprobaron visualmente las pantallas de carga PluriOne, Claro y Oscuro.
+
+• Se verificó la conservación de las animaciones de transición.
+
+• Se ejecutó git diff --check sin errores.
+
+• Se ejecutó npm run lint sin errores.
+
+• Se ejecutó npm run build con compilación exitosa.
+
+Resultado:
+
+El login de PluriOne cuenta con una interfaz renovada, tipografía más legible, control de visibilidad de contraseña y pantallas de carga diferenciadas para los tres temas visuales, manteniendo el funcionamiento existente del sistema.

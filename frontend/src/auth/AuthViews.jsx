@@ -105,6 +105,7 @@ export function Login({
   onRegister,
 }) {
   const [showForm, setShowForm] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="modern-login-page">
@@ -234,9 +235,10 @@ export function Login({
                   Contraseña
                 </label>
 
-                <input
+                <div className="auth-password-wrap">
+  <input
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="off"
                   placeholder="Ingresa tu contraseña"
                   value={password}
@@ -247,6 +249,42 @@ export function Login({
                   }
                   required
                 />
+
+  <button
+    type="button"
+    className="auth-password-toggle"
+    onClick={() => setShowPassword((value) => !value)}
+    aria-label={
+      showPassword
+        ? "Ocultar contrase\u00f1a"
+        : "Mostrar contrase\u00f1a"
+    }
+    aria-pressed={showPassword}
+    title={
+      showPassword
+        ? "Ocultar contrase\u00f1a"
+        : "Mostrar contrase\u00f1a"
+    }
+  >
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+      <circle cx="12" cy="12" r="3" />
+      {showPassword && (
+        <path d="M3 3l18 18" />
+      )}
+    </svg>
+  </button>
+</div>
               </div>
 
               <div className="auth-options">
