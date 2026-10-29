@@ -3123,3 +3123,38 @@ Validación:
 Resultado:
 
 El login de PluriOne cuenta con una interfaz renovada, tipografía más legible, control de visibilidad de contraseña y pantallas de carga diferenciadas para los tres temas visuales, manteniendo el funcionamiento existente del sistema.
+
+
+## 29 de octubre de 2026 - Personalización de la identidad del navegador
+
+Actividad:
+
+Se personalizó la identificación de PluriOne en la pestaña del navegador.
+
+Trabajo realizado:
+
+• Se reemplazó el título predeterminado frontend por PluriOne | Incorporación.
+
+• Se creó un icono SVG personalizado para representar la identidad visual de PluriOne.
+
+• Se incorporó la letra P con colores azul petróleo y un detalle dorado.
+
+• Se configuró el nuevo icono como favicon del sistema.
+
+• Se actualizó el idioma principal del documento HTML a español.
+
+• Se conservó la identificación visual en las páginas de inicio de sesión, registro, colaborador y encargado.
+
+• No se modificaron las funciones del sistema ni la lógica del backend.
+
+Validación:
+
+• Se comprobó visualmente el nuevo título en la pestaña del navegador.
+
+• Se verificó la visualización del icono personalizado.
+
+• Se comprobó el funcionamiento del portal del encargado después del cambio.
+
+Resultado:
+
+PluriOne cuenta con una identidad visual personalizada en la pestaña del navegador, reemplazando los elementos predeterminados de Vite.
