@@ -2961,3 +2961,55 @@ Validación:
 Resultado:
 
 El portal del colaborador quedó dividido en vistas independientes y mantiene las funciones existentes de consulta de perfil, seguimiento documental, carga de archivos y notificaciones.
+
+## 29 de octubre de 2026 - Actualización del portal del encargado
+
+Actividad:
+
+Se actualizó la interfaz del portal del encargado y se incorporaron herramientas de navegación, consulta y filtrado.
+
+Trabajo realizado:
+
+• Se separaron las vistas Inicio, Generaciones y Pendientes mediante navegación independiente.
+
+• Se actualizó el menú lateral para identificar visualmente la sección activa.
+
+• Se reorganizó Inicio con indicadores de generación activa, colaboradores, solicitudes pendientes y documentos por gestionar.
+
+• Se incorporó un panel de atención requerida con información operativa y acceso a Pendientes.
+
+• Se agregó un resumen de colaboradores asignados, completos, en proceso y con observaciones dentro de Generaciones.
+
+• Se implementaron filtros interactivos por estado visual de los colaboradores.
+
+• Las tarjetas de colaboradores permiten abrir una ventana con información personal académica, estado de solicitud, avance documental y gestiones pendientes del encargado.
+
+• Se integraron las acciones documentales existentes dentro de la ventana de detalle del colaborador.
+
+• Se conservaron los controles para seleccionar, crear y cerrar generaciones.
+
+• Se incorporaron filtros documentales para mostrar todas las gestiones, publicar plantillas, revisar entregas y gestionar firmas.
+
+• Se añadieron mensajes para filtros sin resultados.
+
+• Se corrigieron caracteres especiales y se tradujeron estados visibles al español, conservando los valores internos del sistema.
+
+• Se mantuvieron los temas PluriOne, Claro y Oscuro.
+
+• No se modificaron la base de datos, los endpoints ni la lógica del backend.
+
+Validación:
+
+• Se comprobaron visualmente las vistas Inicio, Generaciones y Pendientes.
+
+• Se comprobó el filtrado por estado en el tablero de colaboradores.
+
+• Se comprobó la apertura de la ventana de detalle del colaborador.
+
+• Se comprobó el filtrado de documentos por tipo de gestión.
+
+• Se realizaron validaciones mediante npm run lint y npm run build.
+
+Resultado:
+
+El portal del encargado cuenta con navegación independiente, indicadores operativos, filtros de colaboradores, consulta individual y organización de pendientes por acción.

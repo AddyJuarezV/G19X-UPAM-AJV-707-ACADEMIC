@@ -119,7 +119,11 @@ export default function Sidebar({
             ) : (
               <>
                 <button
-                  className="nav-item"
+                  className={
+                    navClass(
+                      "generaciones"
+                    )
+                  }
                   type="button"
                   onClick={() =>
                     goTo(
@@ -132,7 +136,11 @@ export default function Sidebar({
                 </button>
 
                 <button
-                  className="nav-item"
+                  className={
+                    navClass(
+                      "pendientes"
+                    )
+                  }
                   type="button"
                   onClick={() =>
                     goTo(

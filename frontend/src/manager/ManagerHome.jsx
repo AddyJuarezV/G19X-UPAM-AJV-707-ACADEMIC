@@ -16,6 +16,22 @@ export default function ManagerHome({
   onRefresh,
   onLogout,
 }) {
+const [
+  activeSection,
+  setActiveSection,
+] = useState("inicio");
+
+const handleSectionChange = (
+  section
+) => {
+  setActiveSection(section);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
  const firstOpenGeneration =
   generations.find(
     (generation) =>
@@ -43,11 +59,136 @@ const selectedGeneration =
   const members =
     selectedGeneration?.members || [];
 
+  const [pendingActionFilter, setPendingActionFilter] =
+    useState("ALL");
+
+  const pendingActionCounts = {
+    ALL: pendingDocuments.length,
+    TEMPLATE: pendingDocuments.filter(
+      (doc) => doc.status === "PENDING"
+    ).length,
+    REVIEW: pendingDocuments.filter(
+      (doc) => doc.status === "DELIVERED"
+    ).length,
+    SIGNATURE: pendingDocuments.filter(
+      (doc) => doc.status === "PENDING_SIGNATURE"
+    ).length,
+  };
+
+  const filteredManagerPendingDocuments =
+    pendingDocuments.filter((doc) => {
+      if (pendingActionFilter === "ALL") {
+        return true;
+      }
+
+      const statuses = {
+        TEMPLATE: "PENDING",
+        REVIEW: "DELIVERED",
+        SIGNATURE: "PENDING_SIGNATURE",
+      };
+
+      return doc.status === statuses[pendingActionFilter];
+    });
+
+  const pendingFilterOptions = [
+    { id: "ALL", label: "Todos" },
+    { id: "TEMPLATE", label: "Publicar plantilla" },
+    { id: "REVIEW", label: "Revisar entregas" },
+    { id: "SIGNATURE", label: "Pendientes de firma" },
+  ];
+
+
+
+  const [
+    memberFilter,
+    setMemberFilter,
+  ] = useState("ALL");
+
+  const filteredMembers =
+    memberFilter === "ALL"
+      ? members
+      : members.filter(
+          (member) =>
+            member.visual_status ===
+            memberFilter
+        );
+
+
+  const [
+    selectedMemberId,
+    setSelectedMemberId,
+  ] = useState(null);
+
+  const selectedMember =
+    members.find(
+      (member) =>
+        member.collaborator_id ===
+        selectedMemberId
+    ) || null;
+
+  const selectedMemberPendingDocuments =
+    selectedMember
+      ? pendingDocuments.filter(
+          (document) =>
+            document.collaborator_id ===
+            selectedMember.collaborator_id
+        )
+      : [];
+
+  const selectedMemberApplicationLabel =
+    selectedMember
+      ? {
+          DRAFT: "Borrador",
+          IN_REVIEW: "En revisión",
+          NEEDS_CORRECTION:
+            "Requiere corrección",
+          APPROVED: "Aprobada",
+        }[
+          selectedMember
+            .application_status
+        ] ||
+        selectedMember
+          .application_status
+      : "";
+
+  const selectedMemberProgress =
+    selectedMember &&
+    selectedMember.documents_total > 0
+      ? Math.round(
+          (
+            selectedMember
+              .documents_completed /
+            selectedMember
+              .documents_total
+          ) * 100
+        )
+      : 0;
+
   const greenCount =
     members.filter(
       (member) =>
         member.visual_status === "GREEN"
     ).length;
+
+
+  const yellowCount =
+    members.filter(
+      (member) =>
+        member.visual_status === "YELLOW"
+    ).length;
+
+  const redCount =
+    members.filter(
+      (member) =>
+        member.visual_status === "RED"
+    ).length;
+
+  const selectedGenerationStatusLabel =
+    selectedGeneration?.status === "OPEN"
+      ? "Abierta"
+      : selectedGeneration?.status === "CLOSED"
+        ? "Cerrada"
+        : "Sin estado";
 
     const [
   showGenerationForm,
@@ -219,9 +360,17 @@ const createGeneration =
       <Sidebar
         user={user}
         onLogout={onLogout}
+        activeSection={
+          activeSection
+        }
+        onSectionChange={
+          handleSectionChange
+        }
       />
 
       <main className="dashboard-content">
+        {activeSection === "inicio" && (
+          <>
         <header className="dashboard-header">
           <div>
             <span className="eyebrow">
@@ -246,51 +395,7 @@ const createGeneration =
           />
         </header>
 
-        <section
-  className="content-section available-section"
-  id="disponibles"
->
-  <div className="section-heading">
-    <div>
-      <span className="eyebrow">
-        INCORPORACIÓN
-      </span>
-
-      <h2>
-        Colaboradores disponibles
-      </h2>
-    </div>
-
-    <span className="document-count">
-      {availableCollaborators.length} disponibles
-    </span>
-  </div>
-
-
-  {availableCollaborators.length > 0 ? (
-    <div className="available-collaborators-grid">
-      {availableCollaborators.map(
-  (collaborator) => (
-    <AvailableCollaboratorCard
-      key={collaborator.id}
-      collaborator={collaborator}
-      generations={generations}
-      apiFetch={apiFetch}
-      onRefresh={onRefresh}
-    />
-  )
-)}
-    </div>
-  ) : (
-    <EmptyState
-      title="Sin colaboradores disponibles"
-      text="No hay colaboradores aprobados esperando asignación a una generación."
-    />
-  )}
-</section>
-
-
-        <section className="manager-summary-grid">
+        <section className="manager-summary-grid manager-home-summary">
           <ManagerSummary
             label="Generación activa"
             value={
@@ -300,7 +405,7 @@ const createGeneration =
             }
             description={
               selectedGeneration
-                ? selectedGeneration.status
+                ? selectedGenerationStatusLabel
                 : "No disponible"
             }
           />
@@ -316,7 +421,7 @@ const createGeneration =
           <ManagerSummary
             label="Solicitudes pendientes"
             value={
-             pendingApplications.length
+              pendingApplications.length
             }
             description="Esperando revisión"
             danger={
@@ -334,6 +439,155 @@ const createGeneration =
         </section>
 
 
+        <div className="manager-home-main-grid">
+          <section
+            className="content-section available-section manager-home-available"
+            id="disponibles"
+          >
+            <div className="section-heading">
+              <div>
+                <span className="eyebrow">
+                  INCORPORACIÓN
+                </span>
+
+                <h2>
+                  Colaboradores disponibles
+                </h2>
+              </div>
+
+              <span className="document-count">
+                {availableCollaborators.length}
+                {" "}
+                disponibles
+              </span>
+            </div>
+
+
+            {availableCollaborators.length > 0 ? (
+              <div className="available-collaborators-grid">
+                {availableCollaborators.map(
+                  (collaborator) => (
+                    <AvailableCollaboratorCard
+                      key={collaborator.id}
+                      collaborator={collaborator}
+                      generations={generations}
+                      apiFetch={apiFetch}
+                      onRefresh={onRefresh}
+                    />
+                  )
+                )}
+              </div>
+            ) : (
+              <EmptyState
+                title="Sin colaboradores disponibles"
+                text="No hay colaboradores aprobados esperando asignación a una generación."
+              />
+            )}
+          </section>
+
+
+          <section className="content-section manager-attention-card">
+            <div>
+              <span className="eyebrow">
+                ESTADO OPERATIVO
+              </span>
+
+              <h2>
+                Atención requerida
+              </h2>
+
+              <p className="manager-attention-description">
+                Resumen de los elementos que
+                actualmente requieren gestión.
+              </p>
+            </div>
+
+
+            <div className="manager-attention-list">
+              <div>
+                <span>
+                  Solicitudes por revisar
+                </span>
+
+                <strong>
+                  {pendingApplications.length}
+                </strong>
+              </div>
+
+              <div>
+                <span>
+                  Documentos por gestionar
+                </span>
+
+                <strong>
+                  {pendingDocuments.length}
+                </strong>
+              </div>
+
+              <div>
+                <span>
+                  Colaboradores sin asignar
+                </span>
+
+                <strong>
+                  {availableCollaborators.length}
+                </strong>
+              </div>
+            </div>
+
+
+            {(
+              pendingApplications.length +
+              pendingDocuments.length
+            ) > 0 ? (
+              <div className="manager-attention-footer attention">
+                <div>
+                  <strong>
+                    Hay gestiones pendientes
+                  </strong>
+
+                  <span>
+                    Revisa las solicitudes o
+                    documentos que necesitan
+                    intervención.
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    handleSectionChange(
+                      "pendientes"
+                    )
+                  }
+                >
+                  Ver pendientes
+                </button>
+              </div>
+            ) : (
+              <div className="manager-attention-footer clear">
+                <div>
+                  <strong>
+                    Gestión al día
+                  </strong>
+
+                  <span>
+                    No hay solicitudes ni
+                    documentos esperando
+                    revisión.
+                  </span>
+                </div>
+              </div>
+            )}
+          </section>
+        </div>
+
+
+          </>
+        )}
+
+
+        {activeSection === "generaciones" && (
         <section
           className="content-section"
           id="generaciones"
@@ -401,7 +655,114 @@ const createGeneration =
 </div>
           </div>
 
-          {showGenerationForm && (
+                    <section
+            className="generation-summary-grid"
+            aria-label="Filtros de colaboradores"
+          >
+            <button
+              type="button"
+              className={
+                memberFilter === "ALL"
+                  ? "generation-summary-card active"
+                  : "generation-summary-card"
+              }
+              onClick={() =>
+                setMemberFilter("ALL")
+              }
+            >
+              <span>
+                Colaboradores asignados
+              </span>
+
+              <strong>
+                {members.length}
+              </strong>
+
+              <p>
+                Total en la generación
+              </p>
+            </button>
+
+
+            <button
+              type="button"
+              className={
+                memberFilter === "GREEN"
+                  ? "generation-summary-card complete active"
+                  : "generation-summary-card complete"
+              }
+              onClick={() =>
+                setMemberFilter("GREEN")
+              }
+            >
+              <span>
+                Completos
+              </span>
+
+              <strong>
+                {greenCount}
+              </strong>
+
+              <p>
+                Proceso terminado
+              </p>
+            </button>
+
+
+            <button
+              type="button"
+              className={
+                memberFilter === "YELLOW"
+                  ? "generation-summary-card process active"
+                  : "generation-summary-card process"
+              }
+              onClick={() =>
+                setMemberFilter("YELLOW")
+              }
+            >
+              <span>
+                En proceso
+              </span>
+
+              <strong>
+                {yellowCount}
+              </strong>
+
+              <p>
+                Incorporación en curso
+              </p>
+            </button>
+
+
+            <button
+              type="button"
+              className={
+                memberFilter === "RED"
+                  ? "generation-summary-card danger active"
+                  : redCount > 0
+                    ? "generation-summary-card danger"
+                    : "generation-summary-card"
+              }
+              onClick={() =>
+                setMemberFilter("RED")
+              }
+            >
+              <span>
+                Requieren atención
+              </span>
+
+              <strong>
+                {redCount}
+              </strong>
+
+              <p>
+                Casos con observaciones
+              </p>
+            </button>
+          </section>
+
+
+{showGenerationForm && (
   <form
     className="generation-create-panel"
     onSubmit={createGeneration}
@@ -510,8 +871,7 @@ const createGeneration =
     }
   >
     {
-      selectedGeneration
-        .status
+      selectedGenerationStatusLabel
     }
   </span>
 
@@ -541,13 +901,18 @@ const createGeneration =
               </div>
 
 
-              {members.length > 0 ? (
+              {filteredMembers.length > 0 ? (
                 <div className="member-grid">
-                  {members.map(
+                  {filteredMembers.map(
                     (member) => (
                       <MemberCard
                         key={member.id}
                         member={member}
+                        onOpen={() =>
+                          setSelectedMemberId(
+                            member.collaborator_id
+                          )
+                        }
                       />
                     )
                   )}
@@ -567,6 +932,219 @@ const createGeneration =
           )}
         </section>
 
+        )}
+
+
+        {activeSection === "generaciones" &&
+          selectedMember && (
+          <div
+            className="member-detail-backdrop"
+            role="presentation"
+            onMouseDown={(event) => {
+              if (
+                event.target ===
+                event.currentTarget
+              ) {
+                setSelectedMemberId(
+                  null
+                );
+              }
+            }}
+          >
+            <section
+              className="member-detail-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="member-detail-title"
+            >
+              <header className="member-detail-header">
+                <div>
+                  <span className="eyebrow">
+                    COLABORADOR
+                  </span>
+
+                  <h2 id="member-detail-title">
+                    {selectedMember.full_name}
+                  </h2>
+
+                  <p>
+                    {
+                      selectedMember
+                        .university
+                    }
+                  </p>
+                </div>
+
+                <button
+                  type="button"
+                  className="member-detail-close"
+                  aria-label="Cerrar detalle"
+                  onClick={() =>
+                    setSelectedMemberId(
+                      null
+                    )
+                  }
+                >
+                  ×
+                </button>
+              </header>
+
+
+              <div className="member-detail-summary">
+                <div>
+                  <span>
+                    Universidad
+                  </span>
+
+                  <strong>
+                    {
+                      selectedMember
+                        .university_acronym
+                    }
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Carrera
+                  </span>
+
+                  <strong>
+                    {
+                      selectedMember
+                        .career
+                    }
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Solicitud
+                  </span>
+
+                  <strong>
+                    {
+                      selectedMemberApplicationLabel
+                    }
+                  </strong>
+                </div>
+
+                <div>
+                  <span>
+                    Documentos
+                  </span>
+
+                  <strong>
+                    {
+                      selectedMember
+                        .documents_completed
+                    }
+                    /
+                    {
+                      selectedMember
+                        .documents_total
+                    }
+                  </strong>
+                </div>
+              </div>
+
+
+              <section className="member-detail-progress">
+                <div>
+                  <span>
+                    AVANCE DOCUMENTAL
+                  </span>
+
+                  <strong>
+                    {selectedMemberProgress}%
+                  </strong>
+                </div>
+
+                <div className="member-detail-progress-track">
+                  <div
+                    style={{
+                      width:
+                        `${selectedMemberProgress}%`,
+                    }}
+                  ></div>
+                </div>
+              </section>
+
+
+              <div className="member-detail-management-heading">
+                <div>
+                  <span className="eyebrow">
+                    GESTIÓN
+                  </span>
+
+                  <h3>
+                    Pendientes del encargado
+                  </h3>
+                </div>
+
+                <span className="document-count">
+                  {
+                    selectedMemberPendingDocuments
+                      .length
+                  }{" "}
+                  pendientes
+                </span>
+              </div>
+
+
+              {
+                selectedMemberPendingDocuments
+                  .length > 0 ? (
+                  <div className="member-detail-pending-list">
+                    {
+                      selectedMemberPendingDocuments
+                        .map(
+                          (document) => (
+                            <PendingDocument
+                              key={
+                                document.id
+                              }
+                              document={
+                                document
+                              }
+                              apiFetch={
+                                apiFetch
+                              }
+                              onRefresh={
+                                onRefresh
+                              }
+                            />
+                          )
+                        )
+                    }
+                  </div>
+                ) : (
+                  <div className="member-detail-clear">
+                    <div>
+                      ?
+                    </div>
+
+                    <strong>
+                      Sin acciones pendientes
+                      para el encargado
+                    </strong>
+
+                    <p>
+                      Actualmente no existen
+                      documentos de este
+                      colaborador que requieran
+                      gestión de PluriOne.
+                    </p>
+                  </div>
+                )
+              }
+            </section>
+          </div>
+        )}
+
+
+        {activeSection === "pendientes" && (
+          <>
         <section
           className="content-section application-manager-section"
           id="solicitudes"
@@ -634,12 +1212,46 @@ const createGeneration =
             </span>
           </div>
 
-          {
-            pendingDocuments.length >
-            0 ? (
+          <div className="manager-pending-action-filters">
+            <span className="eyebrow">
+              FILTRAR POR ACCIÓN
+            </span>
+
+            <div
+              className="manager-pending-filter-buttons"
+              role="group"
+              aria-label="Filtrar documentos"
+            >
+              {pendingFilterOptions.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={
+                    pendingActionFilter === option.id
+                      ? "manager-pending-filter active"
+                      : "manager-pending-filter"
+                  }
+                  aria-pressed={
+                    pendingActionFilter === option.id
+                  }
+                  onClick={() =>
+                    setPendingActionFilter(option.id)
+                  }
+                >
+                  <span>{option.label}</span>
+                  <strong>
+                    {pendingActionCounts[option.id]}
+                  </strong>
+                </button>
+              ))}
+            </div>
+          </div>
+
+
+          {filteredManagerPendingDocuments.length > 0 ? (
               <div className="pending-list">
                 {
-                  pendingDocuments.map(
+                  filteredManagerPendingDocuments.map(
                     (document) => (
                      <PendingDocument
                        key={document.id}
@@ -653,12 +1265,22 @@ const createGeneration =
               </div>
             ) : (
               <EmptyState
-                title="Todo al día"
-                text="No hay documentos entregados esperando revisión."
+                title={
+                  pendingActionFilter === "ALL"
+                    ? "Todo al día"
+                    : "Sin documentos en esta categoría"
+                }
+                text={
+                  pendingActionFilter === "ALL"
+                    ? "No hay documentos que requieran gestión."
+                    : "No hay documentos para el filtro seleccionado."
+                }
               />
             )
           }
         </section>
+          </>
+        )}
       </main>
     </div>
   );
@@ -948,6 +1570,7 @@ function ManagerSummary({
 
 function MemberCard({
   member,
+  onOpen,
 }) {
   const visual =
     member.visual_status || "YELLOW";
@@ -958,11 +1581,33 @@ function MemberCard({
     RED: "Requiere atención",
   }[visual];
 
+  const applicationStatusLabel = {
+    DRAFT: "Borrador",
+    IN_REVIEW: "En revisión",
+    NEEDS_CORRECTION:
+      "Requiere corrección",
+    APPROVED: "Aprobada",
+  }[member.application_status] ||
+    member.application_status;
+
+
   return (
     <article
       className={
-        `member-card ${visual.toLowerCase()}`
+        `member-card member-card-clickable ${visual.toLowerCase()}`
       }
+      role="button"
+      tabIndex="0"
+      onClick={onOpen}
+      onKeyDown={(event) => {
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+          event.preventDefault();
+          onOpen();
+        }
+      }}
     >
       <div className="member-card-top">
         <div
@@ -996,7 +1641,7 @@ function MemberCard({
 
           <strong>
             {
-              member.application_status
+              applicationStatusLabel
             }
           </strong>
         </div>
