@@ -114,7 +114,15 @@ export default function PendingApplication({
         </div>
 
         <span className="pending-status">
-          {application.application_status}
+          {
+              ({
+                DRAFT: "Borrador",
+                IN_REVIEW: "En revisión",
+                NEEDS_CORRECTION: "Requiere corrección",
+                APPROVED: "Aprobada",
+              })[application.application_status] ||
+                application.application_status
+            }
         </span>
       </div>
 

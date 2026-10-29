@@ -3013,3 +3013,51 @@ Validación:
 Resultado:
 
 El portal del encargado cuenta con navegación independiente, indicadores operativos, filtros de colaboradores, consulta individual y organización de pendientes por acción.
+
+## 29 de octubre de 2026 - Actualización de temas visuales y estados del sistema
+
+Actividad:
+
+Se actualizaron los temas visuales de PluriOne y se corrigieron los estados visibles en los portales del colaborador y del encargado.
+
+Trabajo realizado:
+
+• Se actualizó el tema PluriOne con una combinación de azul corporativo, gris azulado y detalles dorados.
+
+• Se ajustaron los colores de fondo, paneles, tarjetas, botones y elementos de navegación del tema PluriOne.
+
+• Se incorporaron detalles dorados en los filtros activos del tema corporativo.
+
+• Se actualizó el tema Claro con una combinación de gris suave y verde petróleo.
+
+• Se ajustó el contraste de las superficies y los componentes del tema Claro.
+
+• Se unificaron los botones de gestión documental con los colores correspondientes al tema Claro.
+
+• Se actualizó el tema Oscuro con una combinación de azul medianoche, azul pizarra, verde petróleo y acentos turquesa.
+
+• Se conservaron los colores de estado para colaboradores completos, en proceso y con observaciones.
+
+• Se ajustó la posición del selector de temas para evitar superposiciones con otros elementos de la interfaz.
+
+• Se tradujeron los estados visibles de las solicitudes al español en ambos portales.
+
+• Se conservaron los valores internos de los estados utilizados por el sistema.
+
+• No se modificaron la base de datos, los endpoints ni la lógica del backend.
+
+Validación:
+
+• Se revisaron visualmente los temas PluriOne, Claro y Oscuro.
+
+• Se comprobó la visualización de los distintos estados de incorporación.
+
+• Se comprobó la visualización de los estados de solicitud en español.
+
+• Se verificó que los controles existentes continuaran disponibles.
+
+• Se ejecutaron las validaciones del frontend mediante npm run lint y npm run build.
+
+Resultado:
+
+PluriOne cuenta con tres temas visuales diferenciados y estados de solicitud en español, manteniendo las funciones existentes de ambos portales.

@@ -1452,8 +1452,13 @@ function AvailableCollaboratorCard({
 
           <strong>
             {
-              collaborator
-                .application_status
+              ({
+                DRAFT: "Borrador",
+                IN_REVIEW: "En revisión",
+                NEEDS_CORRECTION: "Requiere corrección",
+                APPROVED: "Aprobada",
+              })[collaborator.application_status] ||
+                collaborator.application_status
             }
           </strong>
         </div>

@@ -293,6 +293,12 @@ export default function CollaboratorHome({
 
             <strong className="summary-main">
               {
+                ({
+                  DRAFT: "Borrador",
+                  IN_REVIEW: "En revisión",
+                  NEEDS_CORRECTION: "Requiere corrección",
+                  APPROVED: "Aprobada",
+                })[profile.application_status] ||
                 profile.application_status ||
                 "Sin información"
               }
