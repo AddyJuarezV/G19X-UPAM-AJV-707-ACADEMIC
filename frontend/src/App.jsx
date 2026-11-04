@@ -416,9 +416,15 @@ const loadCurrentUser =
           await response.json();
 
         if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error(
+              "Correo electrónico o contraseña incorrectos."
+            );
+          }
+
           throw new Error(
             data.detail ||
-              "Correo electrónico o contraseña incorrectos."
+              "No fue posible iniciar sesión."
           );
         }
 

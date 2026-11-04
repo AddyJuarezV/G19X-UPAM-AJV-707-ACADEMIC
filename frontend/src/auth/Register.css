@@ -7,7 +7,7 @@
   display: flex;
   justify-content: center;
 
-  background: #f5f7fb;
+  background: var(--login-background);
 }
 
 
@@ -20,11 +20,11 @@
   padding: 38px;
 
   border:
-    1px solid #dde4ef;
+    1px solid var(--login-border);
 
   border-radius: 22px;
 
-  background: white;
+  background: var(--login-card);
 
   box-shadow:
     0 24px 70px
@@ -40,7 +40,9 @@
 
 
 .register-header > span {
-  color: #5270db;
+  display: block;
+
+  color: var(--login-accent);
 
   font-size: 13px;
   font-weight: 900;
@@ -53,7 +55,7 @@
   margin:
     10px 0 8px;
 
-  color: #1d2939;
+  color: var(--login-text);
 
   font-size: 40px;
 }
@@ -62,7 +64,7 @@
 .register-header p {
   margin: 0;
 
-  color: #667085;
+  color: var(--login-muted);
 
   font-size: 16px;
 
@@ -71,13 +73,17 @@
 
 
 .register-back {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+
   margin-bottom: 26px;
 
   padding: 0;
 
   border: none;
 
-  color: #5270db;
+  color: var(--login-accent);
 
   background: transparent;
 
@@ -110,7 +116,7 @@
 
 
 .register-grid label > span {
-  color: #344054;
+  color: var(--login-text);
 
   font-size: 14px;
   font-weight: 800;
@@ -124,26 +130,26 @@
     0 14px;
 
   border:
-    1px solid #d0d5dd;
+    1px solid var(--login-border);
 
   border-radius: 10px;
 
   outline: none;
 
-  color: #1d2939;
+  color: var(--login-text);
 
-  background: white;
+  background: var(--login-input);
 
   font-size: 15px;
 }
 
 
 .register-grid input:focus {
-  border-color: #5270db;
+  border-color: var(--login-accent);
 
   box-shadow:
     0 0 0 4px
-    rgba(82, 112, 219, 0.1);
+    color-mix(in srgb, var(--login-focus) 16%, transparent);
 }
 
 
@@ -160,7 +166,7 @@
 
 
 .register-file small {
-  color: #667085;
+  color: var(--login-muted);
 
   font-size: 12px;
 }
@@ -201,7 +207,7 @@
 
   color: white;
 
-  background: #5270db;
+  background: var(--login-accent);
 
   font-size: 16px;
   font-weight: 850;
@@ -228,13 +234,13 @@
   padding: 52px;
 
   border:
-    1px solid #dde4ef;
+    1px solid var(--login-border);
 
   border-radius: 22px;
 
   text-align: center;
 
-  background: white;
+  background: var(--login-card);
 
   box-shadow:
     0 24px 70px
@@ -265,7 +271,7 @@
 
 
 .register-success > span {
-  color: #5270db;
+  color: var(--login-accent);
 
   font-size: 13px;
   font-weight: 900;
@@ -278,14 +284,14 @@
   margin:
     10px 0;
 
-  color: #1d2939;
+  color: var(--login-text);
 
   font-size: 36px;
 }
 
 
 .register-success p {
-  color: #667085;
+  color: var(--login-muted);
 
   line-height: 1.6;
 }
@@ -305,59 +311,11 @@
 
   color: white;
 
-  background: #5270db;
+  background: var(--login-accent);
 
   font-weight: 850;
 
   cursor: pointer;
-}
-
-
-/* TEMA OSCURO */
-
-html[data-theme="dark"]
-.register-page {
-  background: #091426;
-}
-
-
-html[data-theme="dark"]
-.register-shell,
-html[data-theme="dark"]
-.register-success {
-  border-color: #26334a;
-
-  background: #111b2d;
-}
-
-
-html[data-theme="dark"]
-.register-header h1,
-html[data-theme="dark"]
-.register-success h1,
-html[data-theme="dark"]
-.register-grid label > span {
-  color: #edf2f8;
-}
-
-
-html[data-theme="dark"]
-.register-header p,
-html[data-theme="dark"]
-.register-success p,
-html[data-theme="dark"]
-.register-file small {
-  color: #aeb9ca;
-}
-
-
-html[data-theme="dark"]
-.register-grid input {
-  color: #edf2f8;
-
-  border-color: #30405a;
-
-  background: #0d1728;
 }
 
 
@@ -400,7 +358,7 @@ html[data-theme="dark"]
 
   padding: 7px;
 
-  color: #667085;
+  color: var(--login-muted);
 
   cursor: pointer;
 }
@@ -418,7 +376,7 @@ html[data-theme="dark"]
 
   color: white;
 
-  background: #5270db;
+  background: var(--login-accent);
 
   font-weight: 800;
 
@@ -435,14 +393,4 @@ html[data-theme="dark"]
 
   transform:
     translateY(-1px);
-}
-
-
-html[data-theme="dark"]
-.register-file input[type="file"] {
-  color: #aeb9ca;
-
-  border-color: #30405a;
-
-  background: #0d1728;
 }

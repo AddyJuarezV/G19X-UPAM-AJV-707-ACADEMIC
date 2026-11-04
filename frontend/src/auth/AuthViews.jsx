@@ -104,7 +104,7 @@ export function Login({
   onSubmit,
   onRegister,
 }) {
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(Boolean(error));
   const [showPassword, setShowPassword] = useState(false);
 
   return (

@@ -1,4 +1,4 @@
-PLURIONE ONBOARDING
+# PLURIONE ONBOARDING
 
 Sistema de Seguimiento Automático del Proceso de Incorporación
 
@@ -18,7 +18,7 @@ La definición funcional se encuentra en:
     docs/MVP.md
 
 
-REQUISITOS
+## REQUISITOS
 
 Para ejecutar el proyecto se necesita:
 
@@ -39,7 +39,7 @@ La instalación limpia más reciente fue validada con:
 • npm 11.16.0
 
 
-1.- CLONAR EL REPOSITORIO
+## 1.- CLONAR EL REPOSITORIO
 
 Abrir PowerShell y ejecutar:
 
@@ -50,7 +50,7 @@ Entrar al proyecto:
     cd G19X-UPAM-AJV-707-ACADEMIC
 
 
-2.- CREAR EL ENTORNO VIRTUAL
+## 2.- CREAR EL ENTORNO VIRTUAL
 
 Crear el entorno virtual:
 
@@ -63,7 +63,7 @@ Activarlo:
 Al activarse correctamente debe aparecer (.venv) al inicio de la terminal.
 
 
-3.- INSTALAR LAS DEPENDENCIAS DEL BACKEND
+## 3.- INSTALAR LAS DEPENDENCIAS DEL BACKEND
 
 Desde la raíz del proyecto ejecutar:
 
@@ -78,7 +78,7 @@ El resultado esperado es:
     No broken requirements found.
 
 
-4.- CONFIGURAR LAS VARIABLES DE ENTORNO
+## 4.- CONFIGURAR LAS VARIABLES DE ENTORNO
 
 El repositorio incluye:
 
@@ -113,7 +113,7 @@ Cada instalación puede utilizar su propia SECRET_KEY.
 El archivo .env contiene información local y sensible, por lo que no debe subirse a GitHub.
 
 
-5.- CREAR LA BASE DE DATOS
+## 5.- CREAR LA BASE DE DATOS
 
 Crear en PostgreSQL una base llamada:
 
@@ -124,7 +124,7 @@ Puede hacerse desde PostgreSQL con:
     CREATE DATABASE plurione_onboarding;
 
 
-6.- RESTAURAR LA BASE DE DATOS
+## 6.- RESTAURAR LA BASE DE DATOS
 
 El respaldo utilizado para montar el sistema se encuentra en:
 
@@ -137,7 +137,7 @@ Si psql está disponible desde PowerShell ejecutar desde la raíz:
 El respaldo contiene la estructura y datos ficticios utilizados para demostración.
 
 
-SI WINDOWS NO RECONOCE EL COMANDO PSQL
+## SI WINDOWS NO RECONOCE EL COMANDO PSQL
 
 Durante una instalación limpia se encontró que PostgreSQL estaba instalado correctamente, pero PowerShell no reconocía el comando:
 
@@ -165,7 +165,7 @@ Para PostgreSQL 18 también puede restaurarse la base de esta forma:
 En la prueba realizada esta alternativa funcionó correctamente con PostgreSQL 18.6.
 
 
-7.- COPIAR LOS ARCHIVOS DE DEMOSTRACIÓN
+## 7.- COPIAR LOS ARCHIVOS DE DEMOSTRACIÓN
 
 El repositorio incluye archivos ficticios dentro de:
 
@@ -182,7 +182,7 @@ Copiar los archivos:
 Estos archivos son únicamente para demostración y no contienen información personal real.
 
 
-8.- APLICAR Y COMPROBAR MIGRACIONES
+## 8.- APLICAR Y COMPROBAR MIGRACIONES
 
 Entrar al backend:
 
@@ -205,7 +205,7 @@ Resultado esperado:
     System check identified no issues
 
 
-9.- EJECUTAR EL BACKEND
+## 9.- EJECUTAR EL BACKEND
 
 Desde la carpeta backend:
 
@@ -222,7 +222,7 @@ El administrador de Django se encuentra en:
 La terminal del backend debe permanecer abierta mientras se utiliza el sistema.
 
 
-10.- EJECUTAR EL FRONTEND
+## 10.- EJECUTAR EL FRONTEND
 
 Abrir una segunda terminal.
 
@@ -247,7 +247,7 @@ Durante el desarrollo, Vite envía las peticiones realizadas a /api hacia Django
     http://127.0.0.1:8000/
 
 
-11.- VERIFICAR EL BACKEND
+## 11.- VERIFICAR EL BACKEND
 
 Desde backend ejecutar:
 
@@ -270,7 +270,7 @@ Resultado esperado:
     OK
 
 
-12.- VERIFICAR EL SEGUIMIENTO AUTOMÁTICO
+## 12.- VERIFICAR EL SEGUIMIENTO AUTOMÁTICO
 
 El sistema incluye un comando para detectar procesos detenidos y generar recordatorios.
 
@@ -288,7 +288,7 @@ El script utilizado para la ejecución periódica se encuentra en:
     scripts\revisar_pendientes.ps1
 
 
-13.- VERIFICAR EL FRONTEND
+## 13.- VERIFICAR EL FRONTEND
 
 Desde la carpeta frontend ejecutar:
 
@@ -301,7 +301,7 @@ Después:
 Ambos comandos deben terminar sin errores.
 
 
-14.- PRUEBA MANUAL
+## 14.- PRUEBA MANUAL
 
 Abrir:
 
@@ -323,7 +323,7 @@ Comprobar:
 En la terminal de Django las peticiones correctas deben responder normalmente con código HTTP 200.
 
 
-SI APARECEN ERRORES 401 AL ABRIR UNA INSTALACIÓN NUEVA
+## SI APARECEN ERRORES 401 AL ABRIR UNA INSTALACIÓN NUEVA
 
 Durante la instalación limpia se observaron inicialmente respuestas:
 
@@ -344,7 +344,7 @@ Si ocurre este caso:
 Un 401 inicial después de cambiar SECRET_KEY no significa necesariamente que la base de datos o el backend están dañados.
 
 
-PRUEBA CON DEBUG=False
+## PRUEBA CON DEBUG=False
 
 Se realizó una prueba temporal del sistema con:
 
@@ -372,7 +372,7 @@ Después de terminar la prueba, el entorno local se regresó a:
     DEBUG=True
 
 
-SEGUIMIENTO AUTOMÁTICO EN WINDOWS
+## SEGUIMIENTO AUTOMÁTICO EN WINDOWS
 
 El proyecto incluye:
 
@@ -399,21 +399,62 @@ El seguimiento identifica:
 Cuando no se utiliza dry-run puede generar una notificación persistente y actualizar la fecha del último recordatorio.
 
 
-ACCESOS DE PRUEBA
+## ACCESOS DE PRUEBA
 
-Las contraseñas utilizadas para evaluación no se publican directamente en el repositorio.
+Para evaluar el sistema en una instalación nueva se pueden crear
+cuentas locales de Encargado y Colaborador.
 
-Los accesos de demostración se entregan de manera separada dentro de la documentación académica correspondiente.
+### Cuenta de Encargado
+
+Con el entorno virtual activado, entrar a la carpeta backend:
+
+    cd backend
+
+Ejecutar:
+
+    python manage.py createsuperuser
+
+Django solicitará un correo electrónico y una contraseña.
+
+En PluriOne, los superusuarios tienen por defecto el rol
+ENCARGADO y permisos administrativos.
+
+El evaluador podrá iniciar sesión desde:
+
+    http://localhost:5173/
+
+### Cuenta de Colaborador
+
+Desde la pantalla inicial seleccionar Crear una cuenta.
+
+Completar los datos personales y académicos ficticios,
+incluyendo CV y credencial universitaria de prueba.
+
+Después del registro, iniciar sesión con el correo
+electrónico y la contraseña establecidos.
+
+La solicitud comienza en estado Borrador.
+
+El Colaborador puede enviarla a revisión y el Encargado
+puede revisarla y aprobarla desde su portal.
+
+### Seguridad de los accesos
+
+No publicar contraseñas en GitHub ni incluir datos
+personales reales en el repositorio.
+
+Las credenciales de cuentas de demostración existentes
+pueden entregarse al evaluador por un medio privado.
 
 
-DATOS DE PRUEBA
+## DATOS DE PRUEBA
 
 El repositorio utiliza datos ficticios para las demostraciones.
 
 No deben agregarse datos personales reales al repositorio público.
 
 
-DOCUMENTACIÓN DEL PROYECTO
+## DOCUMENTACIÓN DEL PROYECTO
 
 PRD:
 
@@ -434,7 +475,7 @@ BITÁCORA:
 Contiene el registro cronológico del desarrollo, cambios realizados, pruebas, problemas encontrados, soluciones, estado del proyecto y próximos pasos.
 
 
-USO DE INTELIGENCIA ARTIFICIAL
+## USO DE INTELIGENCIA ARTIFICIAL
 
 Durante el desarrollo se utilizaron herramientas de inteligencia artificial como apoyo.
 
@@ -464,7 +505,7 @@ Los cambios se comprobaron mediante:
 Las decisiones sobre el alcance del proyecto, implementación final, pruebas aceptadas y cambios integrados permanecieron bajo revisión del desarrollador.
 
 
-INSTALACIÓN LIMPIA VALIDADA
+## INSTALACIÓN LIMPIA VALIDADA
 
 Se realizó una prueba completa desde una carpeta nueva utilizando únicamente el contenido disponible en GitHub.
 
