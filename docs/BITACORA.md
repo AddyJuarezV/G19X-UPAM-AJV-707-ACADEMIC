@@ -3226,3 +3226,36 @@ Commit base verificado: e0495d2.
 Resultado:
 
 Las validaciones automáticas finales se completaron correctamente y se prepararon los archivos ficticios para mejorar la reproducibilidad de la entrega.
+
+## 9 de noviembre de 2026 - Verificación final de instalación independiente
+
+Se verificó el commit b75b3c3 mediante una clonación independiente desde GitHub.
+
+Validaciones realizadas:
+
+• Clonación independiente correcta y repositorio limpio.
+• Se confirmaron 21 archivos de demostración disponibles y 0 faltantes.
+• Se copiaron los archivos a backend/media y se verificaron 21 coincidencias mediante SHA-256.
+• Se restauró PostgreSQL en la base independiente plurione_eval_b75b3c3.
+• Se confirmaron 4 colaboradores, 9 documentos y 3 generaciones.
+• Se instaló Django 6.1.1 sin dependencias rotas.
+• Django check finalizó sin problemas y 6 migraciones figuraron aplicadas.
+• El backend de evaluación inició en el puerto 8001.
+• El frontend de evaluación inició en el puerto 5174.
+• Se verificaron 21 descargas HTTP 200 con contenido coincidente mediante SHA-256.
+• Se comprobó visualmente el acceso del encargado, las generaciones y la gestión de pendientes.
+• Se comprobó el expediente de Peter Parker con solicitud aprobada, documentos 3/3 y avance del 100 %.
+• Se verificaron los 9 registros documentales en Django Admin.
+• Se ejecutó revisar_pendientes sin dry-run en la base de evaluación, con correo de consola.
+• Se detectaron 3 documentos detenidos, se generaron 3 recordatorios y 5 notificaciones.
+• Una segunda ejecución inmediata generó 0 recordatorios y 0 notificaciones adicionales.
+
+Observaciones:
+
+• Se utilizó exclusivamente una base de evaluación para las pruebas que modifican datos.
+• Permanece documentada la anomalía histórica de requirements.txt en la carta de presentación de Miles.
+• La validación manual completa de todas las transiciones documentales no forma parte de esta prueba.
+
+Resultado:
+
+La instalación independiente, las descargas, la consulta de expedientes y el seguimiento automático produjeron los resultados esperados.
