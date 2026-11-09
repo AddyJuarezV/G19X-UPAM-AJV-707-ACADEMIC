@@ -3189,4 +3189,40 @@ Validación:
 
 Resultado:
 
-Se atendieron las observaciones seleccionadas del Corte 7 relacionadas con el inicio de sesión, el registro, los accesos de evaluación y la documentación. Quedan pendientes las validaciones automáticas finales antes de guardar el avance en GitHub.
+Se atendieron las observaciones seleccionadas del Corte 7 relacionadas con el inicio de sesión, el registro, los accesos de evaluación y la documentación. Las validaciones automáticas finales se realizaron el 9 de noviembre de 2026 y se documentan en la entrada siguiente. Las correcciones del Corte 7 quedaron guardadas en el commit e0495d2.
+
+## 9 de noviembre de 2026 - Validaciones finales y archivos de demostración
+
+Actividad:
+
+Se atendieron los pendientes identificados en el último corte de retroalimentación.
+
+Trabajo realizado:
+
+• Se auditaron 21 rutas de archivos referenciadas por db/base-de-datos.sql.
+• Se completaron los 17 archivos faltantes de demo_media.
+• Se recuperaron 16 documentos ficticios originales desde backend/media.
+• Se identificó una referencia histórica incorrecta: onboarding/collaborator_files/requirements.txt aparece asociado a la carta de presentación de Miles.
+• Se preparó un archivo ficticio para esa ruta dentro de demo_media, sin modificar el respaldo SQL.
+• No se modificaron los documentos de backend/media ni la base de datos.
+
+Validaciones ejecutadas:
+
+• Auditoría de demo_media: 21 archivos disponibles de 21 referencias, sin faltantes.
+• Comparación con backend/media: 20 archivos idénticos y una diferencia histórica identificada.
+• npm run lint: finalizó sin errores.
+• npm run build: compilación exitosa, 35 módulos transformados.
+• python manage.py check: sin problemas detectados.
+• python manage.py test accounts onboarding: 11 pruebas aprobadas en 26.020 segundos.
+
+Estado y pendientes:
+
+• Queda pendiente comprobar manualmente las descargas y el circuito documental completo.
+• Queda pendiente validar la restauración en una base de datos de prueba independiente.
+• La referencia histórica de requirements.txt deberá tenerse en cuenta en la demostración.
+
+Commit base verificado: e0495d2.
+
+Resultado:
+
+Las validaciones automáticas finales se completaron correctamente y se prepararon los archivos ficticios para mejorar la reproducibilidad de la entrega.

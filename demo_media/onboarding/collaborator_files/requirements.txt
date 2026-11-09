@@ -1,0 +1,13 @@
+PLURIONE ONBOARDING
+CARTA DE PRESENTACIÓN - DEMOSTRACIÓN
+
+Colaborador ficticio: Miles Morales
+Documento: Carta de presentación
+Finalidad: Prueba del flujo documental.
+
+Este archivo es una muestra ficticia destinada exclusivamente a la evaluación del sistema.
+No contiene firmas ni autorizaciones reales.
+
+NOTA TÉCNICA:
+Se conserva temporalmente el nombre requirements.txt porque así aparece registrado en el respaldo SQL.
+En una prueba anterior se asoció incorrectamente un archivo de dependencias a este documento.
